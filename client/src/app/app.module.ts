@@ -1,20 +1,22 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-
-// module
-import { AppRoutingModule } from './app-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-
-// component
-import { LoginPageComponent } from './login-page/login-page.component';
-import { HomePageComponent } from './home-page/home-page.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+
+// module
+import { AppRoutingModule } from './app-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
+// component
+import { HomePageComponent } from './home-page/home-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
+
 
 // authSandbox
 import { AuthSandbox } from './core/auth/auth.sandbox';
@@ -22,12 +24,19 @@ import { AuthService } from './core/auth/auth.service';
 import { AuthEffects } from './core/auth/effects/auth.effect';
 import { metaReducers, reducers } from './core/reducer.interface';
 
+// interceptor
+import { TokenInterceptor } from './shared/token.interceptor';
+import { UserPageComponent } from './user-page/user-page.component';
+
+
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginPageComponent,
-        HomePageComponent
+        HomePageComponent,
+        RegisterPageComponent,
+        UserPageComponent
     ],
     imports: [
         BrowserModule,
@@ -44,7 +53,12 @@ import { metaReducers, reducers } from './core/reducer.interface';
     ],
     providers: [
         AuthSandbox,
-        AuthService
+        AuthService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            multi: true,
+            useClass: TokenInterceptor
+        }
     ],
     bootstrap: [AppComponent]
 })

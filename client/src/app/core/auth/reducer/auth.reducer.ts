@@ -33,6 +33,29 @@ export function reducer(
                 tokenFail: true
             });
         }
+
+        case actions.ActionTypes.REGISTER: {
+            return Object.assign({}, state, {
+                tokenLoading: true,
+                tokenLoaded: false,
+                tokenFail: false
+            });
+        }
+        case actions.ActionTypes.REGISTER_SUCCESS: {
+            return Object.assign({}, state, {
+                token: payload.token ? payload.token : '',
+                tokenLoading: false,
+                tokenLoaded: true,
+                tokenFail: false
+            });
+        }
+        case actions.ActionTypes.REGISTER_FAIL: {
+            return Object.assign({}, state, {
+                tokenLoading: false,
+                tokenLoaded: true,
+                tokenFail: true
+            });
+        }
         default: {
             return state;
         }
@@ -43,3 +66,8 @@ export const getToken = (state: AuthState) => state.token;
 export const getTokenLoading = (state: AuthState) => state.tokenLoading;
 export const getTokenLoaded = (state: AuthState) => state.tokenLoaded;
 export const getTokenFail = (state: AuthState) => state.tokenFail;
+
+export const getRegister = (state: AuthState) => state.register;
+export const getRegisterLoading = (state: AuthState) => state.registerLoading;
+export const getRegisterLoaded = (state: AuthState) => state.registerLoaded;
+export const getRegisterFail = (state: AuthState) => state.registerFail;

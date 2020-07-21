@@ -17,37 +17,45 @@ import * as authAction from './action/auth.action';
 
 import * as store from '../state.interface';
 import { LoginModel } from './models/login.model';
+import { RegisterModel } from './models/register.model';
 import {
     getToken,
     getTokenLoading,
     getTokenLoaded,
-    getTokenFail
+    getTokenFail,
+    getRegister,
+    getRegisterLoading,
+    getRegisterLoaded,
+    getRegisterFail
 } from './reducer/auth.selector';
 
 @Injectable()
 export class AuthSandbox {
     private subscriptions: Array<Subscription> = [];
 
-    // login
+    // login -> token
     public token$ = this.appState$.select(getToken);
     public tokenLoading$ = this.appState$.select(getTokenLoading);
     public tokenLoaded$ = this.appState$.select(getTokenLoaded);
     public tokenFail$ = this.appState$.select(getTokenFail);
 
+    // register
+    public register$ = this.appState$.select(getRegister);
+    public registerLoading$ = this.appState$.select(getRegisterLoading);
+    public registerLoaded$ = this.appState$.select(getRegisterLoaded);
+    public registerFail$ = this.appState$.select(getRegisterFail);
+
     constructor(
         protected appState$: Store<store.AppState>,
-    ) {
-        this.registerEvents();
-    }
+    ) { }
 
     // login -> token
     public login(params: LoginModel) {
         this.appState$.dispatch(new authAction.LoginAction(new LoginModel(params)));
     }
 
-
-    public registerEvents() {
-        this.subscriptions.push();
+    public register(params: RegisterModel) {
+        this.appState$.dispatch(new authAction.RegisterAction(new RegisterModel(params)));
     }
 
     // public unsubscribeEvents() {
