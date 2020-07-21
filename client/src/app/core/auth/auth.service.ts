@@ -6,13 +6,13 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-    private url: 'http://localhost:5000/api/';
+    private url = 'http://localhost:5000/api/';
 
     constructor(
         private http: HttpClient
     ) { }
 
     public login(params: LoginModel): Observable<any> {
-        return this.http.post(this.url + 'login', params);
+        return this.http.post(this.url + 'auth/login', params);
     }
 }

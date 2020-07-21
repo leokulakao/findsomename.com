@@ -47,8 +47,8 @@ export class LoginPageComponent implements OnInit {
 
     public onSubmit() {
         const params: any = {};
-        params.email = this.email ? this.email : '';
-        params.password = this.password ? this.password : '';
+        params.email = this.email.value ? this.email.value : '';
+        params.password = this.password.value ? this.password.value : '';
         this.authSandbox.login(params);
     }
 

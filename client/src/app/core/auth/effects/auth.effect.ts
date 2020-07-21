@@ -24,7 +24,7 @@ export class AuthEffects {
         switchMap(state => {
             return this.authService.login(state).pipe(
                 tap(response => {
-                    console.log(response);
+                    localStorage.setItem('token', new LoginResponseModel(response).token);
                 }),
                 map(loggedin => new actions.LoginSuccessAction(new LoginResponseModel(loggedin))
                 ),
