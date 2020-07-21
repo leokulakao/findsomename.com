@@ -1,0 +1,23 @@
+import { Action } from '@ngrx/store';
+import { LoginModel } from '../models/login.model';
+import { LoginResponseModel } from '../models/loginResponse.model';
+
+export const ActionTypes = {
+    LOGIN: '[login] login',
+    LOGIN_SUCCESS: '[login] login success',
+    LOGIN_FAIL: '[login] login fail'
+};
+
+// login
+export class LoginAction implements Action {
+    type = ActionTypes.LOGIN;
+    constructor(public payload: LoginModel) {}
+}
+export class LoginSuccessAction implements Action {
+    type = ActionTypes.LOGIN_SUCCESS;
+    constructor(public payload: LoginResponseModel) { }
+}
+export class LoginFailAction implements Action {
+    type = ActionTypes.LOGIN_FAIL;
+    constructor(public payload: any) { }
+}
