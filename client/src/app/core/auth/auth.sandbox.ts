@@ -1,12 +1,3 @@
-/*
- * galvintec
- * version 3.0
- * http://www.galvintec.com
- *
- * Copyright (c) 2019 galvintec ltd
- * Author galvintec ltd <support@galvintec.com>
- * Licensed under the MIT license.
- */
 import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -57,19 +48,15 @@ export class AuthSandbox {
         this.appState$.dispatch(new authAction.LoginAction(new LoginModel(params)));
     }
 
+    // register
     public register(params: RegisterModel) {
         this.appState$.dispatch(new authAction.RegisterAction(new RegisterModel(params)));
     }
 
+    // logOut
     public logOut() {
         localStorage.clear();
         sessionStorage.clear();
         this.router.navigate(['/']);
     }
-
-    // public unsubscribeEvents() {
-    //     this.subscriptions.forEach(each => {
-    //         each.unsubscribe();
-    //     });
-    // }
 }

@@ -22,8 +22,14 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { AuthSandbox } from './core/auth/auth.sandbox';
 import { AuthService } from './core/auth/auth.service';
 import { AuthEffects } from './core/auth/effects/auth.effect';
-import { metaReducers, reducers } from './core/reducer.interface';
 
+
+// namesSandbox
+import { NamesSandbox } from './core/names/names.sandbox';
+import { NamesService } from './core/names/names.service';
+import { NamesEffects } from './core/names/effects/names.effect';
+
+import { metaReducers, reducers } from './core/reducer.interface';
 // interceptor
 import { TokenInterceptor } from './shared/token.interceptor';
 import { UserPageComponent } from './user-page/user-page.component';
@@ -48,12 +54,15 @@ import { UserPageComponent } from './user-page/user-page.component';
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
         EffectsModule.forRoot([
             AuthEffects,
+            NamesEffects
         ]),
         StoreRouterConnectingModule.forRoot()
     ],
     providers: [
         AuthSandbox,
         AuthService,
+        NamesSandbox,
+        NamesService,
         {
             provide: HTTP_INTERCEPTORS,
             multi: true,

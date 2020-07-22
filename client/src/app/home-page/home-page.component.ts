@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { NamesSandbox } from '../core/names/names.sandbox';
 
 @Component({
     selector: 'app-home-page',
@@ -7,8 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
 
-    constructor() { }
+    private subscriptions: Subscription[] = [];
 
-    ngOnInit(): void { }
+    ALL_NAMES;
+
+    constructor(
+        private namesSandbox: NamesSandbox,
+    ) { }
+
+    ngOnInit(): void {
+        this.getAllNames();
+        this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
+            if (data) {
+                this.ALL_NAMES = data;
+                this.ALL_NAMES = this.ALL_NAMES.names;
+            }
+        }));
+    }
+
+    public getAllNames() {
+        const params: any = {};
+        this.namesSandbox.getAllNames(params);
+    }
 
 }

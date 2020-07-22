@@ -1,12 +1,3 @@
-/*
- * galvintec
- * version 3.0
- * http://www.galvintec.com
- *
- * Copyright (c) 2019 galvintec ltd
- * Author galvintec ltd <support@galvintec.com>
- * Licensed under the MIT license.
- */
 import { Map, Record } from 'immutable';
 
 export interface AuthState extends Map<string, any> {

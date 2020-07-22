@@ -4,7 +4,7 @@ const controllerNames = require('../controllers/namesController');
 
 const router = express.Router();
 
-router.get('/getAllNames', passport.authenticate('jwt', { session: false }), controllerNames.getAllNames);
+router.get('/getAllNames', controllerNames.getAllNames);
 router.post('/', passport.authenticate('jwt', { session: false }), controllerNames.addName);
 router.delete('/', passport.authenticate('jwt', { session: false }), controllerNames.deleteName);
 router.get('/getNamesByLetter', controllerNames.getNamesByLetter);
