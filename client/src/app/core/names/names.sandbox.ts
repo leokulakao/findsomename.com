@@ -1,5 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
@@ -13,8 +12,6 @@ import {
     getAllNamesLoaded,
     getAllNamesFail
 } from './reducer/names.selector';
-
-import { Router } from '@angular/router';
 
 @Injectable()
 export class NamesSandbox {
