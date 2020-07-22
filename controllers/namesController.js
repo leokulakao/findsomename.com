@@ -5,15 +5,11 @@ const { off } = require('../models/nameModel');
 module.exports.getAllNames = async (req, res) => {
     try {
         const namesBox = [];
-        const offset = req.body.offset ? Number(req.body.offset) : null;
-        const limit = req.body.offset ? Number(req.body.limit) : null;
         await Name.find({}, (err, names) => {
             names.forEach((name, i) => {
                 namesBox.push(name);
             })
-        })
-        console.log('Offset', offset);
-        console.log('Limit', limit)
+        });
         res.status(200).json({
             status: 200,
             message: 'Finded all items',
