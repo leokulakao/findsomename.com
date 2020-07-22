@@ -29,6 +29,8 @@ import {
     getRegisterFail
 } from './reducer/auth.selector';
 
+import { Router } from '@angular/router';
+
 @Injectable()
 export class AuthSandbox {
     private subscriptions: Array<Subscription> = [];
@@ -46,6 +48,7 @@ export class AuthSandbox {
     public registerFail$ = this.appState$.select(getRegisterFail);
 
     constructor(
+        private router: Router,
         protected appState$: Store<store.AppState>,
     ) { }
 
@@ -56,6 +59,12 @@ export class AuthSandbox {
 
     public register(params: RegisterModel) {
         this.appState$.dispatch(new authAction.RegisterAction(new RegisterModel(params)));
+    }
+
+    public logOut() {
+        localStorage.clear();
+        sessionStorage.clear();
+        this.router.navigate(['/']);
     }
 
     // public unsubscribeEvents() {

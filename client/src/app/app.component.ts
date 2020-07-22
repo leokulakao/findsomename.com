@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthSandbox } from './core/auth/auth.sandbox';
 
 @Component({
     selector: 'app-root',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'client';
+
+    constructor(
+        private authSandbox: AuthSandbox
+    ) { }
+
+    public logOut() {
+        this.authSandbox.logOut();
+    }
 }
