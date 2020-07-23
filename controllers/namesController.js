@@ -1,13 +1,12 @@
-const Name = require('../models/nameModel');
+const NameRu = require('../models/nameRuModel');
 const errorHandler = require('../utils/errorHandler');
-const { off } = require('../models/nameModel');
 
 module.exports.getAllNames = async (req, res) => {
     try {
         const keyword = req.body.keyword !== '' ? ++req.body.keyword : null;
         const offset = req.body.offset !== '' ? ++req.body.offset : null;
         const limit = req.body.limit !== '' ? ++req.body.limit : null;
-        const namesBox = await Name.find({})
+        const namesBox = await NameRu.find({})
         .skip(offset).limit(limit);
         res.status(200).json({
             status: 200,
@@ -21,7 +20,7 @@ module.exports.getAllNames = async (req, res) => {
 
 module.exports.addName = async (req, res) => {
     try {
-        const nameCandidate = await Name.findOne({
+        const nameCandidate = await NameRu.findOne({
             name: req.body.name
         })
 
@@ -32,9 +31,12 @@ module.exports.addName = async (req, res) => {
                 data: {},
             });
         } else {
-            const newName = await new Name({
+            const newName = await new NameRu({
+                oldId: req.body.oldId,
                 name: req.body.name,
-                population: req.body.population
+                sex: req.body.sex,
+                quantity: req.body.quantity,
+                quantityDate: req.body.quantityDate
             }).save();
 
             console.log(newName);
@@ -52,7 +54,7 @@ module.exports.addName = async (req, res) => {
 
 module.exports.deleteName = async (req, res) => {
     try {
-        await Name.remove({_id: req.body.id});
+        await NameRu.remove({_id: req.body.id});
         res.status(200).json({
             status: 200,
             message: 'Deleted',

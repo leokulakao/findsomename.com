@@ -14,7 +14,7 @@ export class HomePageComponent implements OnInit {
     ALL_NAMES;
 
     constructor(
-        private namesSandbox: NamesSandbox,
+        public namesSandbox: NamesSandbox,
     ) { }
 
     ngOnInit(): void {
