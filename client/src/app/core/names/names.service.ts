@@ -12,6 +12,7 @@ export class NamesService {
     ) { }
 
     public getAllNames(params): Observable<any> {
+        console.log(params);
         return this.http.get(this.url + 'names/getAllNames', params);
     }
 }

@@ -1,3 +1,11 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <label>
+        <span>Keyword:</span>
+        <input type="text" formControlName="keyword" required>
+    </label>
+    <button type="submit" [disabled]="!searchForm.valid">Purchase</button>
+</form>
+
 <p *ngIf="namesSandbox.getAllNamesLoading$ | async">
     Loading...
 </p>
