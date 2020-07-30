@@ -3,12 +3,12 @@
   <form class="register__form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <label class="register__email-label">
       <span>Email:</span><br>
-      <input class="register__email" type="email" formControlName="email" required>
+      <input class="input register__email" type="email" formControlName="email" required>
     </label>
     <label class="register__password-label">
       <span>Password:</span><br>
-      <input class="register__password" type="password" formControlName="password" required>
+      <input class="input register__password" type="password" formControlName="password" required>
     </label>
-    <button class="button register__button" type="submit" [disabled]="!registerForm.valid">Purchase</button>
+    <button class="button register__button" type="submit" [disabled]="!registerForm.valid">Register</button>
   </form>
 </div>

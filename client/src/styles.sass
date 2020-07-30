@@ -15,6 +15,7 @@ body
 
 @mixin button-reset
   padding: 0
+  display: block
 
   border: none
   font: inherit
@@ -31,3 +32,36 @@ body
 .button
   @include button-reset
   @include no-outline
+  width: 150px
+  padding: 5px
+
+  font-weight: bold
+  color: $dark-primary-color
+
+  border: 2px solid $dark-primary-color
+  // border-radius: 25px
+
+  &:hover,
+  &:focus
+    background-color: $dark-primary-color
+    color: $light-primary-color
+
+  &:active
+    opacity: .5
+
+.button-reset
+  @include button-reset
+  @include no-outline
+
+
+.input
+  width: 220px
+  padding: 5px
+
+  border: 2px solid $primary-color
+  // border-radius: 5px
+  outline: none
+
+  &:hover,
+  &:focus
+    border-color: $dark-primary-color

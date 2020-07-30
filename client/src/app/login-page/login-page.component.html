@@ -3,12 +3,12 @@
   <form class="login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <label class="login__email-label">
       <span>Email:</span><br>
-      <input class="login__email" type="email" formControlName="email" required>
+      <input class="input login__email" type="email" formControlName="email" required>
     </label>
     <label class="login__password-label">
       <span>Password:</span><br>
-      <input class="login__password" type="password" formControlName="password" required>
+      <input class="input login__password" type="password" formControlName="password" required>
     </label>
-    <button class="button login__button" type="submit" [disabled]="!loginForm.valid">Purchase</button>
+    <button class="button login__button" type="submit" [disabled]="!loginForm.valid">Login</button>
   </form>
 </div>

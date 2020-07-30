@@ -1,13 +1,13 @@
 <header class="page-header">
   <div class="page-header__wrapper container">
-    <h1 class="page-header__title"><a [routerLink]="['/home']">Bienvenido a name_project!</a></h1>
+    <h1 class="page-header__title"><a [routerLink]="['/home']">name_project</a></h1>
     <nav class="nav">
       <ul class="user__list" *ngIf="authSandbox.isAuthenticated(); else navList">
         <li class="user__item">
           <a [routerLink]="['/user']" class="user__link">Dashboard</a>
         </li>
         <li class="user__item">
-          <button class="user__link button" (click)="logOut()">Log out</button>
+          <button class="user__link button-reset" (click)="logOut()">Log out</button>
         </li>
       </ul>
 
