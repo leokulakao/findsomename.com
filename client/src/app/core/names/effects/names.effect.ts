@@ -23,7 +23,6 @@ export class NamesEffects {
         map((action: actions.GetAllNamesAction) => action.payload),
         switchMap(state => {
             return this.namesService.getAllNames(state).pipe(
-                tap(response => console.log(response)),
                 map(data => new actions.GetAllNamesSuccessAction(new NamesResponceModel(data))
                 ),
                 catchError(error =>

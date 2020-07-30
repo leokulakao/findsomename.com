@@ -31,6 +31,11 @@ export class UserPageComponent implements OnInit {
               this.ALL_NAMES = this.ALL_NAMES.names;
           }
       }));
+      this.subscriptions.push(this.keyword.valueChanges.subscribe(value => {
+        if (value.length >= 2) {
+            this.getAllNames(value);
+        }
+      }));
   }
 
   private initForm(): void {
@@ -41,9 +46,11 @@ export class UserPageComponent implements OnInit {
       });
   }
 
-  public getAllNames() {
+  public getAllNames(keyword = '', limit = '100', offset = '') {
       const params: any = {};
-      params.limit = '10';
+      params.keyword = keyword;
+      params.limit = limit;
+      params.offset = offset;
       this.namesSandbox.getAllNames(params);
   }
 
