@@ -5,5 +5,38 @@
 
 .page-header__wrapper
   display: flex
-  justify-content: space-around
+  justify-content: space-between
   align-items: center
+
+.page-header__title a
+  text-decoration: none
+  color: $dark-primary-color
+  font-weight: normal
+
+.user__list,
+.nav__list
+  padding: 0
+  margin: 0
+  list-style: none
+
+  height: 100%
+  display: flex
+  flex-wrap: wrap
+
+.user__link,
+.nav__link
+  display: block
+  height: 100%
+  padding-right: 10px
+  padding-left: 10px
+
+  line-height: 61px
+  color: $light-primary-color
+  text-decoration: none
+
+  &:hover,
+  &:focus
+    background-color: $dark-primary-color
+
+  &:active
+    opacity: .5

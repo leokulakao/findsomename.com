@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthSandbox } from 'src/app/core/auth/auth.sandbox';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-layout',
@@ -9,6 +10,7 @@ import { AuthSandbox } from 'src/app/core/auth/auth.sandbox';
 export class MainLayoutComponent implements OnInit {
 
   constructor(
+    private router: Router,
     public authSandbox: AuthSandbox
   ) { }
 

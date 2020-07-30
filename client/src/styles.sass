@@ -9,3 +9,22 @@ body
   color: $black
   font-size: 14px
   line-height: 24px
+
+@mixin button-reset
+  padding: 0
+
+  border: none
+  font: inherit
+  color: inherit
+
+  background-color: transparent
+  cursor: pointer
+
+@mixin no-outline
+  outline: none
+  background: transparent
+
+
+.button
+  @include button-reset
+  @include no-outline
