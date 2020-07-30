@@ -5,7 +5,7 @@ module.exports.getAllNames = async (req, res) => {
     try {
         console.log(req.query);
         const keyword = req.query ? req.query.keyword !== '' ? req.query.keyword : '' : '';
-        const offset = req.query ? req.query.offset !== '' ? ++req.query.offset : '' : '';
+        const offset = req.query ? req.query.offset !== '' ? ++req.query.offset - 1 : null : null;
         const limit = req.query ? req.query.limit !== '' ? ++req.query.limit - 1 : null : null;
         const popilation = req.query ? req.query.popilation !== '' ? req.query.popilation : '' : '';
         console.log('Limit', limit);
@@ -14,7 +14,7 @@ module.exports.getAllNames = async (req, res) => {
             if (err) {
                 console.log(err);
             }
-        }).limit(limit);
+        }).skip(offset).limit(limit);
         res.status(200).json({
             status: 200,
             message: 'Finded all items',
