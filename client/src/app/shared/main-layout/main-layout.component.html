@@ -1,0 +1,21 @@
+<header class="page-header">
+  <div class="page-header__wrapper container">
+    <h1>Bienvenido a name_project!</h1>
+    <button (click)="logOut()" *ngIf="authSandbox.isAuthenticated(); else navList">Log out</button>
+    <ng-template #navList>
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a href="" class="nav__link">Login</a>
+        </li>
+        <li class="nav__item">
+          <a href="" class="nav__link">Registration</a>
+        </li>
+      </ul>
+    </ng-template>
+  </div>
+
+</header>
+
+<main class="page-content container">
+  <router-outlet></router-outlet>
+</main>

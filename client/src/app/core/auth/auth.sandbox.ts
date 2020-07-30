@@ -59,4 +59,9 @@ export class AuthSandbox {
         sessionStorage.clear();
         this.router.navigate(['/']);
     }
+
+    // isAuthenticated
+    public isAuthenticated(): boolean {
+      return !!localStorage.getItem('token') ? true : false;
+    }
 }

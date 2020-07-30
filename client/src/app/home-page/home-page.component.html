@@ -1,16 +1,4 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-    <label>
-        <span>Keyword:</span>
-        <input type="text" formControlName="keyword" required>
-    </label>
-    <button type="submit" [disabled]="!searchForm.valid">Purchase</button>
-</form>
+<div class="container">
+  <p>home-page works!</p>
+</div>
 
-<p *ngIf="namesSandbox.getAllNamesLoading$ | async">
-    Loading...
-</p>
-<ul [hidden]="namesSandbox.getAllNamesLoading$ | async">
-    <li *ngFor="let name of ALL_NAMES">
-        {{ name.name }}
-    </li>
-</ul>

@@ -33,6 +33,7 @@ import { metaReducers, reducers } from './core/reducer.interface';
 // interceptor
 import { TokenInterceptor } from './shared/token.interceptor';
 import { UserPageComponent } from './user-page/user-page.component';
+import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
 
 
 
@@ -42,7 +43,8 @@ import { UserPageComponent } from './user-page/user-page.component';
         LoginPageComponent,
         HomePageComponent,
         RegisterPageComponent,
-        UserPageComponent
+        UserPageComponent,
+        MainLayoutComponent
     ],
     imports: [
         BrowserModule,
