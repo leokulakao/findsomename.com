@@ -35,7 +35,7 @@ export class UserPageComponent implements OnInit {
           if (data) {
               this.ALL_NAMES = data;
               this.ALL_NAMES = this.ALL_NAMES.names;
-              console.log(this.ALL_NAMES)
+              console.log(this.ALL_NAMES);
           }
       }));
     //   this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => {
@@ -75,6 +75,8 @@ export class UserPageComponent implements OnInit {
   public onSubmit() {
       const params: any = {};
       params.keyword = this.keywordControl.value ? this.keywordControl.value : '';
+      params.limit = this.limitControl.value ? this.limitControl.value : '';
+      params.offset = this.offsetControl.value ? this.offsetControl.value : '';
       this.namesSandbox.getAllNames(params);
   }
 

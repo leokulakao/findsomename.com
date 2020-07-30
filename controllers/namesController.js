@@ -6,20 +6,21 @@ module.exports.getAllNames = async (req, res) => {
         console.log(req.query);
         const keyword = req.query ? req.query.keyword !== '' ? req.query.keyword : '' : '';
         const offset = req.query ? req.query.offset !== '' ? ++req.query.offset : '' : '';
-        const limit = req.query ? req.query.limit !== '' ? ++req.query.limit : '' : '';
+        const limit = req.query ? req.query.limit !== '' ? ++req.query.limit - 1 : null : null;
         const popilation = req.query ? req.query.popilation !== '' ? req.query.popilation : '' : '';
         console.log('Limit', limit);
         console.log('Offset', offset);
-        const namesBox = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
+        const names = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
             if (err) {
                 console.log(err);
             }
-        }).skip(offset).limit(limit);
+        }).limit(limit);
         res.status(200).json({
             status: 200,
             message: 'Finded all items',
-            data: namesBox,
+            data: names,
         });
+        
     } catch (e) {
         errorHandler(req, e);
     }
