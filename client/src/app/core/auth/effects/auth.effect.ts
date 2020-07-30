@@ -26,7 +26,7 @@ export class AuthEffects {
             return this.authService.login(state).pipe(
                 tap(response => {
                     localStorage.setItem('token', new LoginResponseModel(response).token);
-                    this.router.navigate(['/user']);
+                    this.router.navigate(['/dashboard']);
                 }),
                 map(loggedin => new actions.LoginSuccessAction(new LoginResponseModel(loggedin))
                 ),

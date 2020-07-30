@@ -4,7 +4,10 @@
     <nav class="nav">
       <ul class="user__list" *ngIf="authSandbox.isAuthenticated(); else navList">
         <li class="user__item">
-          <a [routerLink]="['/user']" class="user__link">Dashboard</a>
+          <a [routerLink]="['/search']" class="user__link">Search</a>
+        </li>
+        <li class="user__item">
+          <a [routerLink]="['/dashboard']" class="user__link">Dashboard</a>
         </li>
         <li class="user__item">
           <button class="user__link button-reset" (click)="logOut()">Log out</button>

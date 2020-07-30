@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 import { NamesSandbox } from '../core/names/names.sandbox';
 
 @Component({
-    selector: 'app-user-page',
-    templateUrl: './user-page.component.html',
-    styleUrls: ['./user-page.component.sass']
+    selector: 'app-search-page',
+    templateUrl: './search-page.component.html',
+    styleUrls: ['./search-page.component.sass']
 })
-export class UserPageComponent implements OnInit {
+export class SearchPageComponent implements OnInit {
 
   public searchForm: FormGroup;
   public keywordControl: FormControl;

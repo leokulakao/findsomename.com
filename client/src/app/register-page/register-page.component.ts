@@ -26,7 +26,7 @@ export class RegisterPageComponent implements OnInit {
         private authSandbox: AuthSandbox
     ) {
         if (!!localStorage.getItem('token')) {
-            this.router.navigate(['/user']);
+            this.router.navigate(['/dashboard']);
         }
     }
 

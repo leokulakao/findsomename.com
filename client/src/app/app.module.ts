@@ -32,8 +32,9 @@ import { NamesEffects } from './core/names/effects/names.effect';
 import { metaReducers, reducers } from './core/reducer.interface';
 // interceptor
 import { TokenInterceptor } from './shared/token.interceptor';
-import { UserPageComponent } from './user-page/user-page.component';
+import { SearchPageComponent } from './search-page/search-page.component';
 import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
+import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 
 
 
@@ -43,8 +44,9 @@ import { MainLayoutComponent } from './shared/main-layout/main-layout.component'
         LoginPageComponent,
         HomePageComponent,
         RegisterPageComponent,
-        UserPageComponent,
-        MainLayoutComponent
+        SearchPageComponent,
+        MainLayoutComponent,
+        DashboardPageComponent
     ],
     imports: [
         BrowserModule,
