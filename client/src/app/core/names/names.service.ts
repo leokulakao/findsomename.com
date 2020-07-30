@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -12,7 +12,10 @@ export class NamesService {
     ) { }
 
     public getAllNames(params): Observable<any> {
-        console.log(params);
-        return this.http.get(this.url + 'names/getAllNames', params);
+        let options: any = {};
+        options = params;
+        return this.http.get(this.url + 'names/getAllNames', {
+            params: options
+        });
     }
 }

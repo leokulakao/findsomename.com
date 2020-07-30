@@ -3,9 +3,10 @@ const errorHandler = require('../utils/errorHandler');
 
 module.exports.getAllNames = async (req, res) => {
     try {
-        const keyword = req.body ? req.body.keyword !== '' ? req.body.keyword : '' : '';
-        const offset = req.body ? req.body.offset !== '' ? ++req.body.offset : '' : '';
-        const limit = req.body ? req.body.limit !== '' ? ++req.body.limit : '' : '';
+        console.log(req.query);
+        const keyword = req.query ? req.query.keyword !== '' ? req.query.keyword : '' : '';
+        const offset = req.query ? req.query.offset !== '' ? ++req.query.offset : '' : '';
+        const limit = req.query ? req.query.limit !== '' ? ++req.query.limit : '' : '';
         console.log(limit);
         const namesBox = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
             console.log(err);
