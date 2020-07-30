@@ -7,11 +7,14 @@ module.exports.getAllNames = async (req, res) => {
         const keyword = req.query ? req.query.keyword !== '' ? req.query.keyword : '' : '';
         const offset = req.query ? req.query.offset !== '' ? ++req.query.offset : '' : '';
         const limit = req.query ? req.query.limit !== '' ? ++req.query.limit : '' : '';
-        console.log(limit);
+        const popilation = req.query ? req.query.popilation !== '' ? req.query.popilation : '' : '';
+        console.log('Limit', limit);
+        console.log('Offset', offset);
         const namesBox = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
-            console.log(err);
-        })
-        .skip(offset).limit(limit);
+            if (err) {
+                console.log(err);
+            }
+        }).skip(offset).limit(limit);
         res.status(200).json({
             status: 200,
             message: 'Finded all items',

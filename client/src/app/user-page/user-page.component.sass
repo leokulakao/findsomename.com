@@ -1,22 +1,47 @@
 @import "../../variables.sass"
 
-.search
-  text-align: center
+.search__wrapper
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+
+.search__label
+  &:not(:last-child)
+    margin-right: 15px
+
 
 .search__input
-  width: 40%
-  padding-top: 10px
-  padding-bottom: 10px
-  padding-right: 20px
-  padding-left: 20px
-
-  font-size: 22px
+  width: 220px
+  padding: 5px
 
   border: 2px solid $primary-color
-  border-radius: 25px
+  border-radius: 5px
   outline: none
 
   &:hover,
   &:focus
     border-color: $dark-primary-color
 
+  &--limit,
+  &--offset
+    width: 55px
+
+.search__button
+  display: block
+  width: 150px
+  margin: 0 auto
+  margin-top: 20px
+
+  border: 2px solid $primary-color
+  border-radius: 25px
+
+  &:hover:not(:disabled),
+  &:focus:not(:disabled)
+    background-color: $dark-primary-color
+    color: $light-primary-color
+
+  &:active
+    opacity: .5
+
+  &:disabled
+    opacity: .3
