@@ -3,9 +3,17 @@
   <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
     <label>
       <span>Keyword:</span>
-      <input type="text" formControlName="keyword" required>
+      <input style="display: block;" type="text" formControlName="keyword" required>
     </label>
-    <!-- <button type="submit" [disabled]="!searchForm.valid">Purchase</button> -->
+    <label>
+      <span>Limit:</span>
+      <input style="display: block;" type="text" formControlName="limit">
+    </label>
+    <label>
+      <span>Offset:</span>
+      <input style="display: block;" type="text" formControlName="offset">
+    </label>
+    <button type="submit" [disabled]="!searchForm.valid">Find</button>
   </form>
 
   <p *ngIf="namesSandbox.getAllNamesLoading$ | async">

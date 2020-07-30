@@ -11,7 +11,13 @@ import { NamesSandbox } from '../core/names/names.sandbox';
 export class UserPageComponent implements OnInit {
 
   public searchForm: FormGroup;
-  public keyword: FormControl;
+  public keywordControl: FormControl;
+  public limitControl: FormControl;
+  public offsetControl: FormControl;
+
+  keyword = '';
+  limit = '10';
+  offset = '';
 
   private subscriptions: Subscription[] = [];
 
@@ -31,22 +37,33 @@ export class UserPageComponent implements OnInit {
               this.ALL_NAMES = this.ALL_NAMES.names;
           }
       }));
-      this.subscriptions.push(this.keyword.valueChanges.subscribe(value => {
-        if (value.length >= 2) {
-            this.getAllNames(value);
-        }
-      }));
+    //   this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => {
+    //     if (value.length >= 2) {
+    //         this.keyword = value;
+    //         this.getAllNames();
+    //     }
+    //   }));
+    //   this.subscriptions.push(this.offsetControl.valueChanges.subscribe(value => {
+    //       if (value) {
+    //           this.offset = value;
+    //           this.getAllNames();
+    //       }
+    //   }));
   }
 
   private initForm(): void {
-      this.keyword = new FormControl('', [Validators.required, Validators.minLength(3)]);
+      this.keywordControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
+      this.limitControl = new FormControl('');
+      this.offsetControl = new FormControl('');
 
       this.searchForm = this.formBuilder.group({
-          keyword: this.keyword,
+          keyword: this.keywordControl,
+          offset: this.offsetControl,
+          limit: this.limitControl
       });
   }
 
-  public getAllNames(keyword = '', limit = '100', offset = '') {
+  public getAllNames(keyword = this.keyword, limit = this.limit, offset = this.offset) {
       const params: any = {};
       params.keyword = keyword;
       params.limit = limit;
@@ -56,7 +73,7 @@ export class UserPageComponent implements OnInit {
 
   public onSubmit() {
       const params: any = {};
-      params.keyword = this.keyword.value ? this.keyword.value : '';
+      params.keyword = this.keywordControl.value ? this.keywordControl.value : '';
       this.namesSandbox.getAllNames(params);
   }
 
