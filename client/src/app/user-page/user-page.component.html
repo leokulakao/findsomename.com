@@ -1,9 +1,8 @@
 <div class="container">
-  <p>user-page works!</p>
-  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <h2>Поиск имен</h2>
+  <form class="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
     <label>
-      <span>Keyword:</span>
-      <input type="text" formControlName="keyword" required>
+      <input class="search__input" type="text" formControlName="keyword" required>
     </label>
     <!-- <button type="submit" [disabled]="!searchForm.valid">Purchase</button> -->
   </form>

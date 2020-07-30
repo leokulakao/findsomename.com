@@ -29,6 +29,7 @@ export class UserPageComponent implements OnInit {
           if (data) {
               this.ALL_NAMES = data;
               this.ALL_NAMES = this.ALL_NAMES.names;
+              console.log(this.ALL_NAMES)
           }
       }));
       this.subscriptions.push(this.keyword.valueChanges.subscribe(value => {

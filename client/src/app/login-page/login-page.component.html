@@ -1,14 +1,14 @@
 <div class="container">
   <h2>THIS IS LOGIN FORM</h2>
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <label>
-      <span>Email:</span>
-      <input type="email" formControlName="email" required>
+  <form class="login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label class="login__email-label">
+      <span>Email:</span><br>
+      <input class="login__email" type="email" formControlName="email" required>
     </label>
-    <label>
-      <span>Password:</span>
-      <input type="password" formControlName="password" required>
+    <label class="login__password-label">
+      <span>Password:</span><br>
+      <input class="login__password" type="password" formControlName="password" required>
     </label>
-    <button type="submit" [disabled]="!loginForm.valid">Purchase</button>
+    <button class="button login__button" type="submit" [disabled]="!loginForm.valid">Purchase</button>
   </form>
 </div>
