@@ -1,5 +1,10 @@
 @import "../../../variables.sass"
 
+.page__wrapper
+  display: flex
+  flex-direction: column
+  height: 100vh
+
 .page-header
   background-color: $primary-color
 
@@ -39,6 +44,25 @@
   &:hover,
   &:focus
     background-color: $dark-primary-color
+
+  &:active
+    opacity: .5
+
+.page-content
+  flex-grow: 1
+
+.page-footer
+  background-color: $primary-color
+
+.page-footer__text
+  color: $light-primary-color
+
+.page-footer__link
+  color: inherit
+
+  &:hover,
+  &:focus
+    color: $white
 
   &:active
     opacity: .5
