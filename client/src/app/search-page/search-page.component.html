@@ -20,9 +20,25 @@
   <p *ngIf="namesSandbox.getAllNamesLoading$ | async">
     Loading...
   </p>
-  <ul [hidden]="namesSandbox.getAllNamesLoading$ | async">
+  <!-- <ul [hidden]="namesSandbox.getAllNamesLoading$ | async">
     <li *ngFor="let name of ALL_NAMES">
       {{ name.name }}
     </li>
-  </ul>
+  </ul> -->
+  <table class="response__table" [hidden]="namesSandbox.getAllNamesLoading$ | async">
+    <thead class="response__head">
+      <tr class="response__row">
+        <th class="response__th">Nº</th>
+        <th class="response__th response__th--name">Name</th>
+        <th class="response__th">Quantity</th>
+      </tr>
+    </thead>
+    <tbody class="response__body">
+      <tr *ngFor="let name of ALL_NAMES; let i = index" class="response__row response__row--body">
+        <td class="response__td">{{ i + 1 }}</td>
+        <td class="response__td response__td--name">{{ name.name }}</td>
+        <td class="response__td">0000000</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
