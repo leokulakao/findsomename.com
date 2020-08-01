@@ -4,21 +4,36 @@ const errorHandler = require('../utils/errorHandler');
 module.exports.getAllNames = async (req, res) => {
     try {
         console.log(req.query);
+
+        let result;
+
         const keyword = req.query ? req.query.keyword !== '' ? req.query.keyword : '' : '';
         const offset = req.query ? req.query.offset !== '' ? ++req.query.offset - 1 : null : null;
         const limit = req.query ? req.query.limit !== '' ? ++req.query.limit - 1 : null : null;
-        const popilation = req.query ? req.query.popilation !== '' ? req.query.popilation : '' : '';
+        const population = req.query ? req.query.population === 'true' ? true : null : null;
+
         console.log('Limit', limit);
         console.log('Offset', offset);
-        const names = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
-            if (err) {
-                console.log(err);
-            }
-        }).skip(offset).limit(limit);
+        console.log('Population', population);
+
+        if (population) {
+            result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            }).skip(offset).limit(limit).sort({quantity: population ? 'descending': null});
+        } else {
+            result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
+                if (err) {
+                    console.log(err);
+                }
+            }).skip(offset).limit(limit);
+        }
+
         res.status(200).json({
             status: 200,
             message: 'Finded all items',
-            data: names,
+            data: result,
         });
         
     } catch (e) {
