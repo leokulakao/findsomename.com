@@ -3,7 +3,7 @@
     <div class="search__wrapper">
       <label class="search__label">
         <span>Keyword:</span><br>
-        <input class="input search__input" type="text" formControlName="keyword" required>
+        <input class="input search__input" type="text" formControlName="keyword">
       </label>
       <label class="search__label">
         <span>Limit:</span><br>
@@ -34,11 +34,12 @@
       </tr>
     </thead>
     <tbody class="response__body">
-      <tr *ngFor="let name of ALL_NAMES; let i = index" class="response__row response__row--body">
+      <tr *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page}; let i = index" class="response__row response__row--body">
         <td class="response__td">{{ i + 1 }}</td>
         <td class="response__td response__td--name">{{ name.name }}</td>
-        <td class="response__td">0000000</td>
+        <td class="response__td">{{ name.population }}</td>
       </tr>
     </tbody>
   </table>
+  <pagination-controls (pageChange)="page = $event"></pagination-controls>
 </div>

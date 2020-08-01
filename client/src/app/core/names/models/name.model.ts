@@ -4,6 +4,6 @@ export class NameModel {
 
     constructor(req: any) {
       this.name = req.name || '';
-      this.population = req.population || null;
+      this.population = req.quantity || 0;
     }
 }

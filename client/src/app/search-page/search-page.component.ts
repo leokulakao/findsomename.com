@@ -23,6 +23,8 @@ export class SearchPageComponent implements OnInit {
 
   ALL_NAMES;
 
+  page = 1;
+
   constructor(
       public namesSandbox: NamesSandbox,
       public formBuilder: FormBuilder
@@ -35,6 +37,7 @@ export class SearchPageComponent implements OnInit {
           if (data) {
               this.ALL_NAMES = data;
               this.ALL_NAMES = this.ALL_NAMES.names;
+              console.log(this.ALL_NAMES);
           }
       }));
     //   this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => {

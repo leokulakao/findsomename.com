@@ -6,11 +6,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
-
-// module
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // component
 import { HomePageComponent } from './home-page/home-page.component';
@@ -54,6 +53,7 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
         FormsModule,
         ReactiveFormsModule,
         HttpClientModule,
+        NgxPaginationModule,
         StoreModule.forRoot(reducers, { metaReducers }),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
         EffectsModule.forRoot([
