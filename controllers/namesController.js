@@ -28,6 +28,7 @@ module.exports.getAllNames = async (req, res) => {
                     console.log(err);
                 }
             }).skip(offset).limit(limit);
+            result.sort((a, b) => a.name.toLowerCase() === keyword.toLowerCase() ? -1 : b.name.toLowerCase() === keyword.toLowerCase() ? 1 : 0);
         }
 
         res.status(200).json({
