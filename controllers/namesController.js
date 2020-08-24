@@ -1,9 +1,10 @@
 const NameRu = require('../models/nameRuModel');
 const errorHandler = require('../utils/errorHandler');
+const jwt = require('jsonwebtoken');
+const User = require('../models/userModel');
 
 module.exports.getAllNames = async (req, res) => {
     try {
-        console.log(req.query);
 
         let result;
 
@@ -11,23 +12,59 @@ module.exports.getAllNames = async (req, res) => {
         const offset = req.query ? req.query.offset !== '' ? ++req.query.offset - 1 : null : null;
         const limit = req.query ? req.query.limit !== '' ? ++req.query.limit - 1 : null : null;
         const population = req.query ? req.query.population === 'true' ? true : null : null;
+        const token = req.headers ? req.headers.authorization.split(' ')[1] : '';
 
-        console.log('Limit', limit);
-        console.log('Offset', offset);
-        console.log('Population', population);
+        // console.log('Limit', limit);
+        // console.log('Offset', offset);
+        // console.log('Population', population);
+
+        const decoded = jwt.decode(token);
+        const candidate = await User.findOne({
+            email: decoded.email,
+        });
+
+        let permission;
+        if (candidate) {
+            if (candidate.permission === 'root') {
+                permission = 'root';
+            } else if (candidate.permission === 'admin') {
+                permission = 'admin';
+            } else if (candidate.permission === 'user') {
+                permission = 'user'
+            }
+        }
+        const hided = permission === 'root' || permission === 'admin' ? req.query ? req.query.hided === 'true' ? true : false : false : true;
+
+        console.log('HidedNames', hided);
 
         if (population) {
-            result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
-                if (err) {
-                    console.log(err);
-                }
-            }).skip(offset).limit(limit).sort({quantity: population ? 'descending': null});
+            if (hided) {
+                result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}, $or: [{hide: undefined}, {hide: false}]}, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                }).skip(offset).limit(limit).sort({quantity: population ? 'descending': null});
+            } else {
+                result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                }).skip(offset).limit(limit).sort({quantity: population ? 'descending': null});
+            }
         } else {
-            result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
-                if (err) {
-                    console.log(err);
-                }
-            }).skip(offset).limit(limit);
+            if (hided) {
+                result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}, $or: [{hide: undefined}, {hide: false}]}, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                }).skip(offset).limit(limit);
+            } else {
+                result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}}, (err) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                }).skip(offset).limit(limit);
+            }
             result.sort((a, b) => a.name.toLowerCase() === keyword.toLowerCase() ? -1 : b.name.toLowerCase() === keyword.toLowerCase() ? 1 : 0);
         }
 

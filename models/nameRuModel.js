@@ -22,6 +22,11 @@ const nameRuSchema = new Schema({
     quantityDate: {
         type: String,
         required: false
+    },
+    hide: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 

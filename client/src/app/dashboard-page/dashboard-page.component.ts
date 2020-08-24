@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthSandbox } from '../core/auth/auth.sandbox';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authSandbox: AuthSandbox,
+  ) { }
 
   ngOnInit(): void {
+    this.authSandbox.getUserData$.subscribe(data => console.log(data));
   }
 
 }

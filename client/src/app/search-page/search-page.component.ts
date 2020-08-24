@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NamesSandbox } from '../core/names/names.sandbox';
+import { AuthSandbox } from '../core/auth/auth.sandbox';
 
 @Component({
     selector: 'app-search-page',
@@ -10,76 +11,102 @@ import { NamesSandbox } from '../core/names/names.sandbox';
 })
 export class SearchPageComponent implements OnInit {
 
-  public searchForm: FormGroup;
-  public keywordControl: FormControl;
-  public limitControl: FormControl;
-  public offsetControl: FormControl;
+    public user;
 
-  keyword = '';
-  limit = '10';
-  offset = '';
+    public searchForm: FormGroup;
+    public keywordControl: FormControl;
+    public showAllNames: FormControl;
+    public limitControl: FormControl;
+    public offsetControl: FormControl;
 
-  private subscriptions: Subscription[] = [];
+    keyword = '';
+    limit = '10';
+    offset = '';
+    hided = false;
 
-  ALL_NAMES;
+    private subscriptions: Subscription[] = [];
 
-  page = 1;
+    ALL_NAMES;
 
-  constructor(
-      public namesSandbox: NamesSandbox,
-      public formBuilder: FormBuilder
-  ) { }
+    page = 1;
 
-  ngOnInit(): void {
-      this.initForm();
-      this.getAllNames();
-      this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
-          if (data) {
-              this.ALL_NAMES = data;
-              this.ALL_NAMES = this.ALL_NAMES.names;
-              console.log(this.ALL_NAMES);
-          }
-      }));
-    //   this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => {
-    //     if (value.length >= 2) {
-    //         this.keyword = value;
-    //         this.getAllNames();
-    //     }
-    //   }));
-    //   this.subscriptions.push(this.offsetControl.valueChanges.subscribe(value => {
-    //       if (value) {
-    //           this.offset = value;
-    //           this.getAllNames();
-    //       }
-    //   }));
-  }
+    constructor(
+        public namesSandbox: NamesSandbox,
+        public authSandbox: AuthSandbox,
+        public formBuilder: FormBuilder
+    ) { }
 
-  private initForm(): void {
-      this.keywordControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
-      this.limitControl = new FormControl('');
-      this.offsetControl = new FormControl('');
+    ngOnInit(): void {
+        this.authSandbox.getUserData();
+        this.initForm();
+        this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
+            if (data) {
+                this.ALL_NAMES = data;
+                this.ALL_NAMES = this.ALL_NAMES.names;
+                console.log(this.ALL_NAMES);
+            }
+        }));
+        this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
+            if (data) {
+                this.user = data;
+                this.getAllNames();
+                console.log(data);
+            }
+        }));
+        //   this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => {
+        //     if (value.length >= 2) {
+        //         this.keyword = value;
+        //         this.getAllNames();
+        //     }
+        //   }));
+        //   this.subscriptions.push(this.offsetControl.valueChanges.subscribe(value => {
+        //       if (value) {
+        //           this.offset = value;
+        //           this.getAllNames();
+        //       }
+        //   }));
+    }
 
-      this.searchForm = this.formBuilder.group({
-          keyword: this.keywordControl,
-          offset: this.offsetControl,
-          limit: this.limitControl
-      });
-  }
+    private initForm(): void {
+        this.keywordControl = new FormControl('', [Validators.required, Validators.minLength(3)]);
+        this.showAllNames = new FormControl(false),
+        this.limitControl = new FormControl('');
+        this.offsetControl = new FormControl('');
 
-  public getAllNames(keyword = this.keyword, limit = this.limit, offset = this.offset) {
-      const params: any = {};
-      params.keyword = keyword;
-      params.limit = limit;
-      params.offset = offset;
-      this.namesSandbox.getAllNames(params);
-  }
+        this.searchForm = this.formBuilder.group({
+            keyword: this.keywordControl,
+            showAllNames: this.showAllNames,
+            offset: this.offsetControl,
+            limit: this.limitControl
+        });
+    }
 
-  public onSubmit() {
-      const params: any = {};
-      params.keyword = this.keywordControl.value ? this.keywordControl.value : '';
-      params.limit = this.limitControl.value ? this.limitControl.value : '';
-      params.offset = this.offsetControl.value ? this.offsetControl.value : '';
-      this.namesSandbox.getAllNames(params);
-  }
+    public triggerShowAllNames(): void {
+        this.hided = !this.showAllNames.value;
+    }
+
+    public getAllNames(keyword = this.keyword, limit = this.limit, offset = this.offset, hided = this.hided) {
+        const params: any = {};
+        params.keyword = keyword;
+        params.limit = limit;
+        params.offset = offset;
+        if (this.user.permission === 'root' || this.user.permission === 'admin') {
+            params.hided = hided;
+        }
+        console.log(params);
+        this.namesSandbox.getAllNames(params);
+    }
+
+    public onSubmit() {
+        const params: any = {};
+        params.keyword = this.keywordControl.value ? this.keywordControl.value : '';
+        params.limit = this.limitControl.value ? this.limitControl.value : '';
+        params.offset = this.offsetControl.value ? this.offsetControl.value : '';
+        if (this.user.permission === 'root' || this.user.permission === 'admin') {
+            params.hided = !this.showAllNames.value;
+        }
+        console.log(params);
+        this.namesSandbox.getAllNames(params);
+    }
 
 }

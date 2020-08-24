@@ -1,18 +1,22 @@
-<div class="search-page__wrapper container">
+<div class="search-page__wrapper container" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
   <form class="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
     <div class="search__wrapper">
       <label class="search__label">
         <span>Keyword:</span><br>
         <input class="input search__input" type="text" formControlName="keyword">
       </label>
-      <label class="search__label">
+      <label class="search__label" *ngIf="user.permission === 'root' || user.permission === 'admin'">
+        <span>Show all names:</span><br>
+        <input class="checkbox search__checkbox" type="checkbox" formControlName="showAllNames" (click)="triggerShowAllNames()">
+      </label>
+      <!-- <label class="search__label">
         <span>Limit:</span><br>
         <input class="input search__input search__input--limit" type="text" formControlName="limit">
       </label>
       <label class="search__label">
         <span>Offset:</span><br>
         <input class="input search__input search__input--offset" type="text" formControlName="offset">
-      </label>
+      </label> -->
     </div>
     <button class="button search__button" type="submit" [disabled]="!searchForm.valid">Find</button>
   </form>

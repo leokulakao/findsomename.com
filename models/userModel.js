@@ -12,6 +12,15 @@ const userSchema = new Schema({
         type: String,
         default: '',
     },
+    permission: {
+        type: String,
+        default: 'user'
+    }
 });
+
+// permissions
+// '' - user
+// 0 - root
+// 1 - admin
 
 module.exports = mongoose.model('users', userSchema);

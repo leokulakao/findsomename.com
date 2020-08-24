@@ -10,7 +10,11 @@ export const ActionTypes = {
 
     REGISTER: '[register] register',
     REGISTER_SUCCESS: '[register] register success',
-    REGISTER_FAIL: '[register] register fail'
+    REGISTER_FAIL: '[register] register fail',
+
+    USER_DATA: '[user data] user data',
+    USER_DATA_SUCCESS: '[user data] user data success',
+    USER_DATA_FAIL: '[user data] user data fail'
 };
 
 // login
@@ -38,5 +42,19 @@ export class RegisterSuccessAction implements Action {
 }
 export class RegisterFailAction implements Action {
     type = ActionTypes.REGISTER_FAIL;
+    constructor(public payload: any) { }
+}
+
+// get user data
+export class GetUserDataAction implements Action {
+    type = ActionTypes.USER_DATA;
+    constructor() { }
+}
+export class GetUserDataSuccessAction implements Action {
+    type = ActionTypes.USER_DATA_SUCCESS;
+    constructor(public payload: any) { }
+}
+export class GetUserDataFailAction implements Action {
+    type = ActionTypes.USER_DATA_FAIL;
     constructor(public payload: any) { }
 }

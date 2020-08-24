@@ -52,8 +52,31 @@ export function reducer(
         case actions.ActionTypes.REGISTER_FAIL: {
             return Object.assign({}, state, {
                 tokenLoading: false,
-                tokenLoaded: true,
+                tokenLoaded: false,
                 tokenFail: true
+            });
+        }
+
+        case actions.ActionTypes.USER_DATA: {
+            return Object.assign({}, state, {
+                userDataLoading: true,
+                userDataLoaded: false,
+                userDataFail: false
+            });
+        }
+        case actions.ActionTypes.USER_DATA_SUCCESS: {
+            return Object.assign({}, state, {
+                userData: payload.data,
+                userDataLoading: false,
+                userDataLoaded: true,
+                userDataFail: false
+            });
+        }
+        case actions.ActionTypes.USER_DATA_FAIL: {
+            return Object.assign({}, state, {
+                userDataLoading: false,
+                userDataLoaded: false,
+                userDataFail: true
             });
         }
         default: {
@@ -71,3 +94,8 @@ export const getRegister = (state: AuthState) => state.register;
 export const getRegisterLoading = (state: AuthState) => state.registerLoading;
 export const getRegisterLoaded = (state: AuthState) => state.registerLoaded;
 export const getRegisterFail = (state: AuthState) => state.registerFail;
+
+export const getUserData = (state: AuthState) => state.userData;
+export const getUserDataLoading = (state: AuthState) => state.userDataLoading;
+export const getUserDataLoaded = (state: AuthState) => state.userDataLoaded;
+export const getUserDataFail = (state: AuthState) => state.userDataFail;

@@ -58,7 +58,7 @@ module.exports.register = async (req, res) => {
         const salt = bcrypt.genSaltSync(10);
         const user = new User({
             email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, salt),
+            password: bcrypt.hashSync(req.body.password, salt)
         });
         try {
             await user.save();
@@ -72,3 +72,31 @@ module.exports.register = async (req, res) => {
         }
     }
 };
+
+module.exports.getUserWithToken = async (req, res) => {
+    const token = req.headers ? req.headers.authorization.split(' ')[1] : null;
+
+    const decoded = jwt.decode(token);
+
+    const candidate = await User.findOne({
+        email: decoded.email,
+    });
+    
+    if (candidate) {
+        res.status(200).json({
+            status: 200,
+            message: 'Data User',
+            data: {
+                email: candidate.email,
+                id: candidate._id,
+                permission: candidate.permission
+            },
+        });
+    } else {
+        res.status(404).json({
+            status: 404,
+            message: 'Not Found',
+            data: {},
+        });
+    }
+}

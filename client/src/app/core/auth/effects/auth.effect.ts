@@ -9,6 +9,8 @@ import { RegisterResponseModel } from '../models/registerResponse.model';
 import { AuthService } from '../auth.service';
 import * as actions from './../action/auth.action';
 import { Router } from '@angular/router';
+import { AuthSandbox } from '../auth.sandbox';
+import { GetUserDataModel } from '../models/getUserData.model';
 
 @Injectable()
 export class AuthEffects {
@@ -16,6 +18,7 @@ export class AuthEffects {
         private actions$: Actions,
         public router: Router,
         private authService: AuthService,
+        private authSandbox: AuthSandbox
     ) { }
 
     @Effect()
@@ -26,6 +29,7 @@ export class AuthEffects {
             return this.authService.login(state).pipe(
                 tap(response => {
                     localStorage.setItem('token', new LoginResponseModel(response).token);
+                    this.authSandbox.getUserData();
                     this.router.navigate(['/dashboard']);
                 }),
                 map(loggedin => new actions.LoginSuccessAction(new LoginResponseModel(loggedin))
@@ -50,6 +54,21 @@ export class AuthEffects {
                 ),
                 catchError(error =>
                     of(new actions.RegisterFailAction(error))
+                )
+            );
+        })
+    );
+
+    @Effect()
+    getUserData$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.USER_DATA),
+        map((action: actions.GetUserDataAction) => action),
+        switchMap(state => {
+            return this.authService.getUserData().pipe(
+                map(data => new actions.GetUserDataSuccessAction(data)
+                ),
+                catchError(error =>
+                    of(new actions.GetUserDataFailAction(error))
                 )
             );
         })
