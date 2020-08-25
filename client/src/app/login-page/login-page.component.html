@@ -1,14 +1,31 @@
 <div class="container">
   <h2>THIS IS LOGIN FORM</h2>
   <form class="login__form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="message" class="validation">
+      <p>{{message}}</p>
+    </div>
+
     <label class="login__email-label">
       <span>Email:</span><br>
       <input class="input login__email" type="email" formControlName="email" required>
     </label>
+
+    <div *ngIf="loginForm.get('email').touched && loginForm.get('email').invalid" class="validation">
+      <small *ngIf="loginForm.get('email').errors.required">Enter Email</small>
+      <small *ngIf="loginForm.get('email').errors.email">Enter valid Email</small>
+    </div>
+
     <label class="login__password-label">
       <span>Password:</span><br>
       <input class="input login__password" type="password" formControlName="password" required>
     </label>
+
+    <div *ngIf="loginForm.get('password').touched && loginForm.get('password').invalid" class="validation">
+      <small *ngIf="loginForm.get('password').errors.required">Enter Password</small>
+      <small *ngIf="loginForm.get('password').errors.minlength">Password must de at least
+        {{loginForm.get('password').errors.minlength.requiredLength}} characters</small>
+    </div>
+
     <button class="button login__button" type="submit" [disabled]="!loginForm.valid">Login</button>
   </form>
 </div>

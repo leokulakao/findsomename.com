@@ -17,6 +17,7 @@ export class RegisterPageComponent implements OnInit {
     public registerForm: FormGroup;
     public email: FormControl;
     public password: FormControl;
+    public message: string;
 
     private subscriptions: Subscription[] = [];
 
@@ -31,7 +32,7 @@ export class RegisterPageComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.initForm();
+      this.initForm();
     }
 
     private initForm() {
@@ -49,6 +50,10 @@ export class RegisterPageComponent implements OnInit {
         params.email = this.email.value ? this.email.value : '';
         params.password = this.password.value ? this.password.value : '';
         this.authSandbox.register(params);
+
+        if (this.authSandbox.registerFail$) {
+          this.message = 'User already registered';
+        }
     }
 
 }

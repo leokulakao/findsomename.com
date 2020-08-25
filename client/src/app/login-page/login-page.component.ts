@@ -17,6 +17,7 @@ export class LoginPageComponent implements OnInit {
     public loginForm: FormGroup;
     public email: FormControl;
     public password: FormControl;
+    public message: string;
 
     private subscriptions: Subscription[] = [];
 
@@ -56,6 +57,10 @@ export class LoginPageComponent implements OnInit {
         params.email = this.email.value ? this.email.value : '';
         params.password = this.password.value ? this.password.value : '';
         this.authSandbox.login(params);
+
+        if (this.authSandbox.tokenFail$) {
+          this.message = 'Enter correct email and password';
+        }
     }
 
 }
