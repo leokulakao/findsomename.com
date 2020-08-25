@@ -6,6 +6,11 @@ export interface NamesState extends Map<string, any> {
     allNamesLoading: boolean;
     allNamesLoaded: boolean;
     allNamesFail: boolean;
+
+    editName: any;
+    editNameLoading: boolean;
+    editNameLoaded: boolean;
+    editNameFail: boolean;
 }
 
 export const authrecord = Record({
@@ -13,4 +18,9 @@ export const authrecord = Record({
     allNamesLoading: false,
     allNamesLoaded: false,
     allNamesFail: false,
+
+    editName: [],
+    editNameLoading: false,
+    editNameLoaded: false,
+    editNameFail: false,
 });

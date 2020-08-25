@@ -113,6 +113,23 @@ module.exports.addName = async (req, res) => {
     }
 }
 
+module.exports.editName = async (req, res) => {
+    try {
+        const hide = req.body ? req.body.hide === true ? true : false : false;
+        console.log(hide);
+        await NameRu.updateOne({_id: req.body.id}, {hide: hide});
+        const candidate = await NameRu.find({_id: req.body.id});
+        console.log(candidate);
+        res.status(200).json({
+            status: 201,
+            message: 'Edited',
+            data: req.body.id
+        })
+    } catch (e) {
+        errorHandler(req, e);
+    }
+}
+
 module.exports.deleteName = async (req, res) => {
     try {
         await NameRu.remove({_id: req.body.id});

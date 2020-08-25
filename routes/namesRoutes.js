@@ -6,6 +6,7 @@ const router = express.Router();
 
 router.get('/getAllNames', controllerNames.getAllNames);
 router.post('/', passport.authenticate('jwt', { session: false }), controllerNames.addName);
+router.put('/', passport.authenticate('jwt', { session: false }), controllerNames.editName);
 router.delete('/', passport.authenticate('jwt', { session: false }), controllerNames.deleteName);
 router.get('/getNamesByLetter', controllerNames.getNamesByLetter);
 

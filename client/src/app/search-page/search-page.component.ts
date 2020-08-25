@@ -28,6 +28,8 @@ export class SearchPageComponent implements OnInit {
 
     ALL_NAMES;
 
+    BUTTON_STATUS;
+
     page = 1;
 
     constructor(
@@ -41,9 +43,16 @@ export class SearchPageComponent implements OnInit {
         this.initForm();
         this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
             if (data) {
+                this.BUTTON_STATUS = [];
                 this.ALL_NAMES = data;
                 this.ALL_NAMES = this.ALL_NAMES.names;
+                if (this.ALL_NAMES) {
+                    this.ALL_NAMES.forEach(name => {
+                        this.BUTTON_STATUS.push({id: name.id, status: name.hide});
+                    });
+                }
                 console.log(this.ALL_NAMES);
+                console.log(this.BUTTON_STATUS);
             }
         }));
         this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
@@ -83,6 +92,16 @@ export class SearchPageComponent implements OnInit {
 
     public triggerShowAllNames(): void {
         this.hided = !this.showAllNames.value;
+    }
+
+    public showName(name) {
+        this.namesSandbox.editName({id: name.id, hide: false});
+        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].status = false;
+    }
+
+    public hideName(name) {
+        this.namesSandbox.editName({id: name.id, hide: true});
+        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].status = true;
     }
 
     public getAllNames(keyword = this.keyword, limit = this.limit, offset = this.offset, hided = this.hided) {

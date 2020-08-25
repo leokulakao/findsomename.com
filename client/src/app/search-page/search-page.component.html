@@ -1,49 +1,64 @@
-<div class="search-page__wrapper container" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
-  <form class="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-    <div class="search__wrapper">
-      <label class="search__label">
-        <span>Keyword:</span><br>
-        <input class="input search__input" type="text" formControlName="keyword">
-      </label>
-      <label class="search__label" *ngIf="user.permission === 'root' || user.permission === 'admin'">
-        <span>Show all names:</span><br>
-        <input class="checkbox search__checkbox" type="checkbox" formControlName="showAllNames" (click)="triggerShowAllNames()">
-      </label>
-      <!-- <label class="search__label">
-        <span>Limit:</span><br>
-        <input class="input search__input search__input--limit" type="text" formControlName="limit">
-      </label>
-      <label class="search__label">
-        <span>Offset:</span><br>
-        <input class="input search__input search__input--offset" type="text" formControlName="offset">
-      </label> -->
+<div class="search-page__wrapper" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
+  <div class="row">
+    <div class="col-md-8">
+      <form class="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <div class="search__wrapper">
+          <label class="search__label">
+            <span>Keyword:</span><br>
+            <input class="input search__input" type="text" formControlName="keyword">
+          </label>
+          <label class="search__label" *ngIf="user.permission === 'root' || user.permission === 'admin'">
+            <span>Show all names:</span><br>
+            <input class="checkbox search__checkbox" type="checkbox" formControlName="showAllNames" (click)="triggerShowAllNames()">
+          </label>
+          <!-- <label class="search__label">
+            <span>Limit:</span><br>
+            <input class="input search__input search__input--limit" type="text" formControlName="limit">
+          </label>
+          <label class="search__label">
+            <span>Offset:</span><br>
+            <input class="input search__input search__input--offset" type="text" formControlName="offset">
+          </label> -->
+        </div>
+        <button class="button search__button" type="submit" [disabled]="!searchForm.valid">Find</button>
+      </form>
+    
+      <p *ngIf="namesSandbox.getAllNamesLoading$ | async">
+        Loading...
+      </p>
+      <table class="response__table" [hidden]="namesSandbox.getAllNamesLoading$ | async">
+        <thead class="response__head">
+          <tr class="response__row">
+            <th class="response__th">Nº</th>
+            <th class="response__th response__th--name">Name</th>
+            <th class="response__th">Quantity</th>
+            <th class="response__th" *ngIf="user.permission === 'root' || user.permission === 'admin'">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="response__body">
+          <tr *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page}; let i = index" class="response__row response__row--body">
+            <td class="response__td">{{ i + 1 }}</td>
+            <td class="response__td response__td--name">{{ name.name }}</td>
+            <td class="response__td">{{ name.population }}</td>
+            <td class="response__td" *ngIf="user.permission === 'root' || user.permission === 'admin'">
+              <ng-container *ngIf="BUTTON_STATUS[i].status === true">
+                <button class="button button-red" (click)="showName(name)">Show</button>
+              </ng-container>
+              <ng-container *ngIf="BUTTON_STATUS[i].status === false">
+                <button class="button button-green" (click)="hideName(name)">Hide</button>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <pagination-controls class="pagination" (pageChange)="page = $event"></pagination-controls>
     </div>
-    <button class="button search__button" type="submit" [disabled]="!searchForm.valid">Find</button>
-  </form>
-
-  <p *ngIf="namesSandbox.getAllNamesLoading$ | async">
-    Loading...
-  </p>
+  </div>
+  
   <!-- <ul [hidden]="namesSandbox.getAllNamesLoading$ | async">
     <li *ngFor="let name of ALL_NAMES">
       {{ name.name }}
     </li>
   </ul> -->
-  <table class="response__table" [hidden]="namesSandbox.getAllNamesLoading$ | async">
-    <thead class="response__head">
-      <tr class="response__row">
-        <th class="response__th">Nº</th>
-        <th class="response__th response__th--name">Name</th>
-        <th class="response__th">Quantity</th>
-      </tr>
-    </thead>
-    <tbody class="response__body">
-      <tr *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page}; let i = index" class="response__row response__row--body">
-        <td class="response__td">{{ i + 1 }}</td>
-        <td class="response__td response__td--name">{{ name.name }}</td>
-        <td class="response__td">{{ name.population }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <pagination-controls class="pagination" (pageChange)="page = $event"></pagination-controls>
+  
 </div>

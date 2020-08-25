@@ -18,4 +18,8 @@ export class NamesService {
             params: options
         });
     }
+
+    public editName(params): Observable<any> {
+        return this.http.put(this.url + 'names/', params);
+    }
 }

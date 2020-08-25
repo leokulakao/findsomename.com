@@ -10,7 +10,11 @@ import {
     getAllNames,
     getAllNamesLoading,
     getAllNamesLoaded,
-    getAllNamesFail
+    getAllNamesFail,
+    editName,
+    editNameLoading,
+    editNameLoaded,
+    editNameFail
 } from './reducer/names.selector';
 
 @Injectable()
@@ -22,11 +26,20 @@ export class NamesSandbox {
     public getAllNamesLoaded$ = this.appState$.select(getAllNamesLoaded);
     public getAllNamesFail$ = this.appState$.select(getAllNamesFail);
 
+    public editName$ = this.appState$.select(editName);
+    public editNameLoading$ = this.appState$.select(editNameLoading);
+    public editNameLoaded$ = this.appState$.select(editNameLoaded);
+    public editNameFail$ = this.appState$.select(editNameFail);
+
     constructor(
         protected appState$: Store<store.AppState>,
     ) { }
 
     public getAllNames(params) {
         this.appState$.dispatch(new namesAction.GetAllNamesAction(params));
+    }
+
+    public editName(params) {
+        this.appState$.dispatch(new namesAction.EditNameAction(params));
     }
 }

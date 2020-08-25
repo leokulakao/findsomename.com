@@ -31,4 +31,19 @@ export class NamesEffects {
             );
         })
     );
+
+    @Effect()
+    editName$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.EDIT_NAME),
+        map((action: actions.EditNameAction) => action.payload),
+        switchMap(state => {
+            return this.namesService.editName(state).pipe(
+                map(data => new actions.EditNameSuccessAction(data)
+                ),
+                catchError(error =>
+                    of(new actions.EditNameFailAction(error))
+                )
+            );
+        })
+    );
 }
