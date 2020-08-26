@@ -4,7 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import { LoginModel } from './models/login.model';
 import { Observable } from 'rxjs';
 import { RegisterModel } from './models/register.model';
-import { GetUserDataModel } from './models/getUserData.model';
 
 @Injectable()
 export class AuthService {
@@ -24,5 +23,13 @@ export class AuthService {
 
     public getUserData(): Observable<any> {
         return this.http.get(this.url + 'auth/');
+    }
+
+    public getAllUsers(params): Observable<any> {
+        let options: any = {};
+        options = params;
+        return this.http.get(this.url + 'auth/get-users', {
+            params: options
+        });
     }
 }

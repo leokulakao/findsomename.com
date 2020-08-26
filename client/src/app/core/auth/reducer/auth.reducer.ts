@@ -79,6 +79,29 @@ export function reducer(
                 userDataFail: true
             });
         }
+
+        case actions.ActionTypes.ALL_USERS: {
+            return Object.assign({}, state, {
+                allUsersLoading: true,
+                allUsersLoaded: false,
+                allUsersFail: false
+            });
+        }
+        case actions.ActionTypes.ALL_USERS_SUCCESS: {
+            return Object.assign({}, state, {
+                allUsers: payload,
+                allUsersLoading: false,
+                allUsersLoaded: true,
+                allUsersFail: false
+            });
+        }
+        case actions.ActionTypes.ALL_USERS_FAIL: {
+            return Object.assign({}, state, {
+                allUsersLoading: false,
+                allUsersLoaded: false,
+                allUsersFail: true
+            });
+        }
         default: {
             return state;
         }
@@ -99,3 +122,8 @@ export const getUserData = (state: AuthState) => state.userData;
 export const getUserDataLoading = (state: AuthState) => state.userDataLoading;
 export const getUserDataLoaded = (state: AuthState) => state.userDataLoaded;
 export const getUserDataFail = (state: AuthState) => state.userDataFail;
+
+export const getAllUsers = (state: AuthState) => state.allUsers;
+export const getAllUsersLoading = (state: AuthState) => state.allUsersLoading;
+export const getAllUsersLoaded = (state: AuthState) => state.allUsersLoaded;
+export const getAllUsersFail = (state: AuthState) => state.allUsersFail;

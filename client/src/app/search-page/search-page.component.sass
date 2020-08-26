@@ -63,6 +63,15 @@
     width: 100%
     text-align: left
 
+  &__container
+    display: flex
+    width: max-content
+    margin: auto
+    button 
+      margin-left: 12.5px
+      &:first-child
+        margin-left: 0px
+
 .pagination::ng-deep .ngx-pagination
   padding: 0
 
@@ -87,3 +96,41 @@
 
   &:active
     opacity: .5
+
+.name-label 
+  margin-top: 10px
+  border: 2px solid #455A64
+  &__head
+    background-color: $primary-color
+    color: $light-primary-color
+    font-weight: bold
+    font-size: 20px
+    padding: 12.5px
+  
+  &__wrapper
+    background-color: $white
+
+    .pagination::ng-deep .ngx-pagination
+        padding: 20px 0
+        margin: 0
+
+  &__list
+    margin: 0
+    padding: 0
+    list-style-type: none
+
+  &__item
+    background-color: $white
+    padding: 12.5px
+    border-top: 1px solid #BDBDBD
+    &:first-child
+      border: 0
+    
+    &__wrapper 
+      display: flex
+
+    &--name
+      display: block
+      height: max-content
+      margin: auto
+      margin-left: 12.5px

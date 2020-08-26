@@ -9,7 +9,6 @@ import * as authAction from './action/auth.action';
 import * as store from '../state.interface';
 import { LoginModel } from './models/login.model';
 import { RegisterModel } from './models/register.model';
-import { GetUserDataModel } from './models/getUserData.model';
 import {
     getToken,
     getTokenLoading,
@@ -22,7 +21,11 @@ import {
     getUserData,
     getUserDataLoading,
     getUserDataLoaded,
-    getUserDataFail
+    getUserDataFail,
+    getAllUsers,
+    getAllUsersLoading,
+    getAllUsersLoaded,
+    getAllUsersFail
 } from './reducer/auth.selector';
 
 import { Router } from '@angular/router';
@@ -48,6 +51,11 @@ export class AuthSandbox {
     public getUserDataLoaded$ = this.appState$.select(getUserDataLoaded);
     public getUserDataFail$ = this.appState$.select(getUserDataFail);
 
+    public getAllUsers$ = this.appState$.select(getAllUsers);
+    public getAllUsersLoading$ = this.appState$.select(getAllUsersLoading);
+    public getAllUsersLoaded$ = this.appState$.select(getAllUsersLoaded);
+    public getAllUsersFail$ = this.appState$.select(getAllUsersFail);
+
     constructor(
         private router: Router,
         protected appState$: Store<store.AppState>,
@@ -65,6 +73,10 @@ export class AuthSandbox {
 
     public getUserData() {
         this.appState$.dispatch(new authAction.GetUserDataAction());
+    }
+
+    public getAllUsers(params) {
+        this.appState$.dispatch(new authAction.GetAllUsersAction(params));
     }
 
     // logOut

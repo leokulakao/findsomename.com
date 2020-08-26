@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 
 import * as fromAuth from './auth.reducer';
 import { AppState } from '../../state.interface';
-import { formatCurrency } from '@angular/common';
 
 export const getState = (State: AppState) => State.auth;
 
@@ -20,3 +19,8 @@ export const getUserData = createSelector(getState, fromAuth.getUserData);
 export const getUserDataLoading = createSelector(getState, fromAuth.getUserDataLoading);
 export const getUserDataLoaded = createSelector(getState, fromAuth.getUserDataLoaded);
 export const getUserDataFail = createSelector(getState, fromAuth.getUserDataFail);
+
+export const getAllUsers = createSelector(getState, fromAuth.getAllUsers);
+export const getAllUsersLoading = createSelector(getState, fromAuth.getAllUsersLoading);
+export const getAllUsersLoaded = createSelector(getState, fromAuth.getAllUsersLoaded);
+export const getAllUsersFail = createSelector(getState, fromAuth.getAllUsersFail);

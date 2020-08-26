@@ -1,1 +1,29 @@
-<p>dashboard-page works!</p>
+<div class="row" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
+    <div class="col-lg"></div>
+    <div class="col-lg" *ngIf="user.permission === 'root' || user.permission === 'admin'">
+        <div class="users">
+            <div class="users__head">
+                <span>Users</span>
+            </div>
+            <div class="users__triggers">
+                <button class="button" (click)="getAllUsers()">Update</button>
+            </div>
+            <div class="users__wrapper" *ngIf="this.authSandbox.getAllUsersLoaded$ | async">
+                <ul class="users__list">
+                    <li *ngFor="let user of USERS | paginate: { itemsPerPage: 5, currentPage: page, id: 'users'}; let i = index" class="users__item">
+                        <div class="users__item__wrapper">
+                            <span class="users__item--name">{{ user.email }}</span>
+                            <select class="select" name="select-user" (change)="changeSelect($event, user)">
+                                <option value="user" [selected]="STATUS[i].permission === 'user'">user</option>
+                                <option value="admin" [selected]="STATUS[i].permission === 'admin'">admin</option>
+                                <option value="root" [selected]="STATUS[i].permission === 'root'">root</option>
+                            </select>
+                            <button class="button button-red">Delete</button>
+                        </div>
+                    </li>
+                </ul>
+                <pagination-controls class="pagination" (pageChange)="page = $event" id="users"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

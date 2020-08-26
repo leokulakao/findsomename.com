@@ -27,10 +27,12 @@ export class SearchPageComponent implements OnInit {
     private subscriptions: Subscription[] = [];
 
     ALL_NAMES;
-
-    BUTTON_STATUS;
+    BUTTON_STATUS = [];
+    NEW_LABEL = [];
 
     page = 1;
+
+    pageLabel = 1;
 
     constructor(
         public namesSandbox: NamesSandbox,
@@ -48,11 +50,20 @@ export class SearchPageComponent implements OnInit {
                 this.ALL_NAMES = this.ALL_NAMES.names;
                 if (this.ALL_NAMES) {
                     this.ALL_NAMES.forEach(name => {
-                        this.BUTTON_STATUS.push({id: name.id, status: name.hide});
+                        this.BUTTON_STATUS.push({id: name.id, hideButtonStatus: name.hide, addButtonStatus: false});
                     });
+
+                    if (this.NEW_LABEL.length !== 0) {
+                        this.NEW_LABEL.forEach(name => {
+                            const candidate = this.BUTTON_STATUS.find(elem => elem.id === name.id);
+                            if (candidate) {
+                                this.BUTTON_STATUS[this.BUTTON_STATUS.indexOf(candidate)].addButtonStatus = true;
+                            }
+                            // console.log(this.BUTTON_STATUS.indexOf(candidate));
+                        });
+                    }
+                    // console.log(this.NEW_LABEL);
                 }
-                console.log(this.ALL_NAMES);
-                console.log(this.BUTTON_STATUS);
             }
         }));
         this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
@@ -96,12 +107,28 @@ export class SearchPageComponent implements OnInit {
 
     public showName(name) {
         this.namesSandbox.editName({id: name.id, hide: false});
-        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].status = false;
+        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].hideButtonStatus = false;
     }
 
     public hideName(name) {
         this.namesSandbox.editName({id: name.id, hide: true});
-        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].status = true;
+        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].hideButtonStatus = true;
+    }
+
+    public addToNewLabel(name) {
+        this.NEW_LABEL.push(name);
+        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].addButtonStatus = true;
+        // console.log(this.BUTTON_STATUS);
+    }
+
+    public deleteToNewLabel(name) {
+        this.NEW_LABEL.splice(this.NEW_LABEL.indexOf(name), 1);
+        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].addButtonStatus = false;
+        // console.log(this.BUTTON_STATUS);
+    }
+
+    public addTodoToNewLabel() {
+        console.log('add todo');
     }
 
     public getAllNames(keyword = this.keyword, limit = this.limit, offset = this.offset, hided = this.hided) {

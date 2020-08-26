@@ -74,29 +74,80 @@ module.exports.register = async (req, res) => {
 };
 
 module.exports.getUserWithToken = async (req, res) => {
-    const token = req.headers ? req.headers.authorization.split(' ')[1] : null;
+    try {
+        const token = req.headers ? req.headers.authorization.split(' ')[1] : null;
 
-    const decoded = jwt.decode(token);
+        const decoded = jwt.decode(token);
 
-    const candidate = await User.findOne({
-        email: decoded.email,
-    });
-    
-    if (candidate) {
+        const candidate = await User.findOne({
+            email: decoded.email,
+        });
+        
+        if (candidate) {
+            res.status(200).json({
+                status: 200,
+                message: 'Data User',
+                data: {
+                    email: candidate.email,
+                    id: candidate._id,
+                    permission: candidate.permission
+                },
+            });
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: 'Not Found',
+                data: {},
+            });
+        }
+    } catch (e) {
+        errorHandler(req, e);
+    }
+}
+
+module.exports.getUsers = async (req, res) => {
+    try {
+        let result;
+
+        const offset = req.query ? req.query.offset !== '' ? ++req.query.offset - 1 : null : null;
+        const limit = req.query ? req.query.limit !== '' ? ++req.query.limit - 1 : null : null;
+
+        result = await User.find({}).skip(offset).limit(limit);
+
         res.status(200).json({
             status: 200,
-            message: 'Data User',
-            data: {
-                email: candidate.email,
-                id: candidate._id,
-                permission: candidate.permission
-            },
+            message: 'Finded all users',
+            data: result,
         });
-    } else {
-        res.status(404).json({
-            status: 404,
-            message: 'Not Found',
-            data: {},
-        });
+    } catch (e) {
+        errorHandler(req, e);
+    }
+}
+
+module.exports.updateUser = async (req, res) => {
+    try {
+
+        const candidate = await User.find({_id: req.body.id});
+        
+        if (candidate) {
+            const newPermission = req.body ? req.body.permission === 'root' || req.body.permission === 'admin' || req.body.permission === 'user' ? req.body.permission : candidate[0].permission : candidate[0].permission;
+
+            await User.updateOne({_id: req.body.id}, {permission: newPermission});
+
+            res.status(200).json({
+                status: 201,
+                message: 'User Edited',
+                data: req.body.id
+            })
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: 'User Not Found',
+                data: {},
+            });
+        }
+        
+    } catch (e) {
+        errorHandler(req, e);
     }
 }

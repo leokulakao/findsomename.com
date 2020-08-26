@@ -10,7 +10,7 @@ import { AuthService } from '../auth.service';
 import * as actions from './../action/auth.action';
 import { Router } from '@angular/router';
 import { AuthSandbox } from '../auth.sandbox';
-import { GetUserDataModel } from '../models/getUserData.model';
+import { AllUsersResponceModel } from '../models/allUsersResponce.model';
 
 @Injectable()
 export class AuthEffects {
@@ -69,6 +69,21 @@ export class AuthEffects {
                 ),
                 catchError(error =>
                     of(new actions.GetUserDataFailAction(error))
+                )
+            );
+        })
+    );
+
+    @Effect()
+    getAllUsers$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.ALL_USERS),
+        map((action: actions.GetAllUsersAction) => action),
+        switchMap(state => {
+            return this.authService.getAllUsers(state).pipe(
+                map(data => new actions.GetAllUsersSuccessAction(new AllUsersResponceModel(data))
+                ),
+                catchError(error =>
+                    of(new actions.GetAllUsersFailAction(error))
                 )
             );
         })

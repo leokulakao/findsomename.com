@@ -14,7 +14,11 @@ export const ActionTypes = {
 
     USER_DATA: '[user data] user data',
     USER_DATA_SUCCESS: '[user data] user data success',
-    USER_DATA_FAIL: '[user data] user data fail'
+    USER_DATA_FAIL: '[user data] user data fail',
+
+    ALL_USERS: '[all users] all users',
+    ALL_USERS_SUCCESS: '[all users] all users success',
+    ALL_USERS_FAIL: '[all users] all users fail'
 };
 
 // login
@@ -56,5 +60,19 @@ export class GetUserDataSuccessAction implements Action {
 }
 export class GetUserDataFailAction implements Action {
     type = ActionTypes.USER_DATA_FAIL;
+    constructor(public payload: any) { }
+}
+
+// get all users
+export class GetAllUsersAction implements Action {
+    type = ActionTypes.ALL_USERS;
+    constructor(public payload: any) { }
+}
+export class GetAllUsersSuccessAction implements Action {
+    type = ActionTypes.ALL_USERS_SUCCESS;
+    constructor(public payload: any) { }
+}
+export class GetAllUsersFailAction implements Action {
+    type = ActionTypes.ALL_USERS_FAIL;
     constructor(public payload: any) { }
 }

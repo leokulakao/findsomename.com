@@ -1,6 +1,6 @@
 <div class="search-page__wrapper" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-lg-8">
       <form class="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
         <div class="search__wrapper">
           <label class="search__label">
@@ -32,26 +32,57 @@
             <th class="response__th">Nº</th>
             <th class="response__th response__th--name">Name</th>
             <th class="response__th">Quantity</th>
-            <th class="response__th" *ngIf="user.permission === 'root' || user.permission === 'admin'">Actions</th>
+            <th class="response__th">Actions</th>
+            <!-- <th class="response__th"></th> -->
           </tr>
         </thead>
         <tbody class="response__body">
-          <tr *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page}; let i = index" class="response__row response__row--body">
+          <tr *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page, id: 'name'}; let i = index" class="response__row response__row--body">
             <td class="response__td">{{ i + 1 }}</td>
             <td class="response__td response__td--name">{{ name.name }}</td>
             <td class="response__td">{{ name.population }}</td>
-            <td class="response__td" *ngIf="user.permission === 'root' || user.permission === 'admin'">
-              <ng-container *ngIf="BUTTON_STATUS[i].status === true">
-                <button class="button button-red" (click)="showName(name)">Show</button>
-              </ng-container>
-              <ng-container *ngIf="BUTTON_STATUS[i].status === false">
-                <button class="button button-green" (click)="hideName(name)">Hide</button>
-              </ng-container>
+            <td class="response__td">
+              <div class="response__td__container">
+                <ng-container *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === true)">
+                  <button class="button button-red" (click)="showName(name)">Show</button>
+                </ng-container>
+                <ng-container *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === false)">
+                  <button class="button button-green" (click)="hideName(name)">Hide</button>
+                </ng-container>
+                <ng-container *ngIf="BUTTON_STATUS[i].addButtonStatus === false">
+                  <button class="button button-plus" (click)="addToNewLabel(name)">+</button>
+                </ng-container>
+                <ng-container *ngIf="BUTTON_STATUS[i].addButtonStatus === true">
+                  <button class="button button-minus" (click)="deleteToNewLabel(name)">-</button>
+                </ng-container>
+              </div>
             </td>
+            <!-- <td class="response__td">
+              
+            </td> -->
           </tr>
         </tbody>
       </table>
-      <pagination-controls class="pagination" (pageChange)="page = $event"></pagination-controls>
+      <pagination-controls class="pagination" (pageChange)="page = $event" id="name"></pagination-controls>
+    </div>
+    <div class="col-lg-4">
+      <div class="name-label" *ngIf="NEW_LABEL.length !== 0">
+        <div class="name-label__head">
+          <span>New Label</span>
+        </div>
+        <div class="name-label__wrapper">
+          <ul class="name-label__list">
+            <li *ngFor="let name of NEW_LABEL | paginate: { itemsPerPage: 5, currentPage: pageLabel, id: 'label'}; let i = index" class="name-label__item">
+              <div class="name-label__item__wrapper">
+                <button class="button button-minus" (click)="deleteToNewLabel(name)">-</button>
+                <span class="name-label__item--name">{{ name.name }}</span>
+              </div>
+            </li>
+          </ul>
+          <pagination-controls class="pagination" (pageChange)="pageLabel = $event" id="label"></pagination-controls>
+        </div>
+      </div>
+      
     </div>
   </div>
   

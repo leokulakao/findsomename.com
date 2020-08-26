@@ -34,6 +34,11 @@ export class LoginPageComponent implements OnInit {
     ngOnInit(): void {
         this.initForm();
         // this.initSubs();
+        this.subscriptions.push(this.authSandbox.tokenFail$.subscribe(data => {
+            if (data) {
+                this.message = 'Enter correct email and password';
+            }
+        }));
     }
 
     private initForm() {
@@ -57,10 +62,6 @@ export class LoginPageComponent implements OnInit {
         params.email = this.email.value ? this.email.value : '';
         params.password = this.password.value ? this.password.value : '';
         this.authSandbox.login(params);
-
-        if (this.authSandbox.tokenFail$) {
-          this.message = 'Enter correct email and password';
-        }
     }
 
 }
