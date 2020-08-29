@@ -120,16 +120,23 @@ export class SearchPageComponent implements OnInit {
 
     public addToNewLabel(name) {
         this.NEW_LABEL.push(name);
-        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].addButtonStatus = true;
+        this.BUTTON_STATUS.forEach(status => {
+            if (status.id === name.id) {
+                status.addButtonStatus = true;
+            }
+        });
         this.updateStorage();
         // console.log(this.BUTTON_STATUS);
     }
 
     public deleteToNewLabel(name) {
         this.NEW_LABEL.splice(this.NEW_LABEL.indexOf(name), 1);
-        this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].addButtonStatus = false;
+        this.BUTTON_STATUS.forEach(status => {
+            if (status.id === name.id) {
+                status.addButtonStatus = false;
+            }
+        });
         this.updateStorage();
-        // console.log(this.BUTTON_STATUS);
     }
 
     public addTodoToNewLabel() {
