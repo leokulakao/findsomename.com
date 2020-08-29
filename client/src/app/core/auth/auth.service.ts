@@ -32,4 +32,8 @@ export class AuthService {
             params: options
         });
     }
+
+    public editUser(params): Observable<any> {
+        return this.http.post(this.url + 'auth/update-user', params);
+    }
 }

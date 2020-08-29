@@ -40,12 +40,14 @@ export class DashboardPageComponent implements OnInit {
         this.USERS = data;
         this.USERS = this.USERS.users;
         if (this.USERS) {
+          this.STATUS = [];
           this.USERS.forEach(user => {
             this.STATUS.push({id: user.id, permission: user.permission});
           });
         }
       }
-      console.log(this.USERS);
+      // console.log(this.USERS);
+      // console.log(this.STATUS);
     }));
 
   }
@@ -57,12 +59,29 @@ export class DashboardPageComponent implements OnInit {
     this.authSandbox.getAllUsers(params);
   }
 
-  public changeSelect(event, name) {
-    const oldValue = this.STATUS.find(elem => elem.id === name.id).permission;
+  public changeSelect(event, user) {
+    const oldValue = this.STATUS.find(elem => elem.id === user.id).permission;
     const newValue = event.target.value !== oldValue ? event.target.value : oldValue;
+
+    if (newValue !== oldValue) {
+      const params: any = {};
+      params.id = user.id;
+      params.permission = newValue;
+      this.authSandbox.editUser(params);
+      this.authSandbox.editUserLoaded$.subscribe(data => {
+        if (data) {
+          event.target.value = newValue;
+        }
+      });
+      this.authSandbox.editUserFail$.subscribe(data => {
+        if (data) {
+          event.target.value = oldValue;
+        }
+      });
+    }
     console.log('OldValue', oldValue);
     console.log('NewValue', newValue);
-    console.log(name.email);
+    console.log(user);
   }
 
 }

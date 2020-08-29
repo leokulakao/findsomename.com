@@ -24,3 +24,8 @@ export const getAllUsers = createSelector(getState, fromAuth.getAllUsers);
 export const getAllUsersLoading = createSelector(getState, fromAuth.getAllUsersLoading);
 export const getAllUsersLoaded = createSelector(getState, fromAuth.getAllUsersLoaded);
 export const getAllUsersFail = createSelector(getState, fromAuth.getAllUsersFail);
+
+export const editUser = createSelector(getState, fromAuth.editUser);
+export const editUserLoading = createSelector(getState, fromAuth.editUserLoading);
+export const editUserLoaded = createSelector(getState, fromAuth.editUserLoaded);
+export const editUserFail = createSelector(getState, fromAuth.editUserFail);

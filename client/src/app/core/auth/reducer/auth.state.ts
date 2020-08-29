@@ -20,6 +20,11 @@ export interface AuthState extends Map<string, any> {
     allUsersLoading: boolean;
     allUsersLoaded: boolean;
     allUsersFail: boolean;
+
+    editUser: any;
+    editUserLoading: boolean;
+    editUserLoaded: boolean;
+    editUserFail: boolean;
 }
 
 export const authrecord = Record({
@@ -41,5 +46,10 @@ export const authrecord = Record({
     allUsers: [],
     allUsersLoading: false,
     allUsersLoaded: false,
-    allUsersFail: false
+    allUsersFail: false,
+
+    editUser: [],
+    editUserLoading: false,
+    editUserLoaded: false,
+    editUserFail: false
 });

@@ -126,7 +126,6 @@ module.exports.getUsers = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
     try {
-
         const candidate = await User.find({_id: req.body.id});
         
         if (candidate) {

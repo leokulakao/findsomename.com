@@ -88,4 +88,19 @@ export class AuthEffects {
             );
         })
     );
+
+    @Effect()
+    editUser$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.EDIT_USER),
+        map((action: actions.EditUserAction) => action.payload),
+        switchMap(state => {
+            return this.authService.editUser(state).pipe(
+                map(data => new actions.EditUserSuccessAction(data)
+                ),
+                catchError(error =>
+                    of(new actions.EditUserFailAction(error))
+                )
+            );
+        })
+    );
 }

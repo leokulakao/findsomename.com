@@ -102,6 +102,29 @@ export function reducer(
                 allUsersFail: true
             });
         }
+
+        case actions.ActionTypes.EDIT_USER: {
+            return Object.assign({}, state, {
+                editUserLoading: true,
+                editUserLoaded: false,
+                allUsersFail: false
+            });
+        }
+        case actions.ActionTypes.EDIT_USER_SUCCESS: {
+            return Object.assign({}, state, {
+                editUser: payload,
+                editUserLoading: false,
+                editUserLoaded: true,
+                editUserFail: false
+            });
+        }
+        case actions.ActionTypes.EDIT_USER_FAIL: {
+            return Object.assign({}, state, {
+                editUserLoading: false,
+                editUserLoaded: false,
+                editUserFail: true
+            });
+        }
         default: {
             return state;
         }
@@ -127,3 +150,8 @@ export const getAllUsers = (state: AuthState) => state.allUsers;
 export const getAllUsersLoading = (state: AuthState) => state.allUsersLoading;
 export const getAllUsersLoaded = (state: AuthState) => state.allUsersLoaded;
 export const getAllUsersFail = (state: AuthState) => state.allUsersFail;
+
+export const editUser = (state: AuthState) => state.editUser;
+export const editUserLoading = (state: AuthState) => state.editUserLoading;
+export const editUserLoaded = (state: AuthState) => state.editUserLoaded;
+export const editUserFail = (state: AuthState) => state.editUserFail;

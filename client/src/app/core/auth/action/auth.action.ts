@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { LoginModel } from '../models/login.model';
 import { RegisterModel } from '../models/register.model';
 import { LoginResponseModel } from '../models/loginResponse.model';
+import { EditUserModel } from '../models/editUser.model';
 
 export const ActionTypes = {
     LOGIN: '[login] login',
@@ -18,7 +19,11 @@ export const ActionTypes = {
 
     ALL_USERS: '[all users] all users',
     ALL_USERS_SUCCESS: '[all users] all users success',
-    ALL_USERS_FAIL: '[all users] all users fail'
+    ALL_USERS_FAIL: '[all users] all users fail',
+
+    EDIT_USER: '[edit user] edit user',
+    EDIT_USER_SUCCESS: '[edit user] edit user success',
+    EDIT_USER_FAIL: '[edit user] edit user fail'
 };
 
 // login
@@ -74,5 +79,18 @@ export class GetAllUsersSuccessAction implements Action {
 }
 export class GetAllUsersFailAction implements Action {
     type = ActionTypes.ALL_USERS_FAIL;
+    constructor(public payload: any) { }
+}
+
+export class EditUserAction implements Action {
+    type = ActionTypes.EDIT_USER;
+    constructor(public payload: EditUserModel) { }
+}
+export class EditUserSuccessAction implements Action {
+    type = ActionTypes.EDIT_USER_SUCCESS;
+    constructor(public payload: any) { }
+}
+export class EditUserFailAction implements Action {
+    type = ActionTypes.EDIT_USER_FAIL;
     constructor(public payload: any) { }
 }

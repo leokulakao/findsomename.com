@@ -9,6 +9,7 @@ import * as authAction from './action/auth.action';
 import * as store from '../state.interface';
 import { LoginModel } from './models/login.model';
 import { RegisterModel } from './models/register.model';
+import { EditUserModel } from './models/editUser.model';
 import {
     getToken,
     getTokenLoading,
@@ -25,7 +26,11 @@ import {
     getAllUsers,
     getAllUsersLoading,
     getAllUsersLoaded,
-    getAllUsersFail
+    getAllUsersFail,
+    editUser,
+    editUserLoading,
+    editUserLoaded,
+    editUserFail
 } from './reducer/auth.selector';
 
 import { Router } from '@angular/router';
@@ -56,6 +61,11 @@ export class AuthSandbox {
     public getAllUsersLoaded$ = this.appState$.select(getAllUsersLoaded);
     public getAllUsersFail$ = this.appState$.select(getAllUsersFail);
 
+    public editUser$ = this.appState$.select(editUser);
+    public editUserLoading$ = this.appState$.select(editUserLoading);
+    public editUserLoaded$ = this.appState$.select(editUserLoaded);
+    public editUserFail$ = this.appState$.select(editUserFail);
+
     constructor(
         private router: Router,
         protected appState$: Store<store.AppState>,
@@ -77,6 +87,10 @@ export class AuthSandbox {
 
     public getAllUsers(params) {
         this.appState$.dispatch(new authAction.GetAllUsersAction(params));
+    }
+
+    public editUser(params) {
+        this.appState$.dispatch(new authAction.EditUserAction(new EditUserModel(params)));
     }
 
     // logOut
