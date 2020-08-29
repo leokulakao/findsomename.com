@@ -1,6 +1,8 @@
 <div class="row" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
-    <div class="col-lg"></div>
-    <div class="col-lg" *ngIf="user.permission === 'root' || user.permission === 'admin'">
+    <div class="col-lg">
+        
+    </div>
+    <div class="col-lg" *ngIf="user.permission === 'root'">
         <div class="users">
             <div class="users__head">
                 <span>Users</span>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthSandbox } from '../core/auth/auth.sandbox';
+import { LabelSandbox } from '../core/label/label.sandbox';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -23,11 +24,13 @@ export class DashboardPageComponent implements OnInit {
 
   constructor(
     public authSandbox: AuthSandbox,
+    public labelSandbox: LabelSandbox,
   ) { }
 
   ngOnInit(): void {
     this.authSandbox.getUserData();
     this.getAllUsers();
+    this.getAllLabels();
     this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
       if (data) {
           this.user = data;
@@ -50,6 +53,10 @@ export class DashboardPageComponent implements OnInit {
       // console.log(this.STATUS);
     }));
 
+    this.subscriptions.push(this.labelSandbox.getAllLabels$.subscribe(data => {
+      console.log(data);
+    }));
+
   }
 
   public getAllUsers() {
@@ -57,6 +64,13 @@ export class DashboardPageComponent implements OnInit {
     params.limit = '';
     params.offset = '';
     this.authSandbox.getAllUsers(params);
+  }
+
+  public getAllLabels() {
+    const params: any = {};
+    params.limit = '';
+    params.offset = '';
+    this.labelSandbox.getAllLabels(params);
   }
 
   public changeSelect(event, user) {

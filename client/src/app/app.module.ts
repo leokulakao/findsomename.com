@@ -22,11 +22,15 @@ import { AuthSandbox } from './core/auth/auth.sandbox';
 import { AuthService } from './core/auth/auth.service';
 import { AuthEffects } from './core/auth/effects/auth.effect';
 
-
 // namesSandbox
 import { NamesSandbox } from './core/names/names.sandbox';
 import { NamesService } from './core/names/names.service';
 import { NamesEffects } from './core/names/effects/names.effect';
+
+// labelSandbox
+import { LabelSandbox } from './core/label/label.sandbox';
+import { LabelService } from './core/label/label.service';
+import { LabelEffects } from './core/label/effects/label.effect';
 
 import { metaReducers, reducers } from './core/reducer.interface';
 // interceptor
@@ -58,7 +62,8 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
         EffectsModule.forRoot([
             AuthEffects,
-            NamesEffects
+            NamesEffects,
+            LabelEffects
         ]),
         StoreRouterConnectingModule.forRoot()
     ],
@@ -67,6 +72,8 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
         AuthService,
         NamesSandbox,
         NamesService,
+        LabelSandbox,
+        LabelService,
         {
             provide: HTTP_INTERCEPTORS,
             multi: true,
