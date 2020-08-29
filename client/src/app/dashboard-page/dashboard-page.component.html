@@ -1,6 +1,12 @@
 <div class="row" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
     <div class="col-lg">
-        
+        <div class="labels" *ngIf="this.labelSandbox.getAllLabelsLoaded$ | async">
+            <ul class="labels__list">
+                <li *ngFor="let label of LABELS; let i = index" class="labels__item">
+                    {{ label.name }}
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="col-lg" *ngIf="user.permission === 'root'">
         <div class="users">
