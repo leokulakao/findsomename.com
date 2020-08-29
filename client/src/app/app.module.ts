@@ -35,6 +35,7 @@ import { LabelEffects } from './core/label/effects/label.effect';
 import { metaReducers, reducers } from './core/reducer.interface';
 // interceptor
 import { TokenInterceptor } from './shared/token.interceptor';
+import { ErrorUnauthorizedInterceptor } from './shared/errorUnauthorized.interceptor';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
@@ -78,6 +79,11 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
             provide: HTTP_INTERCEPTORS,
             multi: true,
             useClass: TokenInterceptor
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            multi: true,
+            useClass: ErrorUnauthorizedInterceptor
         }
     ],
     bootstrap: [AppComponent]

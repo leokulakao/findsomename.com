@@ -24,9 +24,9 @@ module.exports.login = async (req, res) => {
                 data: `Bearer ${token}`,
             });
         } else {
-            res.status(401).json({
-                status: 401,
-                message: 'Password is not compare',
+            res.status(402).json({
+                status: 402,
+                message: 'Password isnot compare',
                 data: {},
             });
         }
