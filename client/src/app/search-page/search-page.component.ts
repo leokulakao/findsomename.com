@@ -41,6 +41,9 @@ export class SearchPageComponent implements OnInit {
     ) { }
 
     ngOnInit(): void {
+        if (localStorage.getItem('label')) {
+            this.NEW_LABEL = JSON.parse(localStorage.getItem('label'));
+        }
         this.authSandbox.getUserData();
         this.initForm();
         this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
@@ -118,17 +121,23 @@ export class SearchPageComponent implements OnInit {
     public addToNewLabel(name) {
         this.NEW_LABEL.push(name);
         this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].addButtonStatus = true;
+        this.updateStorage();
         // console.log(this.BUTTON_STATUS);
     }
 
     public deleteToNewLabel(name) {
         this.NEW_LABEL.splice(this.NEW_LABEL.indexOf(name), 1);
         this.BUTTON_STATUS[this.ALL_NAMES.indexOf(name)].addButtonStatus = false;
+        this.updateStorage();
         // console.log(this.BUTTON_STATUS);
     }
 
     public addTodoToNewLabel() {
         console.log('add todo');
+    }
+
+    private updateStorage() {
+        localStorage.setItem('label', JSON.stringify(this.NEW_LABEL));
     }
 
     public getAllNames(keyword = this.keyword, limit = this.limit, offset = this.offset, hided = this.hided) {
