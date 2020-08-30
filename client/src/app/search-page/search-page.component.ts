@@ -140,7 +140,9 @@ export class SearchPageComponent implements OnInit {
     }
 
     public addTodoToNewLabel() {
-        console.log('add todo');
+        if (this.ALL_NAMES.length !== 0) {
+            this.ALL_NAMES.forEach(name => this.addToNewLabel(name));
+        }
     }
 
     private updateStorage() {
@@ -159,11 +161,12 @@ export class SearchPageComponent implements OnInit {
         this.namesSandbox.getAllNames(params);
     }
 
-    public onSubmit() {
+    public onSubmit(letter = '') {
         const params: any = {};
         params.keyword = this.keywordControl.value ? this.keywordControl.value : '';
         params.limit = this.limitControl.value ? this.limitControl.value : '';
         params.offset = this.offsetControl.value ? this.offsetControl.value : '';
+        params.letter = letter || '';
         if (this.user.permission === 'root' || this.user.permission === 'admin') {
             params.hided = !this.showAllNames.value;
         }

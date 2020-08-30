@@ -33,6 +33,7 @@ body
   @include button-reset
   @include no-outline
   width: 150px
+  height: 38px
   padding: 5px
 
   font-weight: bold
@@ -48,6 +49,13 @@ body
 
   &:active
     opacity: .5
+
+  &:disabled
+    border: 2px solid $dark-sec-color
+    color: $dark-sec-color
+    &:hover,
+    &:focus
+      background-color: transparent
 
 .button-reset
   @include button-reset

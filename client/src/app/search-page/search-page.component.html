@@ -1,7 +1,7 @@
 <div class="search-page__wrapper" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
   <div class="row">
     <div class="col-lg-8">
-      <form class="search" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <form class="search" [formGroup]="searchForm" (onSubmit)="onSubmit()">
         <div class="search__wrapper">
           <label class="search__label">
             <span>Keyword:</span><br>
@@ -20,7 +20,15 @@
             <input class="input search__input search__input--offset" type="text" formControlName="offset">
           </label> -->
         </div>
-        <button class="button search__button" type="submit" [disabled]="!searchForm.valid">Find</button>
+        <div class="search__letters">
+          <button class="button search__button--letter" type="button" (click)="onSubmit('А')">A</button>
+          <button class="button search__button--letter" type="button" (click)="onSubmit('Б')">Б</button>
+          <button class="button search__button--letter" type="button" (click)="onSubmit('В')">В</button>
+        </div>
+        <div class="search__triggers">
+          <button class="button search__button" type="submit" [disabled]="!searchForm.valid" (click)="onSubmit()">Find</button>
+          <button class="button search__button--result" type="button" (click)="addTodoToNewLabel()">Add all result to label</button>
+        </div>
       </form>
     
       <p *ngIf="namesSandbox.getAllNamesLoading$ | async">
