@@ -19,6 +19,7 @@ export class SearchPageComponent implements OnInit {
     public limitControl: FormControl;
     public offsetControl: FormControl;
 
+    // por derecho
     keyword = '';
     limit = '10';
     offset = '';
@@ -30,9 +31,15 @@ export class SearchPageComponent implements OnInit {
     BUTTON_STATUS = [];
     NEW_LABEL = [];
 
+    LETTERS = ['А', 'Б', 'В', 'Д', 'Е', 'Ё', 'Ж', 'З', 'И', 'Й', 'К', 'Л', 'M', 'Н', 'O', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ч', 'Ш', 'Щ', 'Э', 'Ю', 'Я'];
+
     page = 1;
 
     pageLabel = 1;
+
+    titleKeyword = '';
+    titleCount = 0;
+    titleMode = 'find';
 
     constructor(
         public namesSandbox: NamesSandbox,
@@ -66,16 +73,18 @@ export class SearchPageComponent implements OnInit {
                         });
                     }
                     // console.log(this.NEW_LABEL);
+                    this.titleCount = this.ALL_NAMES.length;
                 }
             }
         }));
         this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
             if (data) {
                 this.user = data;
-                this.getAllNames();
-                console.log(data);
+                // this.getAllNames();
+                // console.log(data);
             }
         }));
+        // this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => this.keyword = value));
         //   this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => {
         //     if (value.length >= 2) {
         //         this.keyword = value;
@@ -149,17 +158,17 @@ export class SearchPageComponent implements OnInit {
         localStorage.setItem('label', JSON.stringify(this.NEW_LABEL));
     }
 
-    public getAllNames(keyword = this.keyword, limit = this.limit, offset = this.offset, hided = this.hided) {
-        const params: any = {};
-        params.keyword = keyword;
-        params.limit = limit;
-        params.offset = offset;
-        if (this.user.permission === 'root' || this.user.permission === 'admin') {
-            params.hided = hided;
-        }
-        console.log(params);
-        this.namesSandbox.getAllNames(params);
-    }
+    // public getAllNames(keyword = this.keyword, limit = this.limit, offset = this.offset, hided = this.hided) {
+    //     const params: any = {};
+    //     params.keyword = keyword;
+    //     params.limit = limit;
+    //     params.offset = offset;
+    //     if (this.user.permission === 'root' || this.user.permission === 'admin') {
+    //         params.hided = hided;
+    //     }
+    //     console.log(params);
+    //     this.namesSandbox.getAllNames(params);
+    // }
 
     public onSubmit(letter = '') {
         const params: any = {};
@@ -167,10 +176,18 @@ export class SearchPageComponent implements OnInit {
         params.limit = this.limitControl.value ? this.limitControl.value : '';
         params.offset = this.offsetControl.value ? this.offsetControl.value : '';
         params.letter = letter || '';
+        params.minQuantity = '1000';
         if (this.user.permission === 'root' || this.user.permission === 'admin') {
             params.hided = !this.showAllNames.value;
         }
         console.log(params);
+        if (letter !== '') {
+            this.titleMode = 'letter';
+            this.titleKeyword = letter;
+        } else {
+            this.titleMode = 'find';
+            this.titleKeyword = params.keyword;
+        }
         this.namesSandbox.getAllNames(params);
     }
 

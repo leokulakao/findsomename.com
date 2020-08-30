@@ -21,9 +21,7 @@
           </label> -->
         </div>
         <div class="search__letters">
-          <button class="button search__button--letter" type="button" (click)="onSubmit('А')">A</button>
-          <button class="button search__button--letter" type="button" (click)="onSubmit('Б')">Б</button>
-          <button class="button search__button--letter" type="button" (click)="onSubmit('В')">В</button>
+          <button *ngFor="let letter of LETTERS; let i = index" class="button search__button--letter" type="button" (click)="onSubmit(letter)">{{letter}}</button>
         </div>
         <div class="search__triggers">
           <button class="button search__button" type="submit" [disabled]="!searchForm.valid" (click)="onSubmit()">Find</button>
@@ -34,44 +32,53 @@
       <p *ngIf="namesSandbox.getAllNamesLoading$ | async">
         Loading...
       </p>
-      <table class="response__table" [hidden]="namesSandbox.getAllNamesLoading$ | async">
-        <thead class="response__head">
-          <tr class="response__row">
-            <th class="response__th">Nº</th>
-            <th class="response__th response__th--name">Name</th>
-            <th class="response__th">Quantity</th>
-            <th class="response__th">Actions</th>
-            <!-- <th class="response__th"></th> -->
-          </tr>
-        </thead>
-        <tbody class="response__body">
-          <tr *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page, id: 'name'}; let i = index" class="response__row response__row--body">
-            <td class="response__td">{{ i + 1 }}</td>
-            <td class="response__td response__td--name">{{ name.name }}</td>
-            <td class="response__td">{{ name.population }}</td>
-            <td class="response__td">
-              <div class="response__td__container">
-                <ng-container *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === true)">
-                  <button class="button button-red" (click)="showName(name)">Show</button>
-                </ng-container>
-                <ng-container *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === false)">
-                  <button class="button button-green" (click)="hideName(name)">Hide</button>
-                </ng-container>
-                <ng-container *ngIf="BUTTON_STATUS[i].addButtonStatus === false">
-                  <button class="button button-plus" (click)="addToNewLabel(name)">+</button>
-                </ng-container>
-                <ng-container *ngIf="BUTTON_STATUS[i].addButtonStatus === true">
-                  <button class="button button-minus" (click)="deleteToNewLabel(name)">-</button>
-                </ng-container>
-              </div>
-            </td>
-            <!-- <td class="response__td">
-              
-            </td> -->
-          </tr>
-        </tbody>
-      </table>
-      <pagination-controls class="pagination" (pageChange)="page = $event" id="name"></pagination-controls>
+
+      <ng-container *ngIf="!(namesSandbox.getAllNamesLoading$ | async)">
+        <ng-container *ngIf="ALL_NAMES">
+          <div class="title">
+            <span *ngIf="titleMode === 'find'">Found {{titleCount}} results with the query "{{titleKeyword}}"</span>
+            <span *ngIf="titleMode === 'letter'">All results starting with the letter "{{titleKeyword}}"</span>
+          </div>
+          <table class="response__table" >
+            <thead class="response__head">
+              <tr class="response__row">
+                <th class="response__th">Nº</th>
+                <th class="response__th response__th--name">Name</th>
+                <th class="response__th">Quantity</th>
+                <th class="response__th">Actions</th>
+                <!-- <th class="response__th"></th> -->
+              </tr>
+            </thead>
+            <tbody class="response__body">
+              <tr *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page, id: 'name'}; let i = index" class="response__row response__row--body">
+                <td class="response__td">{{ i + 1 }}</td>
+                <td class="response__td response__td--name">{{ name.name }}</td>
+                <td class="response__td">{{ name.population }}</td>
+                <td class="response__td">
+                  <div class="response__td__container">
+                    <ng-container *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === true)">
+                      <button class="button button-red" (click)="showName(name)">Show</button>
+                    </ng-container>
+                    <ng-container *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === false)">
+                      <button class="button button-green" (click)="hideName(name)">Hide</button>
+                    </ng-container>
+                    <ng-container *ngIf="BUTTON_STATUS[i].addButtonStatus === false">
+                      <button class="button button-plus" (click)="addToNewLabel(name)">+</button>
+                    </ng-container>
+                    <ng-container *ngIf="BUTTON_STATUS[i].addButtonStatus === true">
+                      <button class="button button-minus" (click)="deleteToNewLabel(name)">-</button>
+                    </ng-container>
+                  </div>
+                </td>
+                <!-- <td class="response__td">
+                  
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls class="pagination" (pageChange)="page = $event" id="name"></pagination-controls>
+        </ng-container>
+      </ng-container>
     </div>
     <div class="col-lg-4">
       <div class="name-label" *ngIf="NEW_LABEL.length !== 0">

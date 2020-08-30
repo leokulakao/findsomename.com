@@ -7,18 +7,21 @@ module.exports.getAllNames = async (req, res) => {
     try {
 
         let result;
+        let letterMode = 'si';
 
-        const keyword = req.query ? req.query.keyword !== '' ? req.query.keyword : '' : '';
+        let keyword = req.query ? req.query.keyword !== '' ? req.query.keyword : '' : '';
         const offset = req.query ? req.query.offset !== '' ? ++req.query.offset - 1 : null : null;
         const limit = req.query ? req.query.limit !== '' ? ++req.query.limit - 1 : null : null;
         const population = req.query ? req.query.population === 'true' ? true : null : null;
         const quantity = req.query ? req.query.minQuantity ? ++req.query.minQuantity : 0 : 0;
+        const letter = req.query ? req.query.letter !== '' ? req.query.letter : '' : '';
         const token = req.headers ? req.headers.authorization.split(' ')[1] : '';
 
         // console.log('Limit', limit);
         // console.log('Offset', offset);
         // console.log('Population', population);
         // console.log('Quantity', quantity);
+        console.log('Letter', letter);
 
         const decoded = jwt.decode(token);
         const candidate = await User.findOne({
@@ -37,17 +40,25 @@ module.exports.getAllNames = async (req, res) => {
         }
         const hided = permission === 'root' || permission === 'admin' ? req.query ? req.query.hided === 'true' ? true : false : false : true;
 
+        if (letter !== '') {
+            keyword = '^' + letter;
+            letterMode = 'i';
+            console.log('Keyword', keyword);
+            console.log('Letter', letter);
+            console.log('LetterMode', letterMode);
+        }
+
         console.log('HidedNames', hided);
 
         if (population) {
             if (hided) {
-                result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}, $or: [{hide: undefined}, {hide: false}], quantity: {$gte: quantity}}, (err) => {
+                result = await NameRu.find({name: {$regex: keyword || '', $options: letterMode}, $or: [{hide: undefined}, {hide: false}], quantity: {$gte: quantity}}, (err) => {
                     if (err) {
                         console.log(err);
                     }
                 }).skip(offset).limit(limit).sort({quantity: population ? 'descending': null});
             } else {
-                result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}, quantity: {$gte: quantity}}, (err) => {
+                result = await NameRu.find({name: {$regex: keyword || '', $options: letterMode}, quantity: {$gte: quantity}}, (err) => {
                     if (err) {
                         console.log(err);
                     }
@@ -55,13 +66,13 @@ module.exports.getAllNames = async (req, res) => {
             }
         } else {
             if (hided) {
-                result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}, $or: [{hide: undefined}, {hide: false}], quantity: {$gte: quantity}}, (err) => {
+                result = await NameRu.find({name: {$regex: keyword || '', $options: letterMode}, $or: [{hide: undefined}, {hide: false}], quantity: {$gte: quantity}}, (err) => {
                     if (err) {
                         console.log(err);
                     }
                 }).skip(offset).limit(limit);
             } else {
-                result = await NameRu.find({name: {$regex: keyword || '', $options: 'si'}, quantity: {$gte: quantity}}, (err) => {
+                result = await NameRu.find({name: {$regex: keyword || '', $options: letterMode}, quantity: {$gte: quantity}}, (err) => {
                     if (err) {
                         console.log(err);
                     }
@@ -77,6 +88,7 @@ module.exports.getAllNames = async (req, res) => {
         });
         
     } catch (e) {
+        console.log(e);
         errorHandler(req, e);
     }
 };
