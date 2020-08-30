@@ -51,6 +51,10 @@ export class SearchPageComponent implements OnInit {
         if (localStorage.getItem('label')) {
             this.NEW_LABEL = JSON.parse(localStorage.getItem('label'));
         }
+        if (localStorage.getItem('title_mode')) {
+            this.titleKeyword = localStorage.getItem('title_mode') === 'letter' ? localStorage.getItem('letter') : localStorage.getItem('title_mode') === 'keyword' ? localStorage.getItem('keyword') : '';
+            this.titleMode = localStorage.getItem('title_mode') === 'letter' ? 'letter' : localStorage.getItem('title_mode') === 'keyword' ? 'find' : '';
+        }
         this.authSandbox.getUserData();
         this.initForm();
         this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
@@ -184,9 +188,13 @@ export class SearchPageComponent implements OnInit {
         if (letter !== '') {
             this.titleMode = 'letter';
             this.titleKeyword = letter;
+            localStorage.setItem('letter', letter);
+            localStorage.setItem('title_mode', 'letter');
         } else {
             this.titleMode = 'find';
             this.titleKeyword = params.keyword;
+            localStorage.setItem('keyword', params.keyword);
+            localStorage.setItem('title_mode', 'keyword');
         }
         this.namesSandbox.getAllNames(params);
     }
