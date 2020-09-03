@@ -42,14 +42,18 @@
 
   &--result
     width: 200px
+    height: auto
+
+  &--find
+    height: auto
 
   &--letter
     width: 38px
     margin: 6.25px
-  
+
 
 .response__table
-  // width: 70%
+  width: 100%
   margin: 0 auto
   margin-bottom: 40px
 
@@ -88,7 +92,7 @@
     display: flex
     width: max-content
     margin: auto
-    button 
+    button
       margin-left: 12.5px
       &:first-child
         margin-left: 0px
@@ -118,7 +122,7 @@
   &:active
     opacity: .5
 
-.name-label 
+.name-label
   margin-top: 10px
   border: 2px solid #455A64
   &__head
@@ -127,7 +131,7 @@
     font-weight: bold
     font-size: 20px
     padding: 12.5px
-  
+
   &__wrapper
     background-color: $white
 
@@ -146,8 +150,8 @@
     border-top: 1px solid #BDBDBD
     &:first-child
       border: 0
-    
-    &__wrapper 
+
+    &__wrapper
       display: flex
 
     &--name
@@ -155,3 +159,11 @@
       height: max-content
       margin: auto
       margin-left: 12.5px
+
+@media ( max-width: $mobile-width )
+  .response__th,
+  .response__td
+    padding-top: 5px
+    padding-bottom: 5px
+    padding-right: 4px
+    padding-left: 4px

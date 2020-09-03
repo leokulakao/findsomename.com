@@ -89,11 +89,12 @@ body
 
 .input
   width: 220px
-  padding: 5px
+  padding: 8px
 
   border: 2px solid $primary-color
   // border-radius: 5px
   outline: none
+  font-size: 16px
 
   &:hover,
   &:focus
@@ -110,3 +111,11 @@ body
 
   p
     margin: 0
+
+@media ( max-width: $mobile-width )
+  .input
+    width: 100%
+    box-sizing: border-box
+
+  .button
+    width: auto

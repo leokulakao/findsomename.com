@@ -24,11 +24,11 @@
           <button *ngFor="let letter of LETTERS; let i = index" class="button search__button--letter" type="button" (click)="onSubmit(letter)">{{letter}}</button>
         </div>
         <div class="search__triggers">
-          <button class="button search__button" type="submit" [disabled]="!searchForm.valid" (click)="onSubmit()">Find</button>
+          <button class="button search__button search__button--find" type="submit" [disabled]="!searchForm.valid" (click)="onSubmit()">Find</button>
           <button class="button search__button--result" type="button" (click)="addTodoToNewLabel()">Add all result to label</button>
         </div>
       </form>
-    
+
       <p *ngIf="namesSandbox.getAllNamesLoading$ | async">
         Loading...
       </p>
@@ -71,7 +71,7 @@
                   </div>
                 </td>
                 <!-- <td class="response__td">
-                  
+
                 </td> -->
               </tr>
             </tbody>
@@ -97,14 +97,14 @@
           <pagination-controls class="pagination" (pageChange)="pageLabel = $event" id="label"></pagination-controls>
         </div>
       </div>
-      
+
     </div>
   </div>
-  
+
   <!-- <ul [hidden]="namesSandbox.getAllNamesLoading$ | async">
     <li *ngFor="let name of ALL_NAMES">
       {{ name.name }}
     </li>
   </ul> -->
-  
+
 </div>
