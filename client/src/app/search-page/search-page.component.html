@@ -25,7 +25,7 @@
         </div>
         <div class="search__triggers">
           <button class="button search__button search__button--find" type="submit" [disabled]="!searchForm.valid" (click)="onSubmit()">Find</button>
-          <button class="button search__button--result" type="button" (click)="addTodoToNewLabel()">Add all result to label</button>
+          <button class="button search__button--result" type="button" (click)="addTodoToNewLabel()" [disabled]="!ALL_NAMES || ALL_NAMES.length === 0">Add all result to new label</button>
         </div>
       </form>
 
@@ -87,7 +87,7 @@
         </div>
         <div class="name-label__wrapper">
           <ul class="name-label__list">
-            <li *ngFor="let name of NEW_LABEL | paginate: { itemsPerPage: 5, currentPage: pageLabel, id: 'label'}; let i = index" class="name-label__item">
+            <li *ngFor="let name of NEW_LABEL | paginate: { itemsPerPage: 10, currentPage: pageLabel, id: 'label'}; let i = index" class="name-label__item">
               <div class="name-label__item__wrapper">
                 <button class="button button-minus" (click)="deleteToNewLabel(name)">-</button>
                 <span class="name-label__item--name">{{ name.name }}</span>
@@ -97,6 +97,11 @@
           <pagination-controls class="pagination" (pageChange)="pageLabel = $event" id="label"></pagination-controls>
         </div>
       </div>
+      <button class="button name-label__button" *ngIf="NEW_LABEL.length !== 0" (click)="
+      modalFromCreateNamePlaceholder = 'New Label';
+      MODE_CLEAN = 'no-clean';
+      modal.open('modal-create-label');">Create new label</button>
+      <button class="button name-label__button" *ngIf="NEW_LABEL.length !== 0" (click)="MODE_ADD = 'no-add'; modal.open('modal-added-label')">Clean</button>
 
     </div>
   </div>
@@ -108,3 +113,34 @@
   </ul> -->
 
 </div>
+
+<sj-modal id="modal-create-label" class="modal">
+  <div class="modal__head">
+    <span>Create a label</span>
+  </div>
+  <div class="modal__wrapper">
+    <form class="modal-form-create" [formGroup]="modalFormCreate" (onSubmit)="onSubmitModalCreateForm()">
+      <label class="modal-form-create__name-label">
+        <span>Enter a new title of the label:</span><br>
+        <input class="input modal-form-create__name" type="text" formControlName="name" [placeholder]="modalFromCreateNamePlaceholder" required>
+      </label>
+    </form>
+  </div>
+  <div class="modal__triggers">
+    <button class="button modal__button" type="submit" (click)="onSubmitModalCreateForm()">Create</button>
+    <button class="button modal__button" type="button" (click)="MODE_CLEAN === 'clean' ? deleteTodoToNewLabel() : null; modal.close('modal-create-label')">Close</button>
+  </div>
+</sj-modal> 
+
+<sj-modal id="modal-added-label" class="modal">
+  <div class="modal__head">
+    <span>Opps!!</span>
+  </div>
+  <div class="modal__wrapper">
+    <span>Are you sure you want to delete what you have already chosen?</span>
+  </div>
+  <div class="modal__triggers">
+    <button class="button modal__button" type="button" (click)="modal.close('modal-added-label'); deleteTodoToNewLabel(); MODE_ADD === 'add' ? addTodoToNewLabel() : null">Yes</button>
+    <button class="button modal__button" type="button" (click)="modal.close('modal-added-label')">No</button>
+  </div>
+</sj-modal> 

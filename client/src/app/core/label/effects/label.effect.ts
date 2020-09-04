@@ -34,4 +34,19 @@ export class LabelEffects {
             );
         })
     );
+
+    @Effect()
+    addLabel$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.ADD_LABEL),
+        map((action: actions.AddLabelAction) => action.payload),
+        switchMap(state => {
+            return this.labelService.addLabel(state).pipe(
+                map(data => new actions.AddLabelSuccessAction(data)
+                ),
+                catchError(error =>
+                    of(new actions.AddLabelFailAction(error))
+                )
+            );
+        })
+    );
 }

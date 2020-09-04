@@ -124,6 +124,7 @@
 
 .name-label
   margin-top: 10px
+  margin-bottom: 10px
   border: 2px solid #455A64
   &__head
     background-color: $primary-color
@@ -147,7 +148,7 @@
   &__item
     background-color: $white
     padding: 12.5px
-    border-top: 1px solid #BDBDBD
+    border-top: 1px solid $border-color
     &:first-child
       border: 0
 
@@ -159,6 +160,45 @@
       height: max-content
       margin: auto
       margin-left: 12.5px
+  
+  &__button
+    margin-bottom: 10px
+
+
+.modal::ng-deep 
+  .modal
+    animation: none
+
+    .modal-body
+      border-radius: 0
+      padding: 0
+      // border: 2px solid $dark-primary-color
+
+      .modal__head
+        background-color: $primary-color
+        color: #CFD8DC
+        font-weight: bold
+        font-size: 20px
+        padding: 12.5px
+      
+      .modal__wrapper
+        padding: 12.5px
+
+      .modal__triggers
+        border-top: 1px solid $border-color
+        padding: 12.5px
+        display: flex
+
+      .modal__button
+        margin-right: 12.5px
+
+        &:last-child
+          margin-right: 0
+
+.modal-form-create
+  &__name-label
+    margin-bottom: 12px
+
 
 @media ( max-width: $mobile-width )
   .response__th,

@@ -3,6 +3,8 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Subscription } from 'rxjs';
 import { NamesSandbox } from '../core/names/names.sandbox';
 import { AuthSandbox } from '../core/auth/auth.sandbox';
+import { LabelSandbox } from '../core/label/label.sandbox';
+import { ModalService } from 'angular-modal-library';
 
 @Component({
     selector: 'app-search-page',
@@ -18,6 +20,11 @@ export class SearchPageComponent implements OnInit {
     public showAllNames: FormControl;
     public limitControl: FormControl;
     public offsetControl: FormControl;
+
+    // modal create form
+    public modalFormCreate: FormGroup;
+    public modalFormCreateName: FormControl;
+    public modalFromCreateNamePlaceholder: string;
 
     // por derecho
     keyword = '';
@@ -41,10 +48,15 @@ export class SearchPageComponent implements OnInit {
     titleCount = 0;
     titleMode = 'find';
 
+    MODE_CLEAN = 'clean';
+    MODE_ADD = 'add';
+
     constructor(
         public namesSandbox: NamesSandbox,
         public authSandbox: AuthSandbox,
-        public formBuilder: FormBuilder
+        public labelSandbox: LabelSandbox,
+        public formBuilder: FormBuilder,
+        public modal: ModalService
     ) { }
 
     ngOnInit(): void {
@@ -54,9 +66,14 @@ export class SearchPageComponent implements OnInit {
         if (localStorage.getItem('title_mode')) {
             this.titleKeyword = localStorage.getItem('title_mode') === 'letter' ? localStorage.getItem('letter') : localStorage.getItem('title_mode') === 'keyword' ? localStorage.getItem('keyword') : '';
             this.titleMode = localStorage.getItem('title_mode') === 'letter' ? 'letter' : localStorage.getItem('title_mode') === 'keyword' ? 'find' : '';
+            this.modalFromCreateNamePlaceholder = localStorage.getItem('title_mode') === 'letter'
+                                                    ? 'All result with letter ' + localStorage.getItem('letter')
+                                                    : localStorage.getItem('title_mode') === 'keyword'
+                                                    ? 'All result with keyword ' + localStorage.getItem('keyword') : '';
         }
         this.authSandbox.getUserData();
         this.initForm();
+        this.initModalCreateForm();
         this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
             if (data) {
                 this.BUTTON_STATUS = [];
@@ -117,6 +134,14 @@ export class SearchPageComponent implements OnInit {
         });
     }
 
+    private initModalCreateForm(): void {
+        this.modalFormCreateName = new FormControl('');
+
+        this.modalFormCreate = this.formBuilder.group({
+            name: this.modalFormCreateName
+        });
+    }
+
     public triggerShowAllNames(): void {
         this.hided = !this.showAllNames.value;
     }
@@ -154,8 +179,23 @@ export class SearchPageComponent implements OnInit {
 
     public addTodoToNewLabel() {
         if (this.ALL_NAMES.length !== 0) {
-            this.ALL_NAMES.forEach(name => this.addToNewLabel(name));
+            if (this.NEW_LABEL.length !== 0) {
+                this.modal.open('modal-added-label');
+            } else {
+                this.NEW_LABEL = [];
+                this.ALL_NAMES.forEach(name => this.addToNewLabel(name));
+                this.updateStorage();
+                this.MODE_CLEAN = 'clean';
+                this.MODE_ADD = 'add';
+                this.modal.open('modal-create-label');
+            }
         }
+    }
+
+    public deleteTodoToNewLabel() {
+        this.NEW_LABEL = [];
+        this.BUTTON_STATUS.map(status => status.addButtonStatus = false);
+        this.updateStorage();
     }
 
     private updateStorage() {
@@ -174,6 +214,20 @@ export class SearchPageComponent implements OnInit {
     //     this.namesSandbox.getAllNames(params);
     // }
 
+    public onSubmitModalCreateForm() {
+        const params: any = {};
+        params.name = this.modalFormCreateName.value.length === 0 ? this.modalFromCreateNamePlaceholder : this.modalFormCreateName.value;
+        params.ids = this.NEW_LABEL.map(name => name.id).join(',');
+        this.labelSandbox.addLabel(params);
+        this.labelSandbox.addLabelLoaded$.subscribe(data => {
+            if (data) {
+                this.modal.close('modal-create-label');
+                this.NEW_LABEL = [];
+                this.updateStorage();
+            }
+        });
+    }
+
     public onSubmit(letter = '') {
         const params: any = {};
         params.keyword = this.keywordControl.value ? this.keywordControl.value : '';
@@ -184,7 +238,6 @@ export class SearchPageComponent implements OnInit {
         if (this.user.permission === 'root' || this.user.permission === 'admin') {
             params.hided = !this.showAllNames.value;
         }
-        console.log(params);
         if (letter !== '') {
             this.titleMode = 'letter';
             this.titleKeyword = letter;
@@ -197,6 +250,12 @@ export class SearchPageComponent implements OnInit {
             localStorage.setItem('title_mode', 'keyword');
         }
         this.namesSandbox.getAllNames(params);
+        if (localStorage.getItem('title_mode')) {
+            this.modalFromCreateNamePlaceholder = localStorage.getItem('title_mode') === 'letter'
+                                                    ? 'All result with letter ' + localStorage.getItem('letter')
+                                                    : localStorage.getItem('title_mode') === 'keyword'
+                                                    ? 'All result with keyword ' + localStorage.getItem('keyword') : '';
+        }
     }
 
 }

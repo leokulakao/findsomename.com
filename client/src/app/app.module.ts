@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ModalModule } from 'angular-modal-library';
 
 // component
 import { HomePageComponent } from './home-page/home-page.component';
@@ -59,6 +60,7 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
         ReactiveFormsModule,
         HttpClientModule,
         NgxPaginationModule,
+        ModalModule,
         StoreModule.forRoot(reducers, { metaReducers }),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
         EffectsModule.forRoot([

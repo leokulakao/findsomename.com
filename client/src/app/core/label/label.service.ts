@@ -19,4 +19,8 @@ export class LabelService {
         });
     }
 
+    public addLabel(params): Observable<any> {
+        return this.http.post(this.url + 'label/', params);
+    }
+
 }

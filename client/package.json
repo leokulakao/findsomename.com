@@ -23,6 +23,7 @@
     "@ngrx/router-store": "^9.2.0",
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
+    "angular-modal-library": "^2.0.0",
     "immutable": "^4.0.0-rc.12",
     "ngx-pagination": "^5.0.0",
     "reselect": "^4.0.0",
