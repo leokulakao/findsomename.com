@@ -19,7 +19,7 @@ module.exports.getAllLabels = async (req, res) => {
             email: decoded.email,
         });
 
-        const labels = await Label.find({user: candidate._id}).skip(offset).limit(limit);
+        const labels = await Label.find({id_user: candidate._id}).skip(offset).limit(limit);
 
         const namesOfLabels = labels.map(async (element, i) => {
             if (element.ids.length !== 0) {
@@ -34,7 +34,7 @@ module.exports.getAllLabels = async (req, res) => {
                 name: labels[i].name,
                 names: await namesOfLabels[i],
                 _id: labels[i]._id,
-                user: labels[i].user
+                id_user: labels[i].user
             })
         }
 
@@ -63,7 +63,7 @@ module.exports.addLabel = async (req, res) => {
         // console.log(candidate._id);
         // console.log(ids);
         const newLabel = await new Label({
-            user: candidate._id,
+            id_user: candidate._id,
             name: name,
             ids: ids
         }).save();

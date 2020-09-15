@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const authRoutes = require('./routes/authRoutes');
 const namesRoutes = require('./routes/namesRoutes');
 const labelRoutes = require('./routes/labelRoutes');
+const linkRoutes = require('./routes/linkRoutes');
 const keys = require('./config/keys');
 
 const app = express();
@@ -31,5 +32,6 @@ app.use(cors());
 app.use('/api/auth', authRoutes);
 app.use('/api/names', namesRoutes);
 app.use('/api/label', labelRoutes);
+app.use('/api/link', linkRoutes);
 
 module.exports = app;

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const labelSchema = new Schema({
-    user: {
+    id_user: {
         type: String,
         required: true,
         unique: false
