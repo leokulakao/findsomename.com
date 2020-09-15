@@ -107,7 +107,7 @@ export function reducer(
             return Object.assign({}, state, {
                 editUserLoading: true,
                 editUserLoaded: false,
-                allUsersFail: false
+                editUserFail: false
             });
         }
         case actions.ActionTypes.EDIT_USER_SUCCESS: {
@@ -123,6 +123,29 @@ export function reducer(
                 editUserLoading: false,
                 editUserLoaded: false,
                 editUserFail: true
+            });
+        }
+
+        case actions.ActionTypes.DELETE_USER: {
+            return Object.assign({}, state, {
+                deleteUserLoading: true,
+                deleteUserLoaded: false,
+                deleteUserFail: false
+            });
+        }
+        case actions.ActionTypes.DELETE_USER_SUCCESS: {
+            return Object.assign({}, state, {
+                deleteUser: payload,
+                deleteUserLoading: false,
+                deleteUserLoaded: true,
+                deleteUserFail: false
+            });
+        }
+        case actions.ActionTypes.DELETE_USER_FAIL: {
+            return Object.assign({}, state, {
+                deleteUserLoading: false,
+                deleteUserLoaded: false,
+                deleteUserFail: true
             });
         }
         default: {
@@ -155,3 +178,8 @@ export const editUser = (state: AuthState) => state.editUser;
 export const editUserLoading = (state: AuthState) => state.editUserLoading;
 export const editUserLoaded = (state: AuthState) => state.editUserLoaded;
 export const editUserFail = (state: AuthState) => state.editUserFail;
+
+export const deleteUser = (state: AuthState) => state.deleteUser;
+export const deleteUserLoading = (state: AuthState) => state.deleteUserLoading;
+export const deleteUserLoaded = (state: AuthState) => state.deleteUserLoaded;
+export const deleteUserFail = (state: AuthState) => state.deleteUserFail;

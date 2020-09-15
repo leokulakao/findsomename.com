@@ -23,7 +23,11 @@ export const ActionTypes = {
 
     EDIT_USER: '[edit user] edit user',
     EDIT_USER_SUCCESS: '[edit user] edit user success',
-    EDIT_USER_FAIL: '[edit user] edit user fail'
+    EDIT_USER_FAIL: '[edit user] edit user fail',
+
+    DELETE_USER: '[delete user] delete user',
+    DELETE_USER_SUCCESS: '[delete user] delete user success',
+    DELETE_USER_FAIL: '[delete user] delete user fail'
 };
 
 // login
@@ -92,5 +96,18 @@ export class EditUserSuccessAction implements Action {
 }
 export class EditUserFailAction implements Action {
     type = ActionTypes.EDIT_USER_FAIL;
+    constructor(public payload: any) { }
+}
+
+export class DeleteUserAction implements Action {
+    type = ActionTypes.DELETE_USER;
+    constructor(public payload: any) { }
+}
+export class DeleteUserSuccessAction implements Action {
+    type = ActionTypes.DELETE_USER_SUCCESS;
+    constructor(public payload: any) { }
+}
+export class DeleteUserFailAction implements Action {
+    type = ActionTypes.DELETE_USER_FAIL;
     constructor(public payload: any) { }
 }

@@ -77,6 +77,17 @@ export class DashboardPageComponent implements OnInit {
     this.labelSandbox.getAllLabels(params);
   }
 
+  public deleteUser(id) {
+    const params: any = {};
+    params.id = id;
+    this.authSandbox.deleteUser(params);
+    this.authSandbox.deleteUserLoaded$.subscribe(data => {
+      if (data) {
+        this.getAllUsers();
+      }
+    });
+  }
+
   public changeSelect(event, user) {
     const oldValue = this.STATUS.find(elem => elem.id === user.id).permission;
     const newValue = event.target.value !== oldValue ? event.target.value : oldValue;

@@ -36,4 +36,8 @@ export class AuthService {
     public editUser(params): Observable<any> {
         return this.http.post(this.url + 'auth/update-user', params);
     }
+
+    public deleteUser(params): Observable<any> {
+        return this.http.post(this.url + 'auth/', params);
+    }
 }

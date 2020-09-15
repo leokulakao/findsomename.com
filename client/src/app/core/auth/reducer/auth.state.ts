@@ -25,6 +25,11 @@ export interface AuthState extends Map<string, any> {
     editUserLoading: boolean;
     editUserLoaded: boolean;
     editUserFail: boolean;
+
+    deleteUser: any;
+    deleteUserLoading: boolean;
+    deleteUserLoaded: boolean;
+    deleteUserFail: boolean;
 }
 
 export const authrecord = Record({
@@ -51,5 +56,10 @@ export const authrecord = Record({
     editUser: [],
     editUserLoading: false,
     editUserLoaded: false,
-    editUserFail: false
+    editUserFail: false,
+
+    deleteUser: [],
+    deleteUserLoading: false,
+    deleteUserLoaded: false,
+    deleteUserFail: false
 });

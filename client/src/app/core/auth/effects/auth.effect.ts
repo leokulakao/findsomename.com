@@ -103,4 +103,19 @@ export class AuthEffects {
             );
         })
     );
+
+    @Effect()
+    deleteUser$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.DELETE_USER),
+        map((action: actions.DeleteUserAction) => action.payload),
+        switchMap(state => {
+            return this.authService.deleteUser(state).pipe(
+                map(data => new actions.DeleteUserSuccessAction(data)
+                ),
+                catchError(error =>
+                    of(new actions.DeleteUserFailAction(error))
+                )
+            );
+        })
+    );
 }

@@ -46,7 +46,7 @@
                                 <option value="admin" [selected]="STATUS[i].permission === 'admin'">admin</option>
                                 <option value="root" [selected]="STATUS[i].permission === 'root'">root</option>
                             </select>
-                            <button class="button button-red">Delete</button>
+                            <button class="button button-red" (click)="deleteUser(user.id)">Delete</button>
                         </div>
                     </li>
                 </ul>

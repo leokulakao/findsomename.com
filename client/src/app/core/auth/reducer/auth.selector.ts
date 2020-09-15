@@ -29,3 +29,8 @@ export const editUser = createSelector(getState, fromAuth.editUser);
 export const editUserLoading = createSelector(getState, fromAuth.editUserLoading);
 export const editUserLoaded = createSelector(getState, fromAuth.editUserLoaded);
 export const editUserFail = createSelector(getState, fromAuth.editUserFail);
+
+export const deleteUser = createSelector(getState, fromAuth.deleteUser);
+export const deleteUserLoading = createSelector(getState, fromAuth.deleteUserLoading);
+export const deleteUserLoaded = createSelector(getState, fromAuth.deleteUserLoaded);
+export const deleteUserFail = createSelector(getState, fromAuth.deleteUserFail);

@@ -30,7 +30,11 @@ import {
     editUser,
     editUserLoading,
     editUserLoaded,
-    editUserFail
+    editUserFail,
+    deleteUser,
+    deleteUserLoading,
+    deleteUserLoaded,
+    deleteUserFail
 } from './reducer/auth.selector';
 
 import { Router } from '@angular/router';
@@ -66,6 +70,11 @@ export class AuthSandbox {
     public editUserLoaded$ = this.appState$.select(editUserLoaded);
     public editUserFail$ = this.appState$.select(editUserFail);
 
+    public deleteUser$ = this.appState$.select(deleteUser);
+    public deleteUserLoading$ = this.appState$.select(deleteUserLoading);
+    public deleteUserLoaded$ = this.appState$.select(deleteUserLoaded);
+    public deleteUserFail$ = this.appState$.select(deleteUserFail);
+
     constructor(
         private router: Router,
         protected appState$: Store<store.AppState>,
@@ -91,6 +100,10 @@ export class AuthSandbox {
 
     public editUser(params) {
         this.appState$.dispatch(new authAction.EditUserAction(new EditUserModel(params)));
+    }
+
+    public deleteUser(params) {
+        this.appState$.dispatch(new authAction.DeleteUserAction(params));
     }
 
     // logOut

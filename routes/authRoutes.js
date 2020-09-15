@@ -9,7 +9,7 @@ router.post('/login', controllerAuth.login);
 router.post('/register', controllerAuth.register);
 
 router.get('/get-users', passport.authenticate('jwt', { session: false }), controllerAuth.getUsers)
-router.delete('/', passport.authenticate('jwt', { session: false }), controllerAuth.deleteUser)
+router.post('/', passport.authenticate('jwt', { session: false }), controllerAuth.deleteUser)
 router.post('/update-user', passport.authenticate('jwt', { session: false }), controllerAuth.updateUser)
 
 module.exports = router;
