@@ -4,6 +4,36 @@ const keys = require('../config/keys');
 const Link = require('../models/linkModel');
 const errorHandler = require('../utils/errorHandler');
 
+module.exports.getLinkById = async (req, res) => {
+    try {
+        const id = req.query ? req.query.id : '';
+        if (id !== '') {
+            const candidate = await Link.findOne({_id: id});
+            if (candidate) {
+                res.status(200).json({
+                    status: 200,
+                    message: 'Finded all items',
+                    data: candidate,
+                });
+            } else {
+                res.status(409).json({
+                    status: 409,
+                    message: 'Conflict',
+                    data: {},
+                });
+            }
+        } else {
+            res.status(409).json({
+                status: 409,
+                message: 'Conflict',
+                data: {},
+            });
+        }
+    } catch (e) {
+        errorHandler(req, e);
+    }
+}
+
 module.exports.addLink = async (req, res) => {
     try {
         const idLabel = req.body.id_label ? req.body.id_label : '';
