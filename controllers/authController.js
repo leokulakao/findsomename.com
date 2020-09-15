@@ -150,3 +150,25 @@ module.exports.updateUser = async (req, res) => {
         errorHandler(req, e);
     }
 }
+
+module.exports.deleteUser = async (req, res) => {
+    try {
+        const candidate = await User.find({_id: req.body.id});
+        if (candidate) {
+            await User.remove({_id: req.body.id});
+            res.status(200).json({
+                status: 201,
+                message: 'User Deleted',
+                data: req.body.id
+            })
+        } else {
+            res.status(404).json({
+                status: 404,
+                message: 'User Not Found',
+                data: {},
+            });
+        }
+    } catch (e) {
+        errorHandler(req, e);
+    }
+}

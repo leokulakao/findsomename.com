@@ -19,7 +19,8 @@ export class DashboardPageComponent implements OnInit {
 
   STATUS = [];
 
-  page = 1;
+  pageLabels = 1;
+  pageUsers = 1;
 
   private subscriptions: Subscription[] = [];
 
@@ -57,7 +58,6 @@ export class DashboardPageComponent implements OnInit {
     this.subscriptions.push(this.labelSandbox.getAllLabels$.subscribe(data => {
       if (data) {
         this.LABELS = data;
-        this.LABELS = this.LABELS.labels;
       }
     }));
 

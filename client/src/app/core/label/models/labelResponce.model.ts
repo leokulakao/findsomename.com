@@ -5,5 +5,6 @@ export class LabelResponceModel {
 
     constructor(req: any) {
       this.labels = req.data.map(name => new LabelModel(name)) || [];
+      console.log(req);
     }
 }

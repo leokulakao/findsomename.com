@@ -16,7 +16,9 @@ export class GetAllLabelsAction implements Action {
 }
 export class GetAllLabelsSuccessAction implements Action {
     type = ActionTypes.GET_ALL_LABELS_SUCCESS;
-    constructor(public payload: any) { }
+    constructor(public payload: any) {
+        console.log(payload);
+    }
 }
 export class GetAllLabelsFailAction implements Action {
     type = ActionTypes.GET_ALL_LABELS_FAIL;

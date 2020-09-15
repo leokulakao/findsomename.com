@@ -6,6 +6,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { SearchPageComponent } from './search-page/search-page.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import { LinkPageComponent } from './link-page/link-page.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 import { AuthGuard } from './shared/auth.guard';
 import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
@@ -18,7 +20,10 @@ const routes: Routes = [
       { path: 'login', component: LoginPageComponent },
       { path: 'register', component: RegisterPageComponent },
       { path: 'search', component: SearchPageComponent, canActivate: [AuthGuard] },
-      { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] }
+      { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] },
+      { path: 'link/:id', component: LinkPageComponent },
+      { path: '404', component: NotFoundPageComponent},
+      { path: '**', component: NotFoundPageComponent}
     ]
   }
 ];

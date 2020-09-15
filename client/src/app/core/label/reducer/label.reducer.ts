@@ -1,6 +1,8 @@
 import * as actions from '../action/label.action';
 import { LabelState, authrecord } from './label.state';
 
+import { LabelModel } from '../models/label.model';
+
 export const initialState: LabelState = (new authrecord() as unknown) as LabelState;
 
 export function reducer(
@@ -19,8 +21,9 @@ export function reducer(
             });
         }
         case actions.ActionTypes.GET_ALL_LABELS_SUCCESS: {
+            const result = payload.data ? payload.data.map(label => new LabelModel(label)) : [];
             return Object.assign({}, state, {
-                allLabels: payload,
+                allLabels: result,
                 allLabelsLoading: false,
                 allLabelsLoaded: true,
                 allLabelsFail: false

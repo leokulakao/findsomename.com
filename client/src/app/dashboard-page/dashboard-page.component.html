@@ -2,11 +2,31 @@
     <div class="col-lg">
         <div class="labels" *ngIf="this.labelSandbox.getAllLabelsLoaded$ | async">
             <ul class="labels__list">
-                <li *ngFor="let label of LABELS; let i = index" class="labels__item">
-                    {{ label.name }}
+                <li *ngFor="let label of LABELS | paginate: { itemsPerPage: 10, currentPage: pageLabels, id: 'labels'}; let i = index" class="labels__item">
+                    <div class="label">
+                        <div class="label__head">
+                            <span>{{ label.name }}</span>
+                        </div>
+                        <div class="label__wrapper">
+                            <ul class="label__list">
+                                <li class="label__item" *ngFor="let name of label.names | slice:0:5; let x = index">
+                                    <ng-container *ngIf="x !== 4">
+                                        <span>{{ name.name }}, </span>
+                                    </ng-container>
+                                    <ng-container *ngIf="x === 4">
+                                        <span>{{ name.name }}</span>
+                                    </ng-container>
+                                </li>
+                                <ng-container *ngIf="label.names.length === 0">
+                                    <span>There are no elements</span>
+                                </ng-container>
+                            </ul>
+                        </div>
+                    </div>
                 </li>
             </ul>
         </div>
+        <pagination-controls class="pagination" (pageChange)="pageLabels = $event" id="labels"></pagination-controls>
     </div>
     <div class="col-lg" *ngIf="user.permission === 'root'">
         <div class="users">
@@ -18,7 +38,7 @@
             </div>
             <div class="users__wrapper" *ngIf="this.authSandbox.getAllUsersLoaded$ | async">
                 <ul class="users__list">
-                    <li *ngFor="let user of USERS | paginate: { itemsPerPage: 5, currentPage: page, id: 'users'}; let i = index" class="users__item">
+                    <li *ngFor="let user of USERS | paginate: { itemsPerPage: 5, currentPage: pageUsers, id: 'users'}; let i = index" class="users__item">
                         <div class="users__item__wrapper">
                             <span class="users__item--name">{{ user.email }}</span>
                             <select class="select" name="select-user" (change)="changeSelect($event, user)">
@@ -30,7 +50,7 @@
                         </div>
                     </li>
                 </ul>
-                <pagination-controls class="pagination" (pageChange)="page = $event" id="users"></pagination-controls>
+                <pagination-controls class="pagination" (pageChange)="pageUsers = $event" id="users"></pagination-controls>
             </div>
         </div>
     </div>

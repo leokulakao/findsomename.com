@@ -26,7 +26,10 @@ export class LabelEffects {
         map((action: actions.GetAllLabelsAction) => action.payload),
         switchMap(state => {
             return this.labelService.getAllLabels(state).pipe(
-                map(data => new actions.GetAllLabelsSuccessAction(new LabelResponceModel(data))
+                map(data => {
+                    console.log(data);
+                    return new actions.GetAllLabelsSuccessAction(data);
+                }
                 ),
                 catchError(error =>
                     of(new actions.GetAllLabelsFailAction(error))
