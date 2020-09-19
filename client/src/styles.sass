@@ -13,6 +13,7 @@ body
 
   background-color: rgba(207, 216, 220, 0.2)
 
+// Button & Input
 @mixin button-reset
   padding: 0
   display: block
@@ -112,6 +113,56 @@ body
   p
     margin: 0
 
+// Table
+.response__table
+  width: 100%
+  margin: 0 auto
+  margin-bottom: 40px
+
+  border-collapse: collapse
+  box-sizing: border-box
+
+  &--label
+    width: 50%
+    margin: 0
+
+.response__head
+  color: $dark-sec-color
+
+.response__body
+  font-size: 16px
+
+.response__row
+  width: 100%
+
+  &--body
+    border-top: 1px solid $light-sec-color
+
+  &--body:last-child
+    border-bottom: 1px solid $light-sec-color
+
+.response__th,
+.response__td
+  padding-top: 12px
+  padding-bottom: 12px
+  padding-right: 25px
+  padding-left: 25px
+
+  text-align: center
+
+  &--name
+    width: 100%
+    text-align: left
+
+  &__container
+    display: flex
+    width: max-content
+    margin: auto
+    button
+      margin-left: 12.5px
+      &:first-child
+        margin-left: 0px
+
 @media ( max-width: $mobile-width )
   .input
     width: 100%
@@ -119,3 +170,14 @@ body
 
   .button
     width: auto
+
+  .response__table
+    &--label
+      width: 100%
+
+  .response__th,
+  .response__td
+    padding-top: 5px
+    padding-bottom: 5px
+    padding-right: 4px
+    padding-left: 4px

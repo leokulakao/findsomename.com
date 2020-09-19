@@ -57,8 +57,7 @@ export class DashboardPageComponent implements OnInit {
 
     this.subscriptions.push(this.labelSandbox.getAllLabels$.subscribe(data => {
       if (data) {
-        this.LABELS = data;
-      }
+        this.LABELS = data;      }
     }));
 
   }

@@ -9,7 +9,8 @@
           </label>
           <label class="search__label" *ngIf="user.permission === 'root' || user.permission === 'admin'">
             <span>Show all names:</span><br>
-            <input class="checkbox search__checkbox" type="checkbox" formControlName="showAllNames" (click)="triggerShowAllNames()">
+            <input class="checkbox search__checkbox" type="checkbox" formControlName="showAllNames"
+              (click)="triggerShowAllNames()">
           </label>
           <!-- <label class="search__label">
             <span>Limit:</span><br>
@@ -21,11 +22,14 @@
           </label> -->
         </div>
         <div class="search__letters">
-          <button *ngFor="let letter of LETTERS; let i = index" class="button search__button--letter" type="button" (click)="onSubmit(letter)">{{letter}}</button>
+          <button *ngFor="let letter of LETTERS; let i = index" class="button search__button--letter" type="button"
+            (click)="onSubmit(letter)">{{letter}}</button>
         </div>
         <div class="search__triggers">
-          <button class="button search__button search__button--find" type="submit" [disabled]="!searchForm.valid" (click)="onSubmit()">Find</button>
-          <button class="button search__button--result" type="button" (click)="addTodoToNewLabel()" [disabled]="!ALL_NAMES || ALL_NAMES.length === 0">Add all result to new label</button>
+          <button class="button search__button search__button--find" type="submit" [disabled]="!searchForm.valid"
+            (click)="onSubmit()">Find</button>
+          <button class="button search__button--result" type="button" (click)="addTodoToNewLabel()"
+            [disabled]="!ALL_NAMES || ALL_NAMES.length === 0">Add all result to new label</button>
         </div>
       </form>
 
@@ -39,7 +43,7 @@
             <span *ngIf="titleMode === 'find'">Found {{titleCount}} results with the query "{{titleKeyword}}"</span>
             <span *ngIf="titleMode === 'letter'">All results starting with the letter "{{titleKeyword}}"</span>
           </div>
-          <table class="response__table" >
+          <table class="response__table">
             <thead class="response__head">
               <tr class="response__row">
                 <th class="response__th">Nº</th>
@@ -50,16 +54,20 @@
               </tr>
             </thead>
             <tbody class="response__body">
-              <tr *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page, id: 'name'}; let i = index" class="response__row response__row--body">
+              <tr
+                *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page, id: 'name'}; let i = index"
+                class="response__row response__row--body">
                 <td class="response__td">{{ i + 1 }}</td>
                 <td class="response__td response__td--name">{{ name.name }}</td>
                 <td class="response__td">{{ name.population }}</td>
                 <td class="response__td">
                   <div class="response__td__container">
-                    <ng-container *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === true)">
+                    <ng-container
+                      *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === true)">
                       <button class="button button-red" (click)="showName(name)">Show</button>
                     </ng-container>
-                    <ng-container *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === false)">
+                    <ng-container
+                      *ngIf="(user.permission === 'root' || user.permission === 'admin') && (BUTTON_STATUS[i].hideButtonStatus === false)">
                       <button class="button button-green" (click)="hideName(name)">Hide</button>
                     </ng-container>
                     <ng-container *ngIf="BUTTON_STATUS[i].addButtonStatus === false">
@@ -87,7 +95,9 @@
         </div>
         <div class="name-label__wrapper">
           <ul class="name-label__list">
-            <li *ngFor="let name of NEW_LABEL | paginate: { itemsPerPage: 10, currentPage: pageLabel, id: 'label'}; let i = index" class="name-label__item">
+            <li
+              *ngFor="let name of NEW_LABEL | paginate: { itemsPerPage: 10, currentPage: pageLabel, id: 'label'}; let i = index"
+              class="name-label__item">
               <div class="name-label__item__wrapper">
                 <button class="button button-minus" (click)="deleteToNewLabel(name)">-</button>
                 <span class="name-label__item--name">{{ name.name }}</span>
@@ -101,7 +111,8 @@
       modalFromCreateNamePlaceholder = 'New Label';
       MODE_CLEAN = 'no-clean';
       modal.open('modal-create-label');">Create new label</button>
-      <button class="button name-label__button" *ngIf="NEW_LABEL.length !== 0" (click)="MODE_ADD = 'no-add'; modal.open('modal-added-label')">Clean</button>
+      <button class="button name-label__button" *ngIf="NEW_LABEL.length !== 0"
+        (click)="MODE_ADD = 'no-add'; modal.open('modal-added-label')">Clean</button>
 
     </div>
   </div>
@@ -122,15 +133,17 @@
     <form class="modal-form-create" [formGroup]="modalFormCreate" (onSubmit)="onSubmitModalCreateForm()">
       <label class="modal-form-create__name-label">
         <span>Enter a new title of the label:</span><br>
-        <input class="input modal-form-create__name" type="text" formControlName="name" [placeholder]="modalFromCreateNamePlaceholder" required>
+        <input class="input modal-form-create__name" type="text" formControlName="name"
+          [placeholder]="modalFromCreateNamePlaceholder" required>
       </label>
     </form>
   </div>
   <div class="modal__triggers">
     <button class="button modal__button" type="submit" (click)="onSubmitModalCreateForm()">Create</button>
-    <button class="button modal__button" type="button" (click)="MODE_CLEAN === 'clean' ? deleteTodoToNewLabel() : null; modal.close('modal-create-label')">Close</button>
+    <button class="button modal__button" type="button"
+      (click)="MODE_CLEAN === 'clean' ? deleteTodoToNewLabel() : null; modal.close('modal-create-label')">Close</button>
   </div>
-</sj-modal> 
+</sj-modal>
 
 <sj-modal id="modal-added-label" class="modal">
   <div class="modal__head">
@@ -140,7 +153,8 @@
     <span>Are you sure you want to delete what you have already chosen?</span>
   </div>
   <div class="modal__triggers">
-    <button class="button modal__button" type="button" (click)="modal.close('modal-added-label'); deleteTodoToNewLabel(); MODE_ADD === 'add' ? addTodoToNewLabel() : null">Yes</button>
+    <button class="button modal__button" type="button"
+      (click)="modal.close('modal-added-label'); deleteTodoToNewLabel(); MODE_ADD === 'add' ? addTodoToNewLabel() : null">Yes</button>
     <button class="button modal__button" type="button" (click)="modal.close('modal-added-label')">No</button>
   </div>
-</sj-modal> 
+</sj-modal>

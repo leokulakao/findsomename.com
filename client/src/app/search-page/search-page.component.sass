@@ -51,52 +51,6 @@
     width: 38px
     margin: 6.25px
 
-
-.response__table
-  width: 100%
-  margin: 0 auto
-  margin-bottom: 40px
-
-  border-collapse: collapse
-  box-sizing: border-box
-
-.response__head
-  color: $dark-sec-color
-
-.response__body
-  font-size: 16px
-
-.response__row
-  width: 100%
-
-  &--body
-    border-top: 1px solid $light-sec-color
-
-  &--body:last-child
-    border-bottom: 1px solid $light-sec-color
-
-.response__th,
-.response__td
-  padding-top: 12px
-  padding-bottom: 12px
-  padding-right: 25px
-  padding-left: 25px
-
-  text-align: center
-
-  &--name
-    width: 100%
-    text-align: left
-
-  &__container
-    display: flex
-    width: max-content
-    margin: auto
-    button
-      margin-left: 12.5px
-      &:first-child
-        margin-left: 0px
-
 .pagination::ng-deep .ngx-pagination
   padding: 0
 
@@ -160,12 +114,12 @@
       height: max-content
       margin: auto
       margin-left: 12.5px
-  
+
   &__button
     margin-bottom: 10px
 
 
-.modal::ng-deep 
+.modal::ng-deep
   .modal
     animation: none
 
@@ -180,7 +134,7 @@
         font-weight: bold
         font-size: 20px
         padding: 12.5px
-      
+
       .modal__wrapper
         padding: 12.5px
 
@@ -198,12 +152,3 @@
 .modal-form-create
   &__name-label
     margin-bottom: 12px
-
-
-@media ( max-width: $mobile-width )
-  .response__th,
-  .response__td
-    padding-top: 5px
-    padding-bottom: 5px
-    padding-right: 4px
-    padding-left: 4px

@@ -11,6 +11,7 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
 
 import { AuthGuard } from './shared/auth.guard';
 import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
+import { LabelPageComponent } from './label-page/label-page.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
       { path: 'search', component: SearchPageComponent, canActivate: [AuthGuard] },
       { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] },
       { path: 'link/:id', component: LinkPageComponent },
+      { path: 'label/:id', component: LabelPageComponent},
       { path: '404', component: NotFoundPageComponent},
       { path: '**', component: NotFoundPageComponent}
     ]

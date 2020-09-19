@@ -1,0 +1,26 @@
+@import "../../variables.sass"
+
+.pagination::ng-deep .ngx-pagination
+  padding: 0
+
+  text-align: center
+
+.pagination::ng-deep li
+  cursor: pointer
+  border: 1px solid transparent
+
+  &.current
+    background-color: $primary-color
+
+.pagination::ng-deep .ngx-pagination a
+  color: $black
+  border: 1px solid transparent
+
+  &:hover,
+  &:focus
+    outline: none
+    background-color: transparent
+    border: 1px solid $dark-primary-color
+
+  &:active
+    opacity: .5

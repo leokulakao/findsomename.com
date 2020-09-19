@@ -46,6 +46,7 @@ import { MainLayoutComponent } from './shared/main-layout/main-layout.component'
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
 import { LinkPageComponent } from './link-page/link-page.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { LabelPageComponent } from './label-page/label-page.component';
 
 
 
@@ -59,7 +60,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
         MainLayoutComponent,
         DashboardPageComponent,
         LinkPageComponent,
-        NotFoundPageComponent
+        NotFoundPageComponent,
+        LabelPageComponent
     ],
     imports: [
         BrowserModule,

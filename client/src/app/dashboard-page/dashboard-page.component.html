@@ -3,7 +3,7 @@
         <div class="labels" *ngIf="this.labelSandbox.getAllLabelsLoaded$ | async">
             <ul class="labels__list">
                 <li *ngFor="let label of LABELS | paginate: { itemsPerPage: 10, currentPage: pageLabels, id: 'labels'}; let i = index" class="labels__item">
-                    <div class="label">
+                    <div class="label" [routerLink]="['/label', label.id]">
                         <div class="label__head">
                             <span>{{ label.name }}</span>
                         </div>
