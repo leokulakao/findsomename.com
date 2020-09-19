@@ -69,7 +69,6 @@ module.exports.addLink = async (req, res) => {
     } catch (e) {
         errorHandler(req, e);
     }
-    console.log('add link')
 };
 
 module.exports.deleteLink = async (req, res) => {

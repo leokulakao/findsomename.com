@@ -17,7 +17,6 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
-
 // authSandbox
 import { AuthSandbox } from './core/auth/auth.sandbox';
 import { AuthService } from './core/auth/auth.service';
@@ -32,6 +31,11 @@ import { NamesEffects } from './core/names/effects/names.effect';
 import { LabelSandbox } from './core/label/label.sandbox';
 import { LabelService } from './core/label/label.service';
 import { LabelEffects } from './core/label/effects/label.effect';
+
+// linkSandbox
+import { LinkSandbox } from './core/link/link.sandbox';
+import { LinkService } from './core/link/link.service';
+import { LinkEffects } from './core/link/effects/link.effect';
 
 import { metaReducers, reducers } from './core/reducer.interface';
 // interceptor
@@ -70,7 +74,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
         EffectsModule.forRoot([
             AuthEffects,
             NamesEffects,
-            LabelEffects
+            LabelEffects,
+            LinkEffects
         ]),
         StoreRouterConnectingModule.forRoot()
     ],
@@ -81,6 +86,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
         NamesService,
         LabelSandbox,
         LabelService,
+        LinkSandbox,
+        LinkService,
         {
             provide: HTTP_INTERCEPTORS,
             multi: true,
