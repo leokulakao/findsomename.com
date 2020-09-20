@@ -5,6 +5,10 @@ export const ActionTypes = {
     GET_ALL_LABELS_SUCCESS: '[labels] get all labels success',
     GET_ALL_LABELS_FAIL: '[labels] get all labels fail',
 
+    GET_LABEL_BY_ID: '[label] get label by id',
+    GET_LABEL_BY_ID_SUCCESS: '[label] get label by id success',
+    GET_LABEL_BY_ID_FAIL: '[label] get label by id fail',
+
     ADD_LABEL: '[label] add label',
     ADD_LABEL_SUCCESS: '[label] add label success',
     ADD_LABEL_FAIL: '[label] add label fail'
@@ -16,12 +20,23 @@ export class GetAllLabelsAction implements Action {
 }
 export class GetAllLabelsSuccessAction implements Action {
     type = ActionTypes.GET_ALL_LABELS_SUCCESS;
-    constructor(public payload: any) {
-        console.log(payload);
-    }
+    constructor(public payload: any) { }
 }
 export class GetAllLabelsFailAction implements Action {
     type = ActionTypes.GET_ALL_LABELS_FAIL;
+    constructor(public payload: any) { }
+}
+
+export class GetLabelByIdAction implements Action {
+    type = ActionTypes.GET_LABEL_BY_ID;
+    constructor(public payload: any) { }
+}
+export class GetLabelByIdSuccessAction implements Action {
+    type = ActionTypes.GET_LABEL_BY_ID_SUCCESS;
+    constructor(public payload: any) { }
+}
+export class GetLabelByIdFailAction implements Action {
+    type = ActionTypes.GET_LABEL_BY_ID_FAIL;
     constructor(public payload: any) { }
 }
 

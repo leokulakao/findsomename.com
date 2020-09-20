@@ -19,6 +19,14 @@ export class LabelService {
         });
     }
 
+    public getLabelById(params): Observable<any> {
+        let options: any = {};
+        options = params;
+        return this.http.get(this.url + 'label/get-label-by-id', {
+            params: options
+        });
+    }
+
     public addLabel(params): Observable<any> {
         return this.http.post(this.url + 'label/', params);
     }

@@ -37,6 +37,29 @@ export function reducer(
             });
         }
 
+        case actions.ActionTypes.GET_LABEL_BY_ID: {
+            return Object.assign({}, state, {
+                labelLoading: true,
+                labelLoaded: false,
+                labelFail: false
+            });
+        }
+        case actions.ActionTypes.GET_LABEL_BY_ID_SUCCESS: {
+            return Object.assign({}, state, {
+                label: payload,
+                labelLoading: false,
+                labelLoaded: true,
+                labelFail: false
+            });
+        }
+        case actions.ActionTypes.GET_LABEL_BY_ID_FAIL: {
+            return Object.assign({}, state, {
+                labelLoading: false,
+                labelLoaded: true,
+                labelFail: true
+            });
+        }
+
         case actions.ActionTypes.ADD_LABEL: {
             return Object.assign({}, state, {
                 addedLabelLoading: true,
@@ -69,6 +92,11 @@ export const getAllLabels = (state: LabelState) => state.allLabels;
 export const getAllLabelsLoading = (state: LabelState) => state.allLabelsLoading;
 export const getAllLabelsLoaded = (state: LabelState) => state.allLabelsLoaded;
 export const getAllLabelsFail = (state: LabelState) => state.allLabelsFail;
+
+export const getLabelById = (state: LabelState) => state.label;
+export const getLabelByIdLoading = (state: LabelState) => state.labelLoading;
+export const getLabelByIdLoaded = (state: LabelState) => state.labelLoaded;
+export const getLabelByIdFail = (state: LabelState) => state.labelFail;
 
 export const addLabel = (state: LabelState) => state.addedLabel;
 export const addLabelLoading = (state: LabelState) => state.addedLabelLoading;

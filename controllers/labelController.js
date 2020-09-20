@@ -6,6 +6,43 @@ const NameRu = require('../models/nameRuModel');
 const keys = require('../config/keys');
 const errorHandler = require('../utils/errorHandler');
 
+module.exports.getLabelById = async (req, res) => {
+    try {
+        let result;
+
+        const labelId = req.query ? req.query.id_label ? req.query.id_label : '' : null;
+        const token = req.headers ? req.headers.authorization.split(' ')[1] : '';
+
+        console.log(labelId);
+
+        const decoded = jwt.decode(token);
+        const candidate = await User.findOne({
+            email: decoded.email,
+        });
+
+        const label = await Label.findOne({_id: labelId});
+        const nameOfLabel = await NameRu.find({_id: label.ids});
+        
+        result = [];
+        await result.push({
+            name: label.name,
+            names: await nameOfLabel,
+            _id: label._id,
+            id_user: label.user
+        });
+
+        console.log(result);
+
+        res.status(200).json({
+            status: 200,
+            message: 'Finded item by id',
+            data: result,
+        });
+    } catch (e) {
+        errorHandler(req, e);
+    }
+}
+
 module.exports.getAllLabels = async (req, res) => {
     try {
         let result;
@@ -29,7 +66,6 @@ module.exports.getAllLabels = async (req, res) => {
 
         result = [];
         for (let i = 0; i < labels.length; i++) {
-            console.log();
             await result.push({
                 name: labels[i].name,
                 names: await namesOfLabels[i],

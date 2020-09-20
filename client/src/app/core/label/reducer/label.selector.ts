@@ -10,6 +10,11 @@ export const getAllLabelsLoading = createSelector(getState, fromLabel.getAllLabe
 export const getAllLabelsLoaded = createSelector(getState, fromLabel.getAllLabelsLoaded);
 export const getAllLabelsFail = createSelector(getState, fromLabel.getAllLabelsFail);
 
+export const getLabelById = createSelector(getState, fromLabel.getLabelById);
+export const getLabelByIdLoading = createSelector(getState, fromLabel.getLabelByIdLoading);
+export const getLabelByIdLoaded = createSelector(getState, fromLabel.getLabelByIdLoaded);
+export const getLabelByIdFail = createSelector(getState, fromLabel.getLabelByIdFail);
+
 export const addLabel = createSelector(getState, fromLabel.addLabel);
 export const addLabelLoading = createSelector(getState, fromLabel.addLabelLoading);
 export const addLabelLoaded = createSelector(getState, fromLabel.addLabelLoaded);

@@ -39,6 +39,24 @@ export class LabelEffects {
     );
 
     @Effect()
+    getLabelById$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.GET_LABEL_BY_ID),
+        map((action: actions.GetLabelByIdAction) => action.payload),
+        switchMap(state => {
+            return this.labelService.getLabelById(state).pipe(
+                map(data => {
+                    console.log(data);
+                    return new actions.GetLabelByIdSuccessAction(data);
+                }
+                ),
+                catchError(error =>
+                    of(new actions.GetLabelByIdFailAction(error))
+                )
+            );
+        })
+    );
+
+    @Effect()
     addLabel$: Observable<Action> = this.actions$.pipe(
         ofType(actions.ActionTypes.ADD_LABEL),
         map((action: actions.AddLabelAction) => action.payload),
