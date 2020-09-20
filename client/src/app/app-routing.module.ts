@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: 'search', component: SearchPageComponent, canActivate: [AuthGuard] },
       { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] },
       { path: 'link/:id', component: LinkPageComponent },
-      { path: 'label/:id', component: LabelPageComponent},
+      { path: 'label/:id_label', component: LabelPageComponent},
       { path: '404', component: NotFoundPageComponent},
       { path: '**', component: NotFoundPageComponent}
     ]

@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class LabelPageComponent implements OnInit {
 
   label;
-  labelId = this.route.snapshot.params.id;
+  labelId = this.route.snapshot.params.id_label;
   page = 1;
   private subscriptions: Subscription[] = [];
 
@@ -21,20 +21,15 @@ export class LabelPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getAllLabels();
-    this.subscriptions.push(this.labelSandbox.getAllLabels$.subscribe(data => {
-      if (data) {
-        this.label = data.filter(item => item.id === this.labelId );
-        this.label = this.label[0];
-      }
-    } ));
+    this.getLabelById();
+    this.subscriptions.push(this.labelSandbox.getLabelById$.subscribe(data =>
+      this.label = data
+    ));
   }
 
-  public getAllLabels() {
+  public getLabelById() {
     const params: any = {};
-    params.limit = '';
-    params.offset = '';
-    this.labelSandbox.getAllLabels(params);
+    params.id_label = this.labelId;
+    this.labelSandbox.getLabelById(params);
   }
-
 }
