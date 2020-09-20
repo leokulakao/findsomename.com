@@ -71,7 +71,6 @@ export class SearchPageComponent implements OnInit {
                                                     : localStorage.getItem('title_mode') === 'keyword'
                                                     ? 'All result with keyword ' + localStorage.getItem('keyword') : '';
         }
-        this.authSandbox.getUserData();
         this.initForm();
         this.initModalCreateForm();
         this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
@@ -101,8 +100,8 @@ export class SearchPageComponent implements OnInit {
         this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
             if (data) {
                 this.user = data;
-                // this.getAllNames();
-                // console.log(data);
+            } else {
+                this.authSandbox.getUserData();
             }
         }));
         // this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => this.keyword = value));
@@ -223,6 +222,7 @@ export class SearchPageComponent implements OnInit {
             if (data) {
                 this.modal.close('modal-create-label');
                 this.NEW_LABEL = [];
+                this.BUTTON_STATUS.forEach(status => status.addButtonStatus = false);
                 this.updateStorage();
             }
         });

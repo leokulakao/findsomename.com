@@ -27,7 +27,6 @@ export class LabelEffects {
         switchMap(state => {
             return this.labelService.getAllLabels(state).pipe(
                 map(data => {
-                    console.log(data);
                     return new actions.GetAllLabelsSuccessAction(data);
                 }
                 ),

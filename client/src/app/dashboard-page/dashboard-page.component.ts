@@ -30,13 +30,13 @@ export class DashboardPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.authSandbox.getUserData();
     this.getAllUsers();
     this.getAllLabels();
     this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
       if (data) {
           this.user = data;
-          console.log(this.user);
+      } else {
+        this.authSandbox.getUserData();
       }
     }));
     // this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => console.log(data)));
