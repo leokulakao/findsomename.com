@@ -31,6 +31,9 @@ export class AuthEffects {
                     localStorage.setItem('token', new LoginResponseModel(response).token);
                     this.authSandbox.getUserData();
                     this.router.navigate(['/dashboard']);
+                    setTimeout(() => {
+                        this.authSandbox.logOut();
+                    }, 60 * 60 * 1000);
                 }),
                 map(loggedin => new actions.LoginSuccessAction(new LoginResponseModel(loggedin))
                 ),
