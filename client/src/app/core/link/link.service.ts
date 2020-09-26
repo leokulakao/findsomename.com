@@ -22,4 +22,8 @@ export class LinkService {
             params: options
         });
     }
+
+    public deleteLink(params): Observable<any> {
+        return this.http.post(this.url + 'link/delete-link', params);
+    }
 }

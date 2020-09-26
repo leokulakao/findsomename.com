@@ -22,10 +22,12 @@
     <div class="col-lg-4">
       <h2>Settings</h2>
       <button class="button button-red" (click)="deleteLabel()">Delete Label</button>
-      <button class="button" *ngIf="!LABEL.link">Generate Link</button>
+      <button class="button" *ngIf="!LABEL.link" (click)="generateLink()">Generate Link</button>
       <form [formGroup]="linkForm" *ngIf="!!LABEL.link">
         <input class="input" type="text" formControlName="link">
-        <button class="button">Copy link</button>
+        <button class="button" (click)="copyLink()">Copy Link</button>
+        <button class="button" (click)="openLink()">Open Link</button>
+        <button class="button" (click)="deleteLink()">Delete Link</button>
       </form>
     </div>
   </div>

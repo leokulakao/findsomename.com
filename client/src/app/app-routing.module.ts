@@ -17,10 +17,9 @@ const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'home', component: HomePageComponent },
+      { path: 'home', component: SearchPageComponent },
       { path: 'login', component: LoginPageComponent },
-      { path: 'register', component: RegisterPageComponent },
-      { path: 'search', component: SearchPageComponent, canActivate: [AuthGuard] },
+      // { path: 'register', component: RegisterPageComponent },
       { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] },
       { path: 'link/:id', component: LinkPageComponent },
       { path: 'label/:id_label', component: LabelPageComponent, canActivate: [AuthGuard] },

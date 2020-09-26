@@ -1,1 +1,23 @@
-<p>link-page works!</p>
+<div class="link-page__wrapper">
+    <div class="row" *ngIf="labelSandbox.getLabelByIdLoaded$ | async">
+      <div class="col">
+        <h2>{{ LABEL.name }}</h2>
+        <table class="response__table response__table">
+          <thead class="response__head">
+            <tr class="response__row">
+              <th class="response__th">Nº</th>
+              <th class="response__th response__th--name">Name</th>
+            </tr>
+          </thead>
+          <tbody class="response__body">
+            <tr *ngFor="let name of LABEL.names | paginate: { itemsPerPage: 15, currentPage: page, id: 'name'}; let i = index"
+              class="response__row response__row--body">
+              <td class="response__td">{{ i + 1 }}</td>
+              <td class="response__td response__td--name">{{ name.name }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <pagination-controls class="pagination" (pageChange)="page = $event" id="name"></pagination-controls>
+      </div>
+    </div>
+  </div>

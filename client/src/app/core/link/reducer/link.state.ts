@@ -10,6 +10,11 @@ export interface LinkState extends Map<string, any> {
     getLinkByIdLoading: boolean;
     getLinkByIdLoaded: boolean;
     getLinkByIdFail: boolean;
+
+    deleteLink: any;
+    deleteLinkLoading: boolean;
+    deleteLinkLoaded: boolean;
+    deleteLinkFail: boolean;
 }
 
 export const authrecord = Record({
@@ -21,5 +26,10 @@ export const authrecord = Record({
     getLinkById: [],
     getLinkByIdLoading: false,
     getLinkByIdLoaded: false,
-    getLinkByIdFail: false
+    getLinkByIdFail: false,
+
+    deleteLink: [],
+    deleteLinkLoading: false,
+    deleteLinkLoaded: false,
+    deleteLinkFail: false
 });

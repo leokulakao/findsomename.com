@@ -8,7 +8,11 @@ export const ActionTypes = {
 
     GET_LINK_BY_ID: '[link] get link by id',
     GET_LINK_BY_ID_SUCCESS: '[link] get link by id success',
-    GET_LINK_BY_ID_FAIL: '[link] get link by id fail'
+    GET_LINK_BY_ID_FAIL: '[link] get link by id fail',
+
+    DELETE_LINK: '[link] delete link',
+    DELETE_LINK_SUCCESS: '[link] delete link success',
+    DELETE_LINK_FAIL: '[link] delete link fail'
 };
 
 // add link
@@ -33,8 +37,20 @@ export class GetLinkByIdSuccessAcion implements Action {
     type = ActionTypes.GET_LINK_BY_ID_SUCCESS;
     constructor(public payload: any) { }
 }
-
 export class GetLinkByIdFailAction implements Action {
     type = ActionTypes.GET_LINK_BY_ID_FAIL;
+    constructor(public payload: any) { }
+}
+
+export class DeleteLinkAction implements Action {
+    type = ActionTypes.DELETE_LINK;
+    constructor(public payload: any) { }
+}
+export class DeleteLinkSuccessAction implements Action {
+    type = ActionTypes.DELETE_LINK_SUCCESS;
+    constructor(public payload: any) { }
+}
+export class DeleteLinkFailAction implements Action {
+    type = ActionTypes.DELETE_LINK_FAIL;
     constructor(public payload: any) { }
 }

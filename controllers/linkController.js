@@ -75,5 +75,15 @@ module.exports.addLink = async (req, res) => {
 };
 
 module.exports.deleteLink = async (req, res) => {
-    console.log(req, res);
+    try {
+        const idLink = req.body.id_link ? req.body.id_link : '';
+        await Link.remove({_id: idLink});
+        res.status(200).json({
+            status: 200,
+            message: 'Deleted',
+            data: idLink
+        })
+    } catch (e) {
+        errorHandler(req, e);
+    }
 }

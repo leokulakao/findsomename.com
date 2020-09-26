@@ -21,7 +21,7 @@ export function reducer(
         }
         case actions.ActionTypes.ADD_LINK_SUCCESS: {
             return Object.assign({}, state, {
-                addLink: payload,
+                addLink: payload.data,
                 addLinkLoading: false,
                 addLinkLoaded: true,
                 addLinkFail: false
@@ -59,6 +59,29 @@ export function reducer(
             });
         }
 
+        case actions.ActionTypes.DELETE_LINK: {
+            return Object.assign({}, state, {
+                deleteLinkLoading: true,
+                deleteLinkLoaded: false,
+                deleteLinkFail: false
+            });
+        }
+        case actions.ActionTypes.DELETE_LINK_SUCCESS: {
+            return Object.assign({}, state, {
+                deleteLink: payload,
+                deleteLinkLoading: false,
+                deleteLinkLoaded: true,
+                deleteLinkFail: false
+            });
+        }
+        case actions.ActionTypes.DELETE_LINK_FAIL: {
+            return Object.assign({}, state, {
+                deleteLinkLoading: false,
+                deleteLinkLoaded: true,
+                deleteLinkFail: true
+            });
+        }
+
         default: {
             return state;
         }
@@ -74,3 +97,8 @@ export const getLinkById = (state: LinkState) => state.getLinkById;
 export const getLinkByIdLoading = (state: LinkState) => state.getLinkByIdLoading;
 export const getLinkByIdLoaded = (state: LinkState) => state.getLinkByIdLoaded;
 export const getLinkByIdFail = (state: LinkState) => state.getLinkByIdFail;
+
+export const deleteLink = (state: LinkState) => state.deleteLink;
+export const deleteLinkLoading = (state: LinkState) => state.deleteLinkLoading;
+export const deleteLinkLoaded = (state: LinkState) => state.deleteLinkLoaded;
+export const deleteLinkFail = (state: LinkState) => state.deleteLinkFail;

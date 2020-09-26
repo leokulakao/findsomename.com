@@ -27,7 +27,7 @@ module.exports.getLabelById = async (req, res) => {
             link: link
         });
 
-        console.log(result);
+        // console.log(result);
 
         res.status(200).json({
             status: 200,

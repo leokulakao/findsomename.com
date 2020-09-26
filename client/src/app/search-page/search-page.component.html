@@ -1,4 +1,4 @@
-<div class="search-page__wrapper" *ngIf="this.authSandbox.getUserDataLoaded$ | async">
+<div class="search-page__wrapper" *ngIf="(this.authSandbox.getUserDataLoaded$ | async) && authSandbox.isAuthenticated()">
   <div class="row">
     <div class="col-lg-8">
       <form class="search" [formGroup]="searchForm" (onSubmit)="onSubmit()">
@@ -123,6 +123,17 @@
     </li>
   </ul> -->
 
+</div>
+
+<div class="search-page__wrapper--not-authenticated" *ngIf="!authSandbox.isAuthenticated()">
+  <div class="row">
+    <div class="col">
+      <div class="block">
+        <h2>Log in to acces the search</h2>
+        <p>If you're not registered or have forgotten your account password, write to this <a href="mailto:levkulakov2000@gmail.com">email</a>.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <sj-modal id="modal-create-label" class="modal">

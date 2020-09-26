@@ -44,4 +44,19 @@ export class LinkEffects {
             );
         })
     );
+
+    @Effect()
+    deleteLink$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.DELETE_LINK),
+        map((action: actions.DeleteLinkAction) => action.payload),
+        switchMap(state => {
+            return this.linkService.deleteLink(state).pipe(
+                map(data => new actions.DeleteLinkSuccessAction(data)
+                ),
+                catchError(error =>
+                    of(new actions.DeleteLinkFailAction(error))
+                )
+            );
+        })
+    );
 }

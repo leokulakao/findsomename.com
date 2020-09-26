@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ModalModule } from 'angular-modal-library';
+import { UrlService } from './shared/url.service';
+import { ClipboardModule } from 'ngx-clipboard';
 
 // component
 import { HomePageComponent } from './home-page/home-page.component';
@@ -64,6 +66,7 @@ import { LabelPageComponent } from './label-page/label-page.component';
         LabelPageComponent
     ],
     imports: [
+        ClipboardModule,
         BrowserModule,
         AppRoutingModule,
         FormsModule,
@@ -82,6 +85,7 @@ import { LabelPageComponent } from './label-page/label-page.component';
         StoreRouterConnectingModule.forRoot()
     ],
     providers: [
+        UrlService,
         AuthSandbox,
         AuthService,
         NamesSandbox,

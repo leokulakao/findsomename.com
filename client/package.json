@@ -25,6 +25,7 @@
     "@ngrx/store-devtools": "^9.2.0",
     "angular-modal-library": "^2.0.0",
     "immutable": "^4.0.0-rc.12",
+    "ngx-clipboard": "^13.0.1",
     "ngx-pagination": "^5.0.0",
     "reselect": "^4.0.0",
     "rxjs": "~6.5.5",

@@ -2,7 +2,6 @@ import { createSelector } from 'reselect';
 
 import * as fromLink from './link.reducer';
 import { AppState } from '../../state.interface';
-import { from } from 'rxjs';
 
 export const getState = (State: AppState) => State.link;
 
@@ -15,3 +14,8 @@ export const getLinkById = createSelector(getState, fromLink.getLinkById);
 export const getLinkByIdLoading = createSelector(getState, fromLink.getLinkByIdLoading);
 export const getLinkByIdLoaded = createSelector(getState, fromLink.getLinkByIdLoaded);
 export const getLinkByIdFail = createSelector(getState, fromLink.getLinkByIdFail);
+
+export const deleteLink = createSelector(getState, fromLink.deleteLink);
+export const deleteLinkLoading = createSelector(getState, fromLink.deleteLinkLoading);
+export const deleteLinkLoaded = createSelector(getState, fromLink.deleteLinkLoaded);
+export const deleteLinkFail = createSelector(getState, fromLink.deleteLinkFail);
