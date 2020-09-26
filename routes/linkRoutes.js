@@ -4,7 +4,7 @@ const controllerLink = require('../controllers/linkController');
 
 const router = express.Router();
 
-router.get('/', controllerLink.getLinkById);
+router.get('/get-link-by-id', controllerLink.getLinkById);
 router.post('/', passport.authenticate('jwt', { session: false }), controllerLink.addLink);
 
 router.post('/delete-link', passport.authenticate('jwt', { session: false }), controllerLink.deleteLink);

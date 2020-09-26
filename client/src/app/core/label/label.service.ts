@@ -31,4 +31,8 @@ export class LabelService {
         return this.http.post(this.url + 'label/', params);
     }
 
+    public deleteLabel(params): Observable<any> {
+        return this.http.post(this.url + 'label/delete', params);
+    }
+
 }

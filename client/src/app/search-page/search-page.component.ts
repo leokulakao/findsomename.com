@@ -71,6 +71,7 @@ export class SearchPageComponent implements OnInit {
                                                     : localStorage.getItem('title_mode') === 'keyword'
                                                     ? 'All result with keyword ' + localStorage.getItem('keyword') : '';
         }
+        this.authSandbox.getUserData();
         this.initForm();
         this.initModalCreateForm();
         this.subscriptions.push(this.namesSandbox.getAllNames$.subscribe(data => {
@@ -100,8 +101,6 @@ export class SearchPageComponent implements OnInit {
         this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
             if (data) {
                 this.user = data;
-            } else {
-                this.authSandbox.getUserData();
             }
         }));
         // this.subscriptions.push(this.keywordControl.valueChanges.subscribe(value => this.keyword = value));
@@ -234,7 +233,7 @@ export class SearchPageComponent implements OnInit {
         params.limit = this.limitControl.value ? this.limitControl.value : '';
         params.offset = this.offsetControl.value ? this.offsetControl.value : '';
         params.letter = letter || '';
-        params.minQuantity = '1000';
+        params.minQuantity = '10000';
         if (this.user.permission === 'root' || this.user.permission === 'admin') {
             params.hided = !this.showAllNames.value;
         }

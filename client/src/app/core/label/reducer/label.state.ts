@@ -16,6 +16,11 @@ export interface LabelState extends Map<string, any> {
     addedLabelLoading: boolean;
     addedLabelLoaded: boolean;
     addedLabelFail: boolean;
+
+    deleteLabel: any;
+    deleteLabelLoading: boolean;
+    deleteLabelLoaded: boolean;
+    deleteLabelFail: boolean;
 }
 
 export const authrecord = Record({
@@ -32,5 +37,10 @@ export const authrecord = Record({
     addedLabel: [],
     addedLabelLoading: false,
     addedLabelLoaded: false,
-    addedLabelFail: false
+    addedLabelFail: false,
+
+    deleteLabel: [],
+    deleteLabelLoading: false,
+    deleteLabelLoaded: false,
+    deleteLabelFail: false
 });

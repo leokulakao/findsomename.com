@@ -11,7 +11,11 @@ export const ActionTypes = {
 
     ADD_LABEL: '[label] add label',
     ADD_LABEL_SUCCESS: '[label] add label success',
-    ADD_LABEL_FAIL: '[label] add label fail'
+    ADD_LABEL_FAIL: '[label] add label fail',
+
+    DELETE_LABEL: '[label] delete label',
+    DELETE_LABEL_SUCCESS: '[label] delete label success',
+    DELETE_LABEL_FAIL: '[label] delete label fail'
 };
 
 export class GetAllLabelsAction implements Action {
@@ -50,5 +54,18 @@ export class AddLabelSuccessAction implements Action {
 }
 export class AddLabelFailAction implements Action {
     type = ActionTypes.ADD_LABEL_FAIL;
+    constructor(public payload: any) { }
+}
+
+export class DeleteLabelAction implements Action {
+    type = ActionTypes.DELETE_LABEL;
+    constructor(public payload: any) { }
+}
+export class DeleteLabelSuccessAction implements Action {
+    type = ActionTypes.DELETE_LABEL_SUCCESS;
+    constructor(public payload: any) { }
+}
+export class DeleteLabelFailAction implements Action {
+    type = ActionTypes.DELETE_LABEL_FAIL;
     constructor(public payload: any) { }
 }

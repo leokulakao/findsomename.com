@@ -6,14 +6,17 @@ const errorHandler = require('../utils/errorHandler');
 
 module.exports.getLinkById = async (req, res) => {
     try {
+        let result;
         const id = req.query ? req.query.id : '';
-        if (id !== '') {
+        if (id !== '' && Buffer.byteLength(id) === 24) {
             const candidate = await Link.findOne({_id: id});
+            result = [];
+            await result.push(candidate);
             if (candidate) {
                 res.status(200).json({
                     status: 200,
                     message: 'Finded all items',
-                    data: candidate,
+                    data: result,
                 });
             } else {
                 res.status(409).json({
@@ -72,5 +75,5 @@ module.exports.addLink = async (req, res) => {
 };
 
 module.exports.deleteLink = async (req, res) => {
-    console.log('delete link');
+    console.log(req, res);
 }

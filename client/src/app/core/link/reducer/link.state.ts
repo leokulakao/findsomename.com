@@ -5,6 +5,11 @@ export interface LinkState extends Map<string, any> {
     addLinkLoading: boolean;
     addLinkLoaded: boolean;
     addLinkFail: boolean;
+
+    getLinkById: any;
+    getLinkByIdLoading: boolean;
+    getLinkByIdLoaded: boolean;
+    getLinkByIdFail: boolean;
 }
 
 export const authrecord = Record({
@@ -12,4 +17,9 @@ export const authrecord = Record({
     addLinkLoading: false,
     addLinkLoaded: false,
     addLinkFail: false,
+
+    getLinkById: [],
+    getLinkByIdLoading: false,
+    getLinkByIdLoaded: false,
+    getLinkByIdFail: false
 });

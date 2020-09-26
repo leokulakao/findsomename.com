@@ -69,4 +69,19 @@ export class LabelEffects {
             );
         })
     );
+
+    @Effect()
+    deleteLabel$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.DELETE_LABEL),
+        map((action: actions.DeleteLabelAction) => action.payload),
+        switchMap(state => {
+            return this.labelService.deleteLabel(state).pipe(
+                map(data => new actions.DeleteLabelSuccessAction(data)
+                ),
+                catchError(error =>
+                    of(new actions.DeleteLabelFailAction(error))
+                )
+            );
+        })
+    );
 }

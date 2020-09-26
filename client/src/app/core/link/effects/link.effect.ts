@@ -29,4 +29,19 @@ export class LinkEffects {
             );
         })
     );
+
+    @Effect()
+    getLinkById$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.GET_LINK_BY_ID),
+        map((action: actions.GetLinkByIdAction) => action.payload),
+        switchMap(state => {
+            return this.linkService.getLinkById(state).pipe(
+                map(data => new actions.GetLinkByIdSuccessAcion(data)
+                ),
+                catchError(error =>
+                    of(new actions.GetLinkByIdFailAction(error))
+                )
+            );
+        })
+    );
 }

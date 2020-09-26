@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const Label = require('../models/labelModel');
 const NameRu = require('../models/nameRuModel');
+const Link = require('../models/linkModel');
 const keys = require('../config/keys');
 const errorHandler = require('../utils/errorHandler');
 
@@ -11,24 +12,19 @@ module.exports.getLabelById = async (req, res) => {
         let result;
 
         const labelId = req.query ? req.query.id_label ? req.query.id_label : '' : null;
-        const token = req.headers ? req.headers.authorization.split(' ')[1] : '';
-
-        console.log(labelId);
-
-        const decoded = jwt.decode(token);
-        const candidate = await User.findOne({
-            email: decoded.email,
-        });
 
         const label = await Label.findOne({_id: labelId});
         const nameOfLabel = await NameRu.find({_id: label.ids});
+
+        const link = await Link.findOne({id_label: labelId});
         
         result = [];
         await result.push({
             name: label.name,
             names: await nameOfLabel,
             _id: label._id,
-            id_user: label.user
+            id_user: label.user,
+            link: link
         });
 
         console.log(result);
@@ -110,7 +106,21 @@ module.exports.addLabel = async (req, res) => {
             data: newLabel,
         });
     } catch (e) {
-        console.log(e);
+        errorHandler(req, e);
+    }
+}
+
+module.exports.deleteLabel = async (req, res) => {
+    try {
+        const idLabel = req.body ? req.body.id_label : '';
+
+        await Label.remove({_id: idLabel});
+        res.status(200).json({
+            status: 200,
+            message: 'Deleted',
+            data: idLabel
+        })
+    } catch (e) {
         errorHandler(req, e);
     }
 }

@@ -14,4 +14,12 @@ export class LinkService {
     public addLink(params): Observable<any> {
         return this.http.post(this.url + 'link/', params);
     }
+
+    public getLinkById(params): Observable<any> {
+        let options: any = {};
+        options = params;
+        return this.http.get(this.url + 'link/get-link-by-id', {
+            params: options
+        });
+    }
 }

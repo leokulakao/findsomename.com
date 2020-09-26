@@ -10,3 +10,8 @@ export const addLink = createSelector(getState, fromLink.addLink);
 export const addLinkLoading = createSelector(getState, fromLink.addLinkLoading);
 export const addLinkLoaded = createSelector(getState, fromLink.addLinkLoaded);
 export const addLinkFail = createSelector(getState, fromLink.addLinkFail);
+
+export const getLinkById = createSelector(getState, fromLink.getLinkById);
+export const getLinkByIdLoading = createSelector(getState, fromLink.getLinkByIdLoading);
+export const getLinkByIdLoaded = createSelector(getState, fromLink.getLinkByIdLoaded);
+export const getLinkByIdFail = createSelector(getState, fromLink.getLinkByIdFail);

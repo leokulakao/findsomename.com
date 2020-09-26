@@ -19,7 +19,11 @@ import {
     getLabelById,
     getLabelByIdLoading,
     getLabelByIdLoaded,
-    getLabelByIdFail
+    getLabelByIdFail,
+    deleteLabel,
+    deleteLabelLoading,
+    deleteLabelLoaded,
+    deleteLabelFail
 } from './reducer/label.selector';
 
 import { Router } from '@angular/router';
@@ -43,6 +47,11 @@ export class LabelSandbox {
     public addLabelLoaded$ = this.appState$.select(addLabelLoaded);
     public addLabelFail$ = this.appState$.select(addLabelFail);
 
+    public deleteLabel$ = this.appState$.select(deleteLabel);
+    public deleteLabelLoading$ = this.appState$.select(deleteLabelLoading);
+    public deleteLabelLoaded$ = this.appState$.select(deleteLabelLoaded);
+    public deleteLabelFail$ = this.appState$.select(deleteLabelFail);
+
     constructor(
         private router: Router,
         protected appState$: Store<store.AppState>,
@@ -58,6 +67,10 @@ export class LabelSandbox {
 
     public addLabel(params) {
         this.appState$.dispatch(new labelAction.AddLabelAction(params));
+    }
+
+    public deleteLabel(params) {
+        this.appState$.dispatch(new labelAction.DeleteLabelAction(params));
     }
 
 }

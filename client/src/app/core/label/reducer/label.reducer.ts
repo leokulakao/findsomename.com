@@ -45,8 +45,9 @@ export function reducer(
             });
         }
         case actions.ActionTypes.GET_LABEL_BY_ID_SUCCESS: {
+            const result = payload.data ? payload.data.map(label => new LabelModel(label)) : [];
             return Object.assign({}, state, {
-                label: payload,
+                label: result,
                 labelLoading: false,
                 labelLoaded: true,
                 labelFail: false
@@ -55,7 +56,7 @@ export function reducer(
         case actions.ActionTypes.GET_LABEL_BY_ID_FAIL: {
             return Object.assign({}, state, {
                 labelLoading: false,
-                labelLoaded: true,
+                labelLoaded: false,
                 labelFail: true
             });
         }
@@ -82,6 +83,29 @@ export function reducer(
                 addedLabelFail: true
             });
         }
+
+        case actions.ActionTypes.DELETE_LABEL: {
+            return Object.assign({}, state, {
+                deleteLabelLoading: true,
+                deleteLabelLoaded: false,
+                deleteLabelFail: false
+            });
+        }
+        case actions.ActionTypes.DELETE_LABEL_SUCCESS: {
+            return Object.assign({}, state, {
+                deleteLabel: payload,
+                deleteLabelLoading: false,
+                deleteLabelLoaded: true,
+                deleteLabelFail: false
+            });
+        }
+        case actions.ActionTypes.DELETE_LABEL_FAIL: {
+            return Object.assign({}, state, {
+                deleteLabelLoading: false,
+                deleteLabelLoaded: true,
+                deleteLabelFail: true
+            });
+        }
         default: {
             return state;
         }
@@ -102,3 +126,8 @@ export const addLabel = (state: LabelState) => state.addedLabel;
 export const addLabelLoading = (state: LabelState) => state.addedLabelLoading;
 export const addLabelLoaded = (state: LabelState) => state.addedLabelLoaded;
 export const addLabelFail = (state: LabelState) => state.addedLabelFail;
+
+export const deleteLabel = (state: LabelState) => state.deleteLabel;
+export const deleteLabelLoading = (state: LabelState) => state.deleteLabelLoading;
+export const deleteLabelLoaded = (state: LabelState) => state.deleteLabelLoaded;
+export const deleteLabelFail = (state: LabelState) => state.deleteLabelFail;
