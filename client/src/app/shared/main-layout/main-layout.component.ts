@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class MainLayoutComponent implements OnInit {
 
-  menuOpened: false;
+  menuOpened = false;
 
   constructor(
     private router: Router,

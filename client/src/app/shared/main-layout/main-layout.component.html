@@ -1,5 +1,5 @@
 <div class="page__wrapper">
-  <header class="page-header">
+  <header class="page-header" (clickOutside)="menuOpened = false">
     <div class="page-header__wrapper container">
       <h1 class="page-header__title"><a [routerLink]="['/home']">name_project</a></h1>
       <nav class="nav nav--closed" [class.nav--opened]="menuOpened">

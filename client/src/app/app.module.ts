@@ -49,6 +49,7 @@ import { DashboardPageComponent } from './dashboard-page/dashboard-page.componen
 import { LinkPageComponent } from './link-page/link-page.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 import { LabelPageComponent } from './label-page/label-page.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 
 
@@ -82,7 +83,8 @@ import { LabelPageComponent } from './label-page/label-page.component';
             LabelEffects,
             LinkEffects
         ]),
-        StoreRouterConnectingModule.forRoot()
+        StoreRouterConnectingModule.forRoot(),
+        ClickOutsideModule
     ],
     providers: [
         UrlService,
