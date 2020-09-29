@@ -1,7 +1,7 @@
-<div class="label-page__wrapper">
-  <div class="row" *ngIf="labelSandbox.getLabelByIdLoaded$ | async">
+<div class="label-page">
+  <h2 class="label-page__title">{{ LABEL.name }}</h2>
+  <div class="row label-page__wrapper" *ngIf="labelSandbox.getLabelByIdLoaded$ | async">
     <div class="col-lg-8">
-      <h2>{{ LABEL.name }}</h2>
       <table class="response__table response__table">
         <thead class="response__head">
           <tr class="response__row">
@@ -19,15 +19,15 @@
       </table>
       <pagination-controls class="pagination" (pageChange)="page = $event" id="name"></pagination-controls>
     </div>
-    <div class="col-lg-4">
-      <h2>Settings</h2>
-      <button class="button button-red" (click)="deleteLabel()">Delete Label</button>
+    <div class="col-lg-4 settings">
+      <h2 class="settings__title">Settings</h2>
+      <button class="button button-red settings-button settings-button--del" (click)="deleteLabel()">Delete Label</button>
       <button class="button" *ngIf="!LABEL.link" (click)="generateLink()">Generate Link</button>
-      <form [formGroup]="linkForm" *ngIf="!!LABEL.link">
-        <input class="input" type="text" formControlName="link">
-        <button class="button" (click)="copyLink()">Copy Link</button>
-        <button class="button" (click)="openLink()">Open Link</button>
-        <button class="button" (click)="deleteLink()">Delete Link</button>
+      <form class="link-form" [formGroup]="linkForm" *ngIf="!!LABEL.link">
+        <input class="input link-form__input" type="text" formControlName="link">
+        <button class="button link-form__button" (click)="copyLink()">Copy Link</button>
+        <button class="button link-form__button" (click)="openLink()">Open Link</button>
+        <button class="button link-form__button" (click)="deleteLink()">Delete Link</button>
       </form>
     </div>
   </div>

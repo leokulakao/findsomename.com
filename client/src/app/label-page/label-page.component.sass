@@ -1,5 +1,18 @@
 @import "../../variables.sass"
 
+.settings__title
+  margin-bottom: 28px
+
+.settings-button
+  &--del
+    margin-bottom: 20px
+
+.link-form__input
+  width: 150px
+
+.link-form__button
+  margin-top: 5px
+
 .pagination::ng-deep .ngx-pagination
   padding: 0
 
@@ -24,3 +37,34 @@
 
   &:active
     opacity: .5
+
+@media ( max-width: $less-desktop-width )
+  .settings
+    order: -1
+    display: flex
+    justify-content: flex-end
+
+  .settings__title
+    display: none
+
+  .settings-button
+    &--del
+      min-width: 102px
+      width: auto
+      margin-bottom: 0
+      margin-right: 8px
+
+  .link-form
+    display: flex
+    flex-wrap: wrap
+
+  .link-form__input
+    width: 100px
+    flex-grow: 1
+    margin-bottom: 5px
+
+  .link-form__button
+    width: auto
+    margin-top: 0
+    margin-left: 5px
+    margin-bottom: 5px

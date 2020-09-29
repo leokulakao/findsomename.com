@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class MainLayoutComponent implements OnInit {
 
+  menuOpened: false;
+
   constructor(
     private router: Router,
     public authSandbox: AuthSandbox

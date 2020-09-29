@@ -2,29 +2,33 @@
   <header class="page-header">
     <div class="page-header__wrapper container">
       <h1 class="page-header__title"><a [routerLink]="['/home']">name_project</a></h1>
-      <nav class="nav">
-        <ul class="user__list" *ngIf="authSandbox.isAuthenticated(); else navList">
-          <!-- <li class="user__item">
-            <a [routerLink]="['/search']" class="user__link">Search</a>
-          </li> -->
-          <li class="user__item">
-            <a [routerLink]="['/dashboard']" class="user__link">Dashboard</a>
-          </li>
-          <li class="user__item">
-            <button class="user__link button-reset" (click)="logOut()">Log out</button>
-          </li>
-        </ul>
-
-        <ng-template #navList>
-          <ul class="nav__list">
-            <li class="nav__item">
-              <a [routerLink]="['/login']" class="nav__link">Login</a>
+      <nav class="nav nav--closed" [class.nav--opened]="menuOpened">
+        <button class="nav__button button-reset" type="button" (click)="menuOpened = !menuOpened">Open menu</button>
+        <div class="nav__wrapper">
+          <ul class="user__list" *ngIf="authSandbox.isAuthenticated(); else navList">
+            <li class="user__item">
+              <a [routerLink]="['/home']" class="user__link user__link--only-mobile"
+                routerLinkActive="user__link--active">Search</a>
             </li>
-            <!-- <li class="nav__item">
+            <li class="user__item">
+              <a [routerLink]="['/dashboard']" class="user__link" routerLinkActive="user__link--active">Dashboard</a>
+            </li>
+            <li class="user__item">
+              <button class="user__link button-reset" (click)="logOut()">Log out</button>
+            </li>
+          </ul>
+
+          <ng-template #navList>
+            <ul class="nav__list">
+              <li class="nav__item">
+                <a [routerLink]="['/login']" class="nav__link" routerLinkActive="nav__link--active">Login</a>
+              </li>
+              <!-- <li class="nav__item">
               <a [routerLink]="['/register']" class="nav__link">Registration</a>
             </li> -->
-          </ul>
-        </ng-template>
+            </ul>
+          </ng-template>
+        </div>
       </nav>
     </div>
 
@@ -37,8 +41,9 @@
   <footer class="page-footer">
     <div class="page-footer__wrapper container">
       <p class="page-footer__text">
-        Created by <a class="page-footer__link" href="https://www.instagram.com/leokulakao/" target="_blank">@leokulakao</a> with <a class="page-footer__link"
-          href="https://www.instagram.com/arskilnik/" target="_blank">@arskilnik</a>
+        Created by <a class="page-footer__link" href="https://www.instagram.com/leokulakao/"
+          target="_blank">@leokulakao</a> with <a class="page-footer__link" href="https://www.instagram.com/arskilnik/"
+          target="_blank">@arskilnik</a>
       </p>
     </div>
   </footer>
