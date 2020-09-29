@@ -40,7 +40,7 @@
                 <ul class="users__list">
                     <li *ngFor="let user of USERS | paginate: { itemsPerPage: 5, currentPage: pageUsers, id: 'users'}; let i = index" class="users__item">
                         <div class="users__item__wrapper">
-                            <span class="users__item--name">{{ user.email }}</span>
+                            <span class="users__item--name" (click)="openSettings(user)">{{ user.email }}</span>
                             <select class="select" name="select-user" (change)="changeSelect($event, user)">
                                 <option value="user" [selected]="STATUS[i].permission === 'user'">user</option>
                                 <option value="admin" [selected]="STATUS[i].permission === 'admin'">admin</option>
@@ -55,3 +55,27 @@
         </div>
     </div>
 </div>
+
+<sj-modal id="modal-user-settings" class="modal">
+    <div class="modal__head">
+        <span>User settings</span>
+    </div>
+    <div class="modal__wrapper">
+        <form class="modal-form-change-password" [formGroup]="changePasswordForm" (onSubmit)="onSubmitModalChangePasswordForm()">
+            <label class="modal-form-change-password__password--label">
+              <span>Enter a new password for this user:</span><br>
+              <input class="input modal-form-create__password" type="password" formControlName="password"
+                placeholder="Password" required>
+            </label>
+            <label class="modal-form-change-password__password--label">
+                <!-- <span>Repite the password:</span><br> -->
+                <input class="input modal-form-create__password" type="password" formControlName="passwordRepite"
+                  placeholder="Repite password" required>
+              </label>
+          </form>
+    </div>
+    <div class="modal__triggers">
+        <button class="button modal__button" type="submit" (click)="onSubmitModalChangePasswordForm()" [disabled]="changePasswordPassword.value === '' || changePasswordPassword.value !== changePasswordPasswordRepite.value || changePasswordPasswordRepite.value === '' || !this.changePasswordForm.valid">Change password</button>
+        <button class="button modal__button" type="button" (click)="closeSettings()">Close</button>
+    </div>
+</sj-modal>

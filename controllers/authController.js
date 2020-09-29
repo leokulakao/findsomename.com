@@ -126,17 +126,21 @@ module.exports.getUsers = async (req, res) => {
 
 module.exports.updateUser = async (req, res) => {
     try {
-        const candidate = await User.find({_id: req.body.id});
+        const id = req.body ? req.body.id : null;
+        const candidate = await User.find({_id: id});
         
         if (candidate) {
             const newPermission = req.body ? req.body.permission === 'root' || req.body.permission === 'admin' || req.body.permission === 'user' ? req.body.permission : candidate[0].permission : candidate[0].permission;
+            const salt = bcrypt.genSaltSync(10);
+            const newPassword = req.body ? req.body.password ? bcrypt.hashSync(req.body.password, salt) : candidate[0].password : candidate[0].password;
 
-            await User.updateOne({_id: req.body.id}, {permission: newPermission});
+            await User.updateOne({_id: id}, {permission: newPermission});
+            await User.updateOne({_id: id}, {password: newPassword});
 
             res.status(200).json({
                 status: 201,
                 message: 'User Edited',
-                data: req.body.id
+                data: id
             })
         } else {
             res.status(404).json({

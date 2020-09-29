@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthSandbox } from '../core/auth/auth.sandbox';
 import { LabelSandbox } from '../core/label/label.sandbox';
 import { Subscription } from 'rxjs';
+import { ModalService } from 'angular-modal-library';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -12,7 +14,11 @@ export class DashboardPageComponent implements OnInit {
 
   public user;
 
-  selectUser;
+  selectedUser;
+
+  changePasswordForm: FormGroup;
+  changePasswordPassword: FormControl;
+  changePasswordPasswordRepite: FormControl;
 
   USERS;
   LABELS;
@@ -27,11 +33,14 @@ export class DashboardPageComponent implements OnInit {
   constructor(
     public authSandbox: AuthSandbox,
     public labelSandbox: LabelSandbox,
+    public formBuilder: FormBuilder,
+    public modal: ModalService
   ) { }
 
   ngOnInit(): void {
     this.getAllUsers();
     this.getAllLabels();
+    this.initForm();
     this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
       if (data) {
           this.user = data;
@@ -64,6 +73,24 @@ export class DashboardPageComponent implements OnInit {
 
   }
 
+  public initForm() {
+    this.changePasswordPassword = new FormControl('', [Validators.required, Validators.minLength(6)]);
+    this.changePasswordPasswordRepite = new FormControl('', [Validators.required, Validators.minLength(6)]);
+
+    this.changePasswordForm = this.formBuilder.group({
+      password: this.changePasswordPassword,
+      passwordRepite: this.changePasswordPasswordRepite
+    });
+  }
+
+  public onSubmitModalChangePasswordForm() {
+    const params: any = {};
+    params.id = this.selectedUser.id;
+    params.password = this.changePasswordPassword.value;
+    this.authSandbox.editUser(params);
+    this.authSandbox.editUserLoaded$.subscribe(data => data ? this.closeSettings() : null);
+  }
+
   public getAllUsers() {
     const params: any = {};
     params.limit = '';
@@ -87,6 +114,18 @@ export class DashboardPageComponent implements OnInit {
         this.getAllUsers();
       }
     });
+  }
+
+  public openSettings(user) {
+    this.selectedUser = user;
+    this.modal.open('modal-user-settings');
+    this.initForm();
+    console.log(user);
+  }
+
+  public closeSettings() {
+    this.selectedUser = null;
+    this.modal.close('modal-user-settings');
   }
 
   public changeSelect(event, user) {
