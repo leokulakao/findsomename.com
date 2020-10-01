@@ -75,7 +75,7 @@ module.exports.register = async (req, res) => {
 
 module.exports.getUserWithToken = async (req, res) => {
     try {
-        const token = req.headers ? req.headers.authorization.split(' ')[1] : null;
+        const token = req.headers ? req.headers.authorization ? req.headers.authorization.split(' ')[1] : null : null;
 
         const decoded = jwt.decode(token);
 

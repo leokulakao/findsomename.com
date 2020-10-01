@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LabelSandbox } from '../core/label/label.sandbox';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { ClipboardService } from 'ngx-clipboard';
   templateUrl: './label-page.component.html',
   styleUrls: ['./label-page.component.sass']
 })
-export class LabelPageComponent implements OnInit {
+export class LabelPageComponent implements OnInit, OnDestroy {
 
   LABEL;
   // labelId = this.route.snapshot.params.id_label;
@@ -50,6 +50,10 @@ export class LabelPageComponent implements OnInit {
         console.log(data);
       }
     }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.map(sub => sub.unsubscribe());
   }
 
   private initForm(): void {

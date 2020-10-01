@@ -26,9 +26,9 @@ export class RegisterPageComponent implements OnInit {
         private formBuilder: FormBuilder,
         private authSandbox: AuthSandbox
     ) {
-        if (!!localStorage.getItem('token')) {
-            this.router.navigate(['/dashboard']);
-        }
+        // if (!!localStorage.getItem('token')) {
+        //     this.router.navigate(['/dashboard']);
+        // }
     }
 
     ngOnInit(): void {

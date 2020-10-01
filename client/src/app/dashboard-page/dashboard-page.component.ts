@@ -4,6 +4,7 @@ import { LabelSandbox } from '../core/label/label.sandbox';
 import { Subscription } from 'rxjs';
 import { ModalService } from 'angular-modal-library';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -34,18 +35,18 @@ export class DashboardPageComponent implements OnInit {
     public authSandbox: AuthSandbox,
     public labelSandbox: LabelSandbox,
     public formBuilder: FormBuilder,
-    public modal: ModalService
+    public modal: ModalService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
+    this.authSandbox.getUserData();
     this.getAllUsers();
     this.getAllLabels();
     this.initForm();
     this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => {
       if (data) {
           this.user = data;
-      } else {
-        this.authSandbox.getUserData();
       }
     }));
     // this.subscriptions.push(this.authSandbox.getUserData$.subscribe(data => console.log(data)));
@@ -126,6 +127,10 @@ export class DashboardPageComponent implements OnInit {
   public closeSettings() {
     this.selectedUser = null;
     this.modal.close('modal-user-settings');
+  }
+
+  public registerNewUser() {
+    this.router.navigate(['/register']);
   }
 
   public changeSelect(event, user) {

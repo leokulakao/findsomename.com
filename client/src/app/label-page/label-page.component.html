@@ -1,6 +1,6 @@
-<div class="label-page">
+<div class="label-page" *ngIf="labelSandbox.getLabelByIdLoaded$ | async">
   <h2 class="label-page__title">{{ LABEL.name }}</h2>
-  <div class="row label-page__wrapper" *ngIf="labelSandbox.getLabelByIdLoaded$ | async">
+  <div class="row label-page__wrapper">
     <div class="col-lg-8">
       <table class="response__table response__table">
         <thead class="response__head">

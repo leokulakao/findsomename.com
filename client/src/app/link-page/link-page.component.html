@@ -1,5 +1,5 @@
-<div class="link-page__wrapper">
-    <div class="row" *ngIf="labelSandbox.getLabelByIdLoaded$ | async">
+<div class="link-page__wrapper" *ngIf="labelSandbox.getLabelByIdLoaded$ | async">
+    <div class="row">
       <div class="col">
         <h2>{{ LABEL.name }}</h2>
         <table class="response__table response__table">
