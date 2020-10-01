@@ -34,7 +34,7 @@
                 <span>Users</span>
             </div>
             <div class="users__triggers">
-                <button class="button" (click)="getAllUsers()">Update</button>
+                <button class="button users__trigger-button" (click)="getAllUsers()">Update</button>
                 <button class="button" (click)="registerNewUser()">Register</button>
             </div>
             <div class="users__wrapper" *ngIf="this.authSandbox.getAllUsersLoaded$ | async">
