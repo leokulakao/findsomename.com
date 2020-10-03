@@ -113,7 +113,8 @@ module.exports.addLabel = async (req, res) => {
 module.exports.deleteLabel = async (req, res) => {
     try {
         const idLabel = req.body ? req.body.id_label : '';
-
+        
+        await Link.remove({id_label: idLabel});
         await Label.remove({_id: idLabel});
         res.status(200).json({
             status: 200,

@@ -7,7 +7,7 @@
         <div class="nav__wrapper">
           <ul class="user__list" *ngIf="authSandbox.isAuthenticated(); else navList">
             <li class="user__item">
-              <a [routerLink]="['/home']" class="user__link user__link--only-mobile"
+              <a [routerLink]="['/search']" class="user__link user__link"
                 routerLinkActive="user__link--active">Search</a>
             </li>
             <li class="user__item">

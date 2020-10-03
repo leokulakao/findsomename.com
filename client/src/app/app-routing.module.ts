@@ -10,6 +10,7 @@ import { LinkPageComponent } from './link-page/link-page.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 import { AuthGuard } from './shared/auth.guard';
+import { RootGuard } from './shared/root.guard';
 import { MainLayoutComponent } from './shared/main-layout/main-layout.component';
 import { LabelPageComponent } from './label-page/label-page.component';
 
@@ -17,9 +18,10 @@ const routes: Routes = [
   {
     path: '', component: MainLayoutComponent, children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: 'home', component: SearchPageComponent },
+      { path: 'home', component: HomePageComponent },
+      { path: 'search', component: SearchPageComponent },
       { path: 'login', component: LoginPageComponent },
-      { path: 'register', component: RegisterPageComponent, canActivate: [AuthGuard] },
+      { path: 'register', component: RegisterPageComponent, canActivate: [RootGuard] },
       { path: 'dashboard', component: DashboardPageComponent, canActivate: [AuthGuard] },
       { path: 'link/:id', component: LinkPageComponent },
       { path: 'label/:id_label', component: LabelPageComponent, canActivate: [AuthGuard] },
