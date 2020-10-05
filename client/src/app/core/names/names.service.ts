@@ -3,12 +3,15 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { UrlService } from '../../shared/url.service';
+
 @Injectable()
 export class NamesService {
-    private url = 'http://localhost:5000/api/';
+    private url = this.urlService.getApiUrl();
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private urlService: UrlService
     ) { }
 
     public getAllNames(params): Observable<any> {

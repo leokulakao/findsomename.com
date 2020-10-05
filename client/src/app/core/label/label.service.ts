@@ -3,12 +3,15 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
+import { UrlService } from '../../shared/url.service';
+
 @Injectable()
 export class LabelService {
-    private url = 'http://localhost:5000/api/';
+    private url = this.urlService.getApiUrl();
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private urlService: UrlService
     ) { }
 
     public getAllLabels(params): Observable<any> {

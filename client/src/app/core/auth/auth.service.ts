@@ -5,12 +5,15 @@ import { LoginModel } from './models/login.model';
 import { Observable } from 'rxjs';
 import { RegisterModel } from './models/register.model';
 
+import { UrlService } from '../../shared/url.service';
+
 @Injectable()
 export class AuthService {
-    private url = 'http://localhost:5000/api/';
+    private url = this.urlService.getApiUrl();
 
     constructor(
-        private http: HttpClient
+        private http: HttpClient,
+        private urlService: UrlService
     ) { }
 
     public login(params: LoginModel): Observable<any> {
