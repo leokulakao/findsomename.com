@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { NamesSandbox } from '../core/names/names.sandbox';
@@ -11,7 +11,7 @@ import { ModalService } from 'angular-modal-library';
     templateUrl: './search-page.component.html',
     styleUrls: ['./search-page.component.sass']
 })
-export class SearchPageComponent implements OnInit {
+export class SearchPageComponent implements OnInit, OnDestroy {
 
     public user;
 
@@ -116,6 +116,10 @@ export class SearchPageComponent implements OnInit {
         //           this.getAllNames();
         //       }
         //   }));
+    }
+
+    ngOnDestroy(): void {
+      this.subscriptions.map(sub => sub.unsubscribe());
     }
 
     private initForm(): void {

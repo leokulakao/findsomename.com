@@ -47,7 +47,6 @@ export class LabelPageComponent implements OnInit, OnDestroy {
         if (!!this.LABEL.link) {
           this.initForm();
         }
-        console.log(data);
       }
     }));
   }

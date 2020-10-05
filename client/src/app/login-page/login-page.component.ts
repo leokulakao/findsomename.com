@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './login-page.component.html',
     styleUrls: ['./login-page.component.sass']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent implements OnInit, OnDestroy {
 
     public loginForm: FormGroup;
     public email: FormControl;
@@ -39,6 +39,10 @@ export class LoginPageComponent implements OnInit {
                 this.message = 'Enter correct email and password';
             }
         }));
+    }
+
+    ngOnDestroy(): void {
+      this.subscriptions.map(sub => sub.unsubscribe());
     }
 
     private initForm() {

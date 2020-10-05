@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthSandbox } from '../core/auth/auth.sandbox';
 import { LabelSandbox } from '../core/label/label.sandbox';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.sass']
 })
-export class DashboardPageComponent implements OnInit {
+export class DashboardPageComponent implements OnInit, OnDestroy {
 
   public user;
 
@@ -68,10 +68,12 @@ export class DashboardPageComponent implements OnInit {
     this.subscriptions.push(this.labelSandbox.getAllLabels$.subscribe(data => {
       if (data) {
         this.LABELS = data;
-        console.log(data);
       }
     }));
+  }
 
+  ngOnDestroy(): void {
+    this.subscriptions.map(sub => sub.unsubscribe());
   }
 
   public initForm() {
@@ -121,7 +123,6 @@ export class DashboardPageComponent implements OnInit {
     this.selectedUser = user;
     this.modal.open('modal-user-settings');
     this.initForm();
-    console.log(user);
   }
 
   public closeSettings() {
@@ -153,9 +154,6 @@ export class DashboardPageComponent implements OnInit {
         }
       });
     }
-    console.log('OldValue', oldValue);
-    console.log('NewValue', newValue);
-    console.log(user);
   }
 
 }

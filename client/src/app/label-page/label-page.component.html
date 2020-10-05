@@ -12,7 +12,7 @@
         <tbody class="response__body">
           <tr *ngFor="let name of LABEL.names | paginate: { itemsPerPage: 15, currentPage: page, id: 'name'}; let i = index"
             class="response__row response__row--body">
-            <td class="response__td">{{ i + 1 }}</td>
+            <td class="response__td">{{ (page*15) - 15 + (i+1) }}</td>
             <td class="response__td response__td--name">{{ name.name }}</td>
           </tr>
         </tbody>

@@ -57,7 +57,7 @@
               <tr
                 *ngFor="let name of ALL_NAMES | paginate: { itemsPerPage: 10, currentPage: page, id: 'name'}; let i = index"
                 class="response__row response__row--body">
-                <td class="response__td">{{ i + 1 }}</td>
+                <td class="response__td">{{ (page*10) - 10 + (i+1) }}</td>
                 <td class="response__td response__td--name">{{ name.name }}</td>
                 <td class="response__td">{{ name.population }}</td>
                 <td class="response__td">

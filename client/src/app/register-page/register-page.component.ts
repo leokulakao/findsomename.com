@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
     templateUrl: './register-page.component.html',
     styleUrls: ['./register-page.component.sass']
 })
-export class RegisterPageComponent implements OnInit {
+export class RegisterPageComponent implements OnInit, OnDestroy {
 
     public registerForm: FormGroup;
     public email: FormControl;
@@ -38,6 +38,10 @@ export class RegisterPageComponent implements OnInit {
             this.message = 'User already registered';
           }
       }));
+    }
+
+    ngOnDestroy(): void {
+      this.subscriptions.map(sub => sub.unsubscribe());
     }
 
     private initForm() {
