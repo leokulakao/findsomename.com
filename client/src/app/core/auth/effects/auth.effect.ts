@@ -63,6 +63,21 @@ export class AuthEffects {
     );
 
     @Effect()
+    checkToken$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.CHECK_TOKEN),
+        map((action: actions.CheckTokenAction) => action),
+        switchMap(state => {
+            return this.authService.checkToken().pipe(
+                map(data => new actions.CheckTokenSuccessAction(new LoginResponseModel(data))
+                ),
+                catchError(error =>
+                    of(new actions.CheckTokenFailAction(error))
+                )
+            );
+        })
+    );
+
+    @Effect()
     getUserData$: Observable<Action> = this.actions$.pipe(
         ofType(actions.ActionTypes.USER_DATA),
         map((action: actions.GetUserDataAction) => action),

@@ -15,6 +15,11 @@ export const getRegisterLoading = createSelector(getState, fromAuth.getRegisterL
 export const getRegisterLoaded = createSelector(getState, fromAuth.getRegisterLoaded);
 export const getRegisterFail = createSelector(getState, fromAuth.getRegisterFail);
 
+export const checkToken = createSelector(getState, fromAuth.checkToken);
+export const checkTokenLoading = createSelector(getState, fromAuth.checkTokenLoading);
+export const checkTokenLoaded = createSelector(getState, fromAuth.checkTokenLoaded);
+export const checkTokenFail = createSelector(getState, fromAuth.checkTokenFail);
+
 export const getUserData = createSelector(getState, fromAuth.getUserData);
 export const getUserDataLoading = createSelector(getState, fromAuth.getUserDataLoading);
 export const getUserDataLoaded = createSelector(getState, fromAuth.getUserDataLoaded);

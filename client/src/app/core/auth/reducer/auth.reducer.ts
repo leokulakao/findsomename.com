@@ -57,6 +57,29 @@ export function reducer(
             });
         }
 
+        case actions.ActionTypes.CHECK_TOKEN: {
+            return Object.assign({}, state, {
+                tokenCheckedLoading: true,
+                tokenCheckedLoaded: false,
+                tokenCheckedFail: false
+            });
+        }
+        case actions.ActionTypes.CHECK_TOKEN_SUCCESS: {
+            return Object.assign({}, state, {
+                tokenChecked: payload.token ? payload.token : '',
+                tokenCheckedLoading: false,
+                tokenCheckedLoaded: true,
+                tokenCheckedFail: false
+            });
+        }
+        case actions.ActionTypes.CHECK_TOKEN_FAIL: {
+            return Object.assign({}, state, {
+                tokenCheckedLoading: false,
+                tokenCheckedLoaded: false,
+                tokenCheckedFail: true
+            });
+        }
+
         case actions.ActionTypes.USER_DATA: {
             return Object.assign({}, state, {
                 userDataLoading: true,
@@ -163,6 +186,11 @@ export const getRegister = (state: AuthState) => state.register;
 export const getRegisterLoading = (state: AuthState) => state.registerLoading;
 export const getRegisterLoaded = (state: AuthState) => state.registerLoaded;
 export const getRegisterFail = (state: AuthState) => state.registerFail;
+
+export const checkToken = (state: AuthState) => state.tokenChecked;
+export const checkTokenLoading = (state: AuthState) => state.tokenCheckedLoading;
+export const checkTokenLoaded = (state: AuthState) => state.tokenCheckedLoaded;
+export const checkTokenFail = (state: AuthState) => state.tokenCheckedFail;
 
 export const getUserData = (state: AuthState) => state.userData;
 export const getUserDataLoading = (state: AuthState) => state.userDataLoading;

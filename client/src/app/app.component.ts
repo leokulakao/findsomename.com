@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthSandbox } from 'src/app/core/auth/auth.sandbox';
 
 @Component({
     selector: 'app-root',
@@ -8,5 +9,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
     title = 'client';
 
-    constructor() { }
+    constructor(
+        public authSandbox: AuthSandbox
+    ) {
+        this.authSandbox.checkToken();
+        this.authSandbox.checkTokenFail$.subscribe(data => data ? this.authSandbox.logOut() : null);
+    }
 }

@@ -19,6 +19,10 @@ import {
     getRegisterLoading,
     getRegisterLoaded,
     getRegisterFail,
+    checkToken,
+    checkTokenLoading,
+    checkTokenLoaded,
+    checkTokenFail,
     getUserData,
     getUserDataLoading,
     getUserDataLoaded,
@@ -55,6 +59,11 @@ export class AuthSandbox {
     public registerLoaded$ = this.appState$.select(getRegisterLoaded);
     public registerFail$ = this.appState$.select(getRegisterFail);
 
+    public checkToken$ = this.appState$.select(checkToken);
+    public checkTokenLoading$ = this.appState$.select(checkTokenLoading);
+    public checkTokenLoaded$ = this.appState$.select(checkTokenLoaded);
+    public checkTokenFail$ = this.appState$.select(checkTokenFail);
+
     public getUserData$ = this.appState$.select(getUserData);
     public getUserDataLoading$ = this.appState$.select(getUserDataLoading);
     public getUserDataLoaded$ = this.appState$.select(getUserDataLoaded);
@@ -88,6 +97,10 @@ export class AuthSandbox {
     // register
     public register(params: RegisterModel) {
         this.appState$.dispatch(new authAction.RegisterAction(new RegisterModel(params)));
+    }
+
+    public checkToken() {
+        this.appState$.dispatch(new authAction.CheckTokenAction());
     }
 
     public getUserData() {

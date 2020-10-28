@@ -11,6 +11,11 @@ export interface AuthState extends Map<string, any> {
     registerLoaded: boolean;
     registerFail: boolean;
 
+    tokenChecked: string;
+    tokenCheckedLoading: boolean;
+    tokenCheckedLoaded: boolean;
+    tokenCheckedFail: boolean;
+
     userData: any;
     userDataLoading: boolean;
     userDataLoaded: boolean;
@@ -42,6 +47,11 @@ export const authrecord = Record({
     registerLoading: false,
     registerLoaded: false,
     registerFail: false,
+
+    tokenChecked: '',
+    tokenCheckedLoading: false,
+    tokenCheckedLoaded: false,
+    tokenCheckedFail: false,
 
     userData: [],
     userDataLoading: false,

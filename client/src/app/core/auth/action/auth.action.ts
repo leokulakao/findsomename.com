@@ -13,6 +13,10 @@ export const ActionTypes = {
     REGISTER_SUCCESS: '[register] register success',
     REGISTER_FAIL: '[register] register fail',
 
+    CHECK_TOKEN: '[token] check token',
+    CHECK_TOKEN_SUCCESS: '[token] check token success',
+    CHECK_TOKEN_FAIL: '[token] check token fail',
+
     USER_DATA: '[user data] user data',
     USER_DATA_SUCCESS: '[user data] user data success',
     USER_DATA_FAIL: '[user data] user data fail',
@@ -55,6 +59,19 @@ export class RegisterSuccessAction implements Action {
 }
 export class RegisterFailAction implements Action {
     type = ActionTypes.REGISTER_FAIL;
+    constructor(public payload: any) { }
+}
+
+export class CheckTokenAction implements Action {
+    type = ActionTypes.CHECK_TOKEN;
+    constructor() { }
+}
+export class CheckTokenSuccessAction implements Action {
+    type = ActionTypes.CHECK_TOKEN_SUCCESS;
+    constructor(public payload: any) { }
+}
+export class CheckTokenFailAction implements Action {
+    type = ActionTypes.CHECK_TOKEN_FAIL;
     constructor(public payload: any) { }
 }
 

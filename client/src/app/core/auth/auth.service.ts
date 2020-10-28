@@ -24,6 +24,10 @@ export class AuthService {
         return this.http.post(this.url + 'auth/register', params);
     }
 
+    public checkToken(): Observable<any> {
+        return this.http.post(this.url + 'auth/check-token', {});
+    }
+
     public getUserData(): Observable<any> {
         return this.http.get(this.url + 'auth/');
     }
