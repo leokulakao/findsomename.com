@@ -38,4 +38,8 @@ export class LabelService {
         return this.http.post(this.url + 'label/delete', params);
     }
 
+    public editLabel(params): Observable<any> {
+        return this.http.post(this.url + 'label/edit', params);
+    }
+
 }

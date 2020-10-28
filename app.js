@@ -12,7 +12,9 @@ const keys = require('./config/keys');
 
 const app = express();
 
-mongoose.connect(keys.MONGO_URI, {
+// console.log(process.env.NODE_ENV);
+
+mongoose.connect(process.env.NODE_ENV === 'production' ? keys.MONGO_URI_PROD : keys.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

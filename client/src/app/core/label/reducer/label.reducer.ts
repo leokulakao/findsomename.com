@@ -106,6 +106,29 @@ export function reducer(
                 deleteLabelFail: true
             });
         }
+
+        case actions.ActionTypes.EDIT_LABEL: {
+            return Object.assign({}, state, {
+                editLabelLoading: true,
+                editLabelLoaded: false,
+                editLabelFail: false
+            });
+        }
+        case actions.ActionTypes.EDIT_LABEL_SUCCESS: {
+            return Object.assign({}, state, {
+                editLabel: payload,
+                editLabelLoading: false,
+                editLabelLoaded: true,
+                editLabelFail: false
+            });
+        }
+        case actions.ActionTypes.EDIT_LABEL: {
+            return Object.assign({}, state, {
+                editLabelLoading: false,
+                editLabelLoaded: true,
+                editLabelFail: true
+            });
+        }
         default: {
             return state;
         }
@@ -131,3 +154,8 @@ export const deleteLabel = (state: LabelState) => state.deleteLabel;
 export const deleteLabelLoading = (state: LabelState) => state.deleteLabelLoading;
 export const deleteLabelLoaded = (state: LabelState) => state.deleteLabelLoaded;
 export const deleteLabelFail = (state: LabelState) => state.deleteLabelFail;
+
+export const editLabel = (state: LabelState) => state.editLabel;
+export const editLabelLoading = (state: LabelState) => state.editLabelLoading;
+export const editLabelLoaded = (state: LabelState) => state.editLabelLoaded;
+export const editLabelFail = (state: LabelState) => state. editLabelFail;

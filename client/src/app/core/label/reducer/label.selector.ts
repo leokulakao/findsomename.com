@@ -24,3 +24,8 @@ export const deleteLabel = createSelector(getState, fromLabel.deleteLabel);
 export const deleteLabelLoading = createSelector(getState, fromLabel.deleteLabelLoading);
 export const deleteLabelLoaded = createSelector(getState, fromLabel.deleteLabelLoaded);
 export const deleteLabelFail = createSelector(getState, fromLabel.deleteLabelFail);
+
+export const editLabel = createSelector(getState, fromLabel.editLabel);
+export const editLabelLoading = createSelector(getState, fromLabel.editLabelLoading);
+export const editLabelLoaded = createSelector(getState, fromLabel.editLabelLoaded);
+export const editLabelFail = createSelector(getState, fromLabel.editLabelFail);

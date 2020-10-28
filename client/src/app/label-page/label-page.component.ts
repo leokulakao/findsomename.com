@@ -76,6 +76,14 @@ export class LabelPageComponent implements OnInit, OnDestroy {
     this.labelSandbox.deleteLabelLoaded$.subscribe(data => data ? this.router.navigate(['/dashboard']) : null);
   }
 
+  public deleteNameOfLabel(name) {
+    const params: any = {};
+    params.id_label = this.LABEL.id;
+    params.ids = this.LABEL.names.filter(item => item.id !== name.id).map(item => item.id);
+    this.labelSandbox.editLabel(params);
+    this.labelSandbox.editLabelLoaded$.subscribe(data => data ? this.getLabelById() : null);
+  }
+
   public generateLink() {
     const params: any = {};
     params.id_label = this.LABEL.id;

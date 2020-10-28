@@ -84,4 +84,19 @@ export class LabelEffects {
             );
         })
     );
+
+    @Effect()
+    editLabel$: Observable<Action> = this.actions$.pipe(
+        ofType(actions.ActionTypes.EDIT_LABEL),
+        map((action: actions.EditLabelAction) => action.payload),
+        switchMap(state => {
+            return this.labelService.editLabel(state).pipe(
+                map(data => new actions.EditLabelSuccessAction(data)
+                ),
+                catchError(error =>
+                    of(new actions.EditLabelFailAction(error))
+                )
+            );
+        })
+    );
 }

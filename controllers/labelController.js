@@ -125,3 +125,25 @@ module.exports.deleteLabel = async (req, res) => {
         errorHandler(req, e);
     }
 }
+
+module.exports.editLabel = async (req, res) => {
+    try {
+        const idLabel = req.body ? req.body.id_label : '';
+        const ids = req.body ? req.body.ids : [];
+
+        const candidate = await Label.find({_id: idLabel});
+
+        if (candidate) {
+            await Label.updateOne({_id: idLabel}, {ids: ids});
+            res.status(201).json({
+                status: 201,
+                message: 'Label Edited',
+                data: candidate[0]._id
+            })
+        }
+        
+        // await Label.updateOne({_id: idLabel}, {ids: })
+    } catch (e) {
+        errorHandler(req, e);
+    }
+}

@@ -40,6 +40,32 @@ module.exports.login = async (req, res) => {
     }
 };
 
+module.exports.checkToken = async (req, res) => {
+    try {
+        const token = req.headers ? req.headers.authorization ? req.headers.authorization.split(' ')[1] : null : null;
+        const decoded = jwt.decode(token);
+
+        jwt.verify(token, keys.jwt, (err, dec) => {
+            if (!err) {
+                res.status(200).json({
+                    status: 200,
+                    message: 'Token is verified',
+                    data: `Bearer ${token}`,
+                });
+            } else {
+                res.status(402).json({
+                    status: 402,
+                    message: 'Token is expired',
+                    data: `Bearer ${token}`,
+                });
+            }
+        })
+        // console.log(decoded);
+    } catch (e) {
+        errorHandler(res, e);
+    }
+}
+
 module.exports.register = async (req, res) => {
     // email password
     const candidate = await User.findOne({
@@ -137,7 +163,7 @@ module.exports.updateUser = async (req, res) => {
             await User.updateOne({_id: id}, {permission: newPermission});
             await User.updateOne({_id: id}, {password: newPassword});
 
-            res.status(200).json({
+            res.status(201).json({
                 status: 201,
                 message: 'User Edited',
                 data: id
